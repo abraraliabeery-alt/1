@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
   <main class="section">
@@ -26,34 +26,54 @@
         @csrf
         @method('PUT')
         <label>العنوان
-          <input type="text" name="title" value="{{ old('title', $project->title) }}" required />
+          <input type="text" name="title" value="{{ old('title', $project->title) }}" required class="@error('title') is-invalid @enderror" />
+          @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </label>
         <div class="grid-3">
           <label>العميل
-            <input type="text" name="client" value="{{ old('client', $project->client) }}" />
+            <input type="text" name="client" value="{{ old('client', $project->client) }}" class="@error('client') is-invalid @enderror" />
+            @error('client')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
           <label>المدينة
-            <input type="text" name="city" value="{{ old('city', $project->city) }}" />
+            <select name="city" class="@error('city') is-invalid @enderror">
+              @php($cityOld = old('city', $project->city))
+              <option value="">اختر المدينة</option>
+              <option value="الرياض" {{ $cityOld==='الرياض' ? 'selected' : '' }}>الرياض</option>
+            </select>
+            @error('city')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
           <label>التصنيف
-            <input type="text" name="category" value="{{ old('category', $project->category) }}" />
+            <select name="category" class="@error('category') is-invalid @enderror">
+              @php($catOld = old('category', $project->category))
+              <option value="">اختر التصنيف</option>
+              <option value="فيلا" {{ $catOld==='فيلا' ? 'selected' : '' }}>فيلا</option>
+              <option value="مكتب" {{ $catOld==='مكتب' ? 'selected' : '' }}>مكتب</option>
+              <option value="متجر" {{ $catOld==='متجر' ? 'selected' : '' }}>متجر</option>
+              <option value="مجمع" {{ $catOld==='مجمع' ? 'selected' : '' }}>مجمع</option>
+              <option value="مصنع" {{ $catOld==='مصنع' ? 'selected' : '' }}>مصنع</option>
+            </select>
+            @error('category')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
         </div>
         <label>الوصف
-          <textarea name="description" rows="5">{{ old('description', $project->description) }}</textarea>
+          <textarea name="description" rows="5" class="@error('description') is-invalid @enderror">{{ old('description', $project->description) }}</textarea>
+          @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </label>
         <div class="grid-3">
           <label>الحالة
-            <select name="status">
+            <select name="status" class="@error('status') is-invalid @enderror">
               <option value="completed" @selected(old('status', $project->status)==='completed')>منجز</option>
               <option value="in_progress" @selected(old('status', $project->status)==='in_progress')>قيد التنفيذ</option>
             </select>
+            @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
           <label>تاريخ البدء
-            <input type="date" name="started_at" value="{{ old('started_at', optional($project->started_at)->format('Y-m-d')) }}" />
+            <input type="date" name="started_at" value="{{ old('started_at', optional($project->started_at)->format('Y-m-d')) }}" class="@error('started_at') is-invalid @enderror" />
+            @error('started_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
           <label>تاريخ الانتهاء
-            <input type="date" name="finished_at" value="{{ old('finished_at', optional($project->finished_at)->format('Y-m-d')) }}" />
+            <input type="date" name="finished_at" value="{{ old('finished_at', optional($project->finished_at)->format('Y-m-d')) }}" class="@error('finished_at') is-invalid @enderror" />
+            @error('finished_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
         </div>
         <label style="display:flex; align-items:center; gap:8px">
@@ -66,10 +86,12 @@
           </div>
         @endif
         <label>صورة غلاف جديدة (اختياري)
-          <input type="file" name="cover" accept="image/*" />
+          <input type="file" name="cover" accept="image/*" class="@error('cover') is-invalid @enderror" />
+          @error('cover')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </label>
         <label>إضافة صور للمعرض (اختياري)
-          <input type="file" name="gallery[]" accept="image/*" multiple />
+          <input type="file" name="gallery[]" accept="image/*" multiple class="@error('gallery') is-invalid @enderror" />
+          @error('gallery')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </label>
         <div class="cta">
           <button type="submit" class="btn btn-primary">تحديث</button>

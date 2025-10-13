@@ -1,32 +1,38 @@
-<!-- Header / Navigation -->
+<!-- Header / Simple top navigation -->
 <header class="header" id="top">
   <div class="container nav">
+    @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
+    @php($siteLogo = $hasSettings ? \App\Models\Setting::getValue('site_logo', '/assets/top.png') : '/assets/top.png')
     <a class="brand" href="#top" aria-label="Top Level">
-      <img src="/assets/top.png" alt="Top Level - توب ليفل للحلول التقنية" />
+      <img src="{{ $siteLogo }}" alt="Top Level - توب ليفل" />
     </a>
     <nav class="menu" aria-label="القائمة الرئيسية">
-      <button class="menu-toggle" aria-expanded="false" aria-controls="nav-list">القائمة</button>
       <ul id="nav-list">
         <li><a href="#hero">الرئيسية</a></li>
-        <li><a href="#services">الخدمات</a></li>
+        <li><a href="{{ route('about') }}">من نحن</a></li>
+        <li><a href="{{ route('services.index') }}">الخدمات</a></li>
         <li><a href="#home-solutions">المنزل الذكي</a></li>
         <li><a href="#office-solutions">المكتب الذكي</a></li>
         <li><a href="#pricing">الأسعار</a></li>
         <li><a href="{{ route('projects.index') }}">المشاريع</a></li>
         <li><a href="{{ route('gallery.index') }}">الألبوم</a></li>
-        <li><a href="{{ route('events.index') }}">الفعاليات</a></li>
         <li><a href="#contact">تواصل</a></li>
         @auth
-          @if(optional(auth()->user())->is_staff)
-            <li><a href="{{ route('admin.marketing_requests.index') }}">طلبات التسويق</a></li>
-          @endif
-          @if(optional(auth()->user())->role === 'manager')
-            <li><a href="{{ route('admin.users.promote.form') }}">إدارة المستخدمين</a></li>
+          @if(optional(auth()->user())->is_staff || optional(auth()->user())->role === 'manager')
+            <li>
+              <a class="dash-link" href="{{ url('/admin') }}" aria-label="لوحة التحكم">
+                <i class="bi bi-speedometer2" aria-hidden="true"></i>
+                <span>لوحة التحكم</span>
+              </a>
+            </li>
           @endif
           <li>
             <form action="{{ route('logout') }}" method="POST" style="display:inline">
               @csrf
-              <button type="submit" class="btn btn-outline">خروج</button>
+              <button type="submit" class="dash-link" aria-label="تسجيل الخروج">
+                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                <span>خروج</span>
+              </button>
             </form>
           </li>
         @else
@@ -49,6 +55,9 @@
             </a>
           </li>
         @endauth
+        <li>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="تبديل الوضع"><i class="bi bi-moon"></i></button>
+        </li>
       </ul>
     </nav>
   </div>

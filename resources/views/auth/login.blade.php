@@ -4,7 +4,7 @@
   <main class="section">
     <div class="container" style="max-width:720px">
       <div class="card" style="padding:20px">
-        <h2 style="margin-top:0; margin-bottom:12px">تسجيل الدخول</h2>
+        <h2 style="margin:0 0 12px">تسجيل الدخول</h2>
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -14,14 +14,14 @@
 
           <label>
             البريد الإلكتروني
-            <input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" class="@error('email') is-invalid @enderror" />
+            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
 
           <label>
             كلمة المرور
-            <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <input id="password" type="password" name="password" required autocomplete="current-password" class="@error('password') is-invalid @enderror" />
+            @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
 
           <label style="display:flex; align-items:center; gap:8px">

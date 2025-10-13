@@ -24,34 +24,10 @@
 
       <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data" class="card" style="display:grid; gap:12px">
         @csrf
-        <label>العنوان
-          <input type="text" name="title" value="{{ old('title') }}" required />
-        </label>
-        <div class="grid-3">
-          <label>وصف قصير
-            <input type="text" name="caption" value="{{ old('caption') }}" />
-          </label>
-          <label>التصنيف
-            <input type="text" name="category" value="{{ old('category') }}" placeholder="فيلا، مكتب، متجر..." />
-          </label>
-          <label>المدينة
-            <input type="text" name="city" value="{{ old('city') }}" />
-          </label>
-        </div>
-        <div class="grid-3">
-          <label>تاريخ الالتقاط
-            <input type="date" name="taken_at" value="{{ old('taken_at') }}" />
-          </label>
-          <label>ترتيب العرض
-            <input type="number" min="0" name="sort_order" value="{{ old('sort_order', 0) }}" />
-          </label>
-          <label style="display:flex; align-items:center; gap:8px">
-            <input type="checkbox" name="is_featured" value="1" @checked(old('is_featured')) /> صورة مميزة (تظهر أولاً)
-          </label>
-        </div>
-        <label>الصور (يمكن اختيار عدة صور)
-          <input type="file" name="images[]" accept="image/*" multiple required />
-          <small class="muted">اختر صورة أو أكثر وسيتم إنشاء عنصر لكل صورة تلقائياً.</small>
+        <label>الصورة
+          <input type="file" name="image" accept="image/*" required class="@error('image') is-invalid @enderror" />
+          @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+          <small class="muted">اختر صورة واحدة وسيتم إضافتها للألبوم.</small>
         </label>
         <div class="cta">
           <button type="submit" class="btn btn-primary">حفظ</button>

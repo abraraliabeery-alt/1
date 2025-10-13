@@ -12,18 +12,18 @@
           <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
           <label>البريد الإلكتروني
-            <input id="email" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <input id="email" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" class="@error('email') is-invalid @enderror" />
+            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
 
           <label>كلمة المرور الجديدة
-            <input id="password" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <input id="password" type="password" name="password" required autocomplete="new-password" class="@error('password') is-invalid @enderror" />
+            @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
 
           <label>تأكيد كلمة المرور
-            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" class="@error('password_confirmation') is-invalid @enderror" />
+            @error('password_confirmation')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
 
           <div class="cta" style="display:flex; justify-content:flex-end; gap:8px">

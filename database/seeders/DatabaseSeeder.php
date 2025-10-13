@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ManagerUserSeeder::class,
             ProjectSeeder::class,
             GallerySeeder::class,
+            ServiceSeeder::class,
         ]);
     }
 }

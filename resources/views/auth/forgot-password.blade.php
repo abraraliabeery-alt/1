@@ -14,8 +14,8 @@
           @csrf
 
           <label>البريد الإلكتروني
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus class="@error('email') is-invalid @enderror" />
+            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
 
           <div class="cta" style="display:flex; justify-content:flex-end; gap:8px">

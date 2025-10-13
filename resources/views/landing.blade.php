@@ -64,6 +64,7 @@
         </div>
       </div>
     </section>
+    @endif
 
     <!-- Featured Projects -->
     <section id="featured-projects" class="section alt fade-in">
@@ -219,6 +220,7 @@
     </section>
 
     <!-- 6b. IP/PBX Telephony Solutions -->
+    @if(!empty($show_ip_pbx))
     <section id="ip-pbx" class="section alt fade-in">
       <div class="container grid-2">
         <div>
@@ -231,14 +233,19 @@
           </ul>
           <a href="#contact" class="btn btn-primary">اطلب عرض السنترال</a>
         </div>
-        <div class="illustration small bg-grad-green" aria-hidden="true"></div>
+        <div class="illustration small" aria-hidden="true">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQskdtMG9GzLaiiLfefolf3T30vaGJgW1vClg&s" alt="حلول الاتصالات والسنترالات" />
+        </div>
       </div>
     </section>
 
     <!-- 6c. Servers & Hosting -->
+    @if(!empty($show_servers))
     <section id="servers" class="section fade-in">
       <div class="container grid-2">
-        <div class="illustration small bg-grad-blue" aria-hidden="true"></div>
+        <div class="illustration small" aria-hidden="true">
+          <img src="https://www.sifytechnologies.com/wp-content/uploads/2022/06/server_hosting_blog_fod-1.jpeg" alt="خوادم واستضافة مواقع" />
+        </div>
         <div>
           <h2>الخوادم واستضافة المواقع</h2>
           <p>إعداد خوادم احترافية لاستضافة المواقع والخدمات مع استجابة عالية وحماية فورية.</p>
@@ -253,6 +260,7 @@
     </section>
 
     <!-- 6d. Fingerprint & Attendance -->
+    @if(!empty($show_fingerprint))
     <section id="fingerprint" class="section alt fade-in">
       <div class="container grid-2">
         <div>
@@ -265,7 +273,11 @@
           </ul>
           <a href="#contact" class="btn btn-primary">اطلب نظام بصمة</a>
         </div>
-        <div class="illustration small bg-grad-rose" aria-hidden="true"></div>
+        <div>
+          <div class="illustration small" aria-hidden="true">
+            <img src="https://www.cctv-cam.com/media/service_details_images/%D8%A7%D8%AC%D9%87%D8%B2%D8%A9_%D8%A7%D9%84%D8%A8%D8%B5%D9%85%D8%A9_HIegn9e.jpg" alt="أجهزة البصمة والحضور" />
+          </div>
+        </div>
       </div>
     </section>
 
@@ -363,41 +375,41 @@
     </section>
 
     <!-- 11. Testimonials -->
+    @if(!empty($show_testimonials))
     <section id="testimonials" class="section alt fade-in">
       <div class="container">
         <h2>آراء العملاء</h2>
-        <div class="grid-3">
-          <blockquote class="quote">
-            <p>تجربة مبهرة وجمالية عالية. الفريق محترف جداً.</p>
-            <cite>مالك فيلا — الرياض</cite>
-          </blockquote>
-          <blockquote class="quote">
-            <p>غرف الاجتماعات أصبحت جاهزة بضغطة زر. وفّرنا وقت وجهد.</p>
-            <cite>شركة تقنية — جدة</cite>
-          </blockquote>
-          <blockquote class="quote">
-            <p>تكامل Alexa سلس وسريع. دعم فني رائع.</p>
-            <cite>مدير مكتب — الدمام</cite>
-          </blockquote>
+        <div class="gallery">
+          @forelse(($testimonials ?? []) as $ti)
+            <article class="gallery-item" style="background:transparent; border:none; box-shadow:none">
+              @if(!empty($ti->image_path))
+                <div style="position:relative; width:100%; aspect-ratio: 4 / 3; overflow:hidden; border-radius:10px">
+                  <img src="{{ $ti->image_path }}" alt="{{ $ti->title }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+                </div>
+              @endif
+            </article>
+          @empty
+            <p class="text-center text-muted">أضف صور محادثات لآراء العملاء من الألبوم مع التصنيف "testimonials".</p>
+          @endforelse
+        </div>
+        <div class="centered-actions">
+          <a class="btn btn-outline" href="{{ route('gallery.index') }}">إدارة الألبوم</a>
         </div>
       </div>
     </section>
 
     <!-- 12. Gallery (dynamic) -->
+    @if(!empty($show_portfolio))
     <section id="portfolio" class="section fade-in">
       <div class="container">
         <h2>لمحات من أعمالنا</h2>
         <div class="gallery">
           @forelse(($gallery ?? []) as $gi)
-            <article class="tile">
+            <article class="gallery-item" style="background:transparent; border:none; box-shadow:none">
               @if(!empty($gi->image_path))
-                <a href="{{ $gi->image_path }}" data-lightbox="gallery">
-                  <img src="{{ $gi->image_path }}" alt="" />
-                </a>
+                <a href="{{ $gi->image_path }}" data-lightbox="gallery" style="display:block">      <div style="position:relative; width:100%; aspect-ratio: 4 / 3; overflow:hidden; border-radius:10px">      <img src="{{ $gi->image_path }}" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />      </div>    </a>
               @else
-                <a href="#">
-                  <div class="tile-fallback"></div>
-                </a>
+              
               @endif
             </article>
           @empty
@@ -410,46 +422,10 @@
       </div>
     </section>
 
-    <!-- 13. Events (dynamic) -->
-    <section id="events" class="section alt fade-in">
-      <div class="container">
-        <h2>فعالياتنا</h2>
-        @if(($events ?? collect())->count())
-          <div class="grid-3">
-            @foreach($events as $ev)
-              <article class="card" style="display:flex; flex-direction:column; gap:8px">
-                @if($ev->cover_image)
-                  <a href="{{ route('events.show', $ev->slug) }}">
-                    <img class="card-img" src="{{ $ev->cover_image }}" alt="{{ $ev->title }}" />
-                  </a>
-                @else
-                  <a href="{{ route('events.show', $ev->slug) }}">
-                    <div class="card-img-fallback"></div>
-                  </a>
-                @endif
-                <div class="row-between">
-                  <h3 class="h3-compact"><a href="{{ route('events.show', $ev->slug) }}">{{ $ev->title }}</a></h3>
-                  @if($ev->starts_at)
-                    <time class="date-badge">{{ $ev->starts_at->format('Y-m-d') }}</time>
-                  @endif
-                </div>
-                <p class="text-muted m-0">{{ $ev->city }} @if($ev->venue) • {{ $ev->venue }} @endif</p>
-                @if($ev->summary)
-                  <p class="m-0">{{ \Illuminate\Support\Str::limit($ev->summary, 120) }}</p>
-                @endif
-              </article>
-            @endforeach
-          </div>
-          <div class="centered-actions">
-            <a class="btn btn-outline" href="{{ route('events.index') }}">عرض كل الفعاليات</a>
-          </div>
-        @else
-          <p class="text-center text-muted">سيتم الإعلان عن فعاليات قريبًا.</p>
-        @endif
-      </div>
-    </section>
+    
 
     <!-- 14. FAQs -->
+    @if(!empty($show_faqs))
     <section id="faqs" class="section alt fade-in">
       <div class="container">
         <h2>الأسئلة الشائعة</h2>
@@ -490,32 +466,45 @@
             <div class="form-grid">
               <label>
                 الاسم الكامل
-                <input type="text" name="name" required placeholder="الاسم" />
+                <input type="text" name="name" value="{{ old('name') }}" required placeholder="الاسم" class="@error('name') is-invalid @enderror" />
+                @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
               </label>
               <label>
                 رقم الجوال
-                <input type="tel" name="phone" required placeholder="05XXXXXXXX" />
+                <input type="tel" name="phone" value="{{ old('phone') }}" required placeholder="05XXXXXXXX" class="@error('phone') is-invalid @enderror" />
+                @error('phone')<div class="invalid-feedback">{{ $message }}</div>@enderror
               </label>
               <label class="full">
                 البريد الإلكتروني (اختياري)
-                <input type="email" name="email" placeholder="name@example.com" />
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="name@example.com" class="@error('email') is-invalid @enderror" />
+                @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
               </label>
               <label class="full">
                 نوع المشروع
-                <select name="type" required>
+                <select name="type" required class="@error('type') is-invalid @enderror">
                   <option value="">اختر نوع المشروع</option>
-                  <option>منزل ذكي</option>
-                  <option>مكتب ذكي</option>
-                  <option>أخرى</option>
+                  <option {{ old('type')==='منزل ذكي' ? 'selected' : '' }}>منزل ذكي</option>
+                  <option {{ old('type')==='مكتب ذكي' ? 'selected' : '' }}>مكتب ذكي</option>
+                  <option {{ old('type')==='أخرى' ? 'selected' : '' }}>أخرى</option>
                 </select>
+                @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
               </label>
               <label class="full">
                 وصف مختصر
-                <textarea name="message" rows="4" placeholder="اخبرنا عن احتياجك..."></textarea>
+                <textarea name="message" rows="4" placeholder="اخبرنا عن احتياجك..." class="@error('message') is-invalid @enderror">{{ old('message') }}</textarea>
+                @error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
               </label>
             </div>
             <button type="submit" class="btn btn-primary">إرسال الطلب</button>
-            <p class="form-note">أو تواصل مباشرة عبر واتساب: <a href="https://wa.me/" target="_blank" rel="noopener">اضغط هنا</a></p>
+            @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
+            @php($wa = $hasSettings ? \App\Models\Setting::getValue('whatsapp_number') : null)
+            <p class="form-note">أو تواصل مباشرة عبر واتساب: 
+              @if($wa)
+                <a href="https://wa.me/{{ preg_replace('/[^0-9]/','',$wa) }}" target="_blank" rel="noopener">اضغط هنا</a>
+              @else
+                <a href="https://wa.me/" target="_blank" rel="noopener">اضغط هنا</a>
+              @endif
+            </p>
           </form>
         </div>
         <div class="map" aria-hidden="true"></div>
@@ -523,3 +512,5 @@
     </section>
   </main>
 @endsection
+
+
