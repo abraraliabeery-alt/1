@@ -19,11 +19,13 @@
   <meta property="og:title" content="{{ $siteTitle }}" />
   <meta property="og:description" content="شركة مقاولات معمارية متكاملة: إنشاءات وتشطيبات وMEP، مع تخصص عميق في حلول Smart Home & Office." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/assets/og-image.svg" />
+  <meta property="og:image" content="{{ request()->getSchemeAndHttpHost() }}/assets/top.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{{ $siteTitle }}" />
   <meta name="twitter:description" content="شركة مقاولات معمارية متكاملة: إنشاءات وتشطيبات وMEP، مع تخصص عميق في حلول Smart Home & Office." />
-  <meta name="twitter:image" content="/assets/og-image.svg" />
+  <meta name="twitter:image" content="{{ request()->getSchemeAndHttpHost() }}/assets/top.png" />
   <link rel="stylesheet" href="/styles.css?v={{ @filemtime(public_path('styles.css')) }}" />
   @yield('head_extra')
 </head>
