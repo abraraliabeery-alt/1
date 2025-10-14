@@ -64,7 +64,6 @@
         </div>
       </div>
     </section>
-    @endif
 
     <!-- Featured Projects -->
     <section id="featured-projects" class="section alt fade-in">
@@ -238,7 +237,7 @@
         </div>
       </div>
     </section>
-
+    @endif
     <!-- 6c. Servers & Hosting -->
     @if(!empty($show_servers))
     <section id="servers" class="section fade-in">
@@ -258,6 +257,7 @@
         </div>
       </div>
     </section>
+    @endif
 
     <!-- 6d. Fingerprint & Attendance -->
     @if(!empty($show_fingerprint))
@@ -281,7 +281,7 @@
       </div>
     </section>
 
-    
+    @endif
 
     <!-- 7b. Case Studies -->
     <section id="case-studies" class="section alt fade-in">
@@ -397,7 +397,7 @@
         </div>
       </div>
     </section>
-
+    @endif
     <!-- 12. Gallery (dynamic) -->
     @if(!empty($show_portfolio))
     <section id="portfolio" class="section fade-in">
@@ -421,7 +421,7 @@
         </div>
       </div>
     </section>
-
+    @endif
     
 
     <!-- 14. FAQs -->
@@ -439,7 +439,7 @@
         </details>
       </div>
     </section>
-
+    @endif
     <!-- 14. About -->
     <section id="about" class="section fade-in">
       <div class="container grid-2">
