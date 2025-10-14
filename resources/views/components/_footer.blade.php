@@ -42,25 +42,15 @@
         @php($fb = $hasSettings ? \App\Models\Setting::getValue('social_facebook') : null)
         @php($tk = $hasSettings ? \App\Models\Setting::getValue('social_tiktok') : null)
         @php($yt = $hasSettings ? \App\Models\Setting::getValue('social_youtube') : null)
+        @php($waHref = $wa ? 'https://wa.me/'.preg_replace('/[^0-9]/','',$wa) : null)
         <div class="footer-social">
-          @if($x)
-            <a href="{{ $x }}" aria-label="Twitter/X" title="Twitter/X" target="_blank" rel="noopener"><i class="bi bi-twitter-x"></i></a>
-          @endif
-          @if($ig)
-            <a href="{{ $ig }}" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener"><i class="bi bi-instagram"></i></a>
-          @endif
-          @if($in)
-            <a href="{{ $in }}" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
-          @endif
-          @if($fb)
-            <a href="{{ $fb }}" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
-          @endif
-          @if($tk)
-            <a href="{{ $tk }}" aria-label="TikTok" title="TikTok" target="_blank" rel="noopener"><i class="bi bi-tiktok"></i></a>
-          @endif
-          @if($yt)
-            <a href="{{ $yt }}" aria-label="YouTube" title="YouTube" target="_blank" rel="noopener"><i class="bi bi-youtube"></i></a>
-          @endif
+          <a href="{{ $waHref ?? '#' }}" aria-label="WhatsApp" title="WhatsApp" target="_blank" rel="noopener" style="{{ $waHref ? '' : 'opacity:.5; pointer-events:none' }}"><i class="bi bi-whatsapp"></i></a>
+          <a href="{{ $x ?? '#' }}" aria-label="Twitter/X" title="Twitter/X" target="_blank" rel="noopener" style="{{ $x ? '' : 'opacity:.5; pointer-events:none' }}"><i class="bi bi-twitter-x"></i></a>
+          <a href="{{ $ig ?? '#' }}" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener" style="{{ $ig ? '' : 'opacity:.5; pointer-events:none' }}"><i class="bi bi-instagram"></i></a>
+          <a href="{{ $in ?? '#' }}" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener" style="{{ $in ? '' : 'opacity:.5; pointer-events:none' }}"><i class="bi bi-linkedin"></i></a>
+          <a href="{{ $fb ?? '#' }}" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener" style="{{ $fb ? '' : 'opacity:.5; pointer-events:none' }}"><i class="bi bi-facebook"></i></a>
+          <a href="{{ $tk ?? '#' }}" aria-label="TikTok" title="TikTok" target="_blank" rel="noopener" style="{{ $tk ? '' : 'opacity:.5; pointer-events:none' }}"><i class="bi bi-tiktok"></i></a>
+          <a href="{{ $yt ?? '#' }}" aria-label="YouTube" title="YouTube" target="_blank" rel="noopener" style="{{ $yt ? '' : 'opacity:.5; pointer-events:none' }}"><i class="bi bi-youtube"></i></a>
         </div>
       </div>
     </div>

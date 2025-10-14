@@ -9,26 +9,13 @@
       @endif
 
       <h2>المشاريع</h2>
-
-      {{-- Simple filters --}}
-      <form method="GET" class="card" style="margin-bottom:12px; display:grid; gap:8px; grid-template-columns: repeat(3, 1fr);">
-        <input type="text" name="city" value="{{ request('city') }}" placeholder="المدينة" />
-        <input type="text" name="category" value="{{ request('category') }}" placeholder="التصنيف" />
-        <select name="status">
-          <option value="">كل الحالات</option>
-          <option value="completed" @selected(request('status')==='completed')>منجز</option>
-          <option value="in_progress" @selected(request('status')==='in_progress')>قيد التنفيذ</option>
-        </select>
-        <div style="grid-column: 1 / -1; display:flex; gap:8px;">
-          <button class="btn btn-primary" type="submit">تصفية</button>
-          <a class="btn btn-outline" href="{{ route('projects.index') }}">إعادة ضبط</a>
-          @auth
-            @if(optional(auth()->user())->is_staff)
-              <a class="btn btn-outline" href="{{ route('projects.create') }}">إضافة مشروع</a>
-            @endif
-          @endauth
-        </div>
-      </form>
+      @auth
+        @if(optional(auth()->user())->is_staff)
+          <div class="card" style="margin-bottom:12px; padding:10px">
+            <a class="btn btn-outline" href="{{ route('projects.create') }}">إضافة مشروع</a>
+          </div>
+        @endif
+      @endauth
 
       @if($projects->count())
         <div class="gallery">

@@ -3,20 +3,20 @@
   <div class="container nav">
     @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
     @php($siteLogo = $hasSettings ? \App\Models\Setting::getValue('site_logo', '/assets/top.png') : '/assets/top.png')
-    <a class="brand" href="#top" aria-label="Top Level">
+    <a class="brand" href="{{ url('/') }}#top" aria-label="Top Level">
       <img src="{{ $siteLogo }}" alt="Top Level - توب ليفل" />
     </a>
     <nav class="menu" aria-label="القائمة الرئيسية">
       <ul id="nav-list">
-        <li><a href="#hero">الرئيسية</a></li>
+        <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
         <li><a href="{{ route('about') }}">من نحن</a></li>
         <li><a href="{{ route('services.index') }}">الخدمات</a></li>
-        <li><a href="#home-solutions">المنزل الذكي</a></li>
-        <li><a href="#office-solutions">المكتب الذكي</a></li>
-        <li><a href="#pricing">الأسعار</a></li>
+        <li><a href="{{ url('/') }}#home-solutions">المنزل الذكي</a></li>
+        <li><a href="{{ url('/') }}#office-solutions">المكتب الذكي</a></li>
+        <li><a href="{{ url('/') }}#pricing">الأسعار</a></li>
         <li><a href="{{ route('projects.index') }}">المشاريع</a></li>
         <li><a href="{{ route('gallery.index') }}">الألبوم</a></li>
-        <li><a href="#contact">تواصل</a></li>
+        <li><a href="{{ url('/') }}#contact">تواصل</a></li>
         @auth
           @if(optional(auth()->user())->is_staff || optional(auth()->user())->role === 'manager')
             <li>
