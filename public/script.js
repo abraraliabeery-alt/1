@@ -15,6 +15,40 @@ if (menuToggle && navList) {
   });
 }
 
+// Mobile side drawer (burger menu)
+(() => {
+  const toggle = document.querySelector('.menu-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  const closeBtn = drawer ? drawer.querySelector('.drawer-close') : null;
+  if (!toggle || !drawer || !overlay) return;
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    overlay.hidden = false;
+    overlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    toggle.setAttribute('aria-expanded','true');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('show');
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+    toggle.setAttribute('aria-expanded','false');
+  }
+
+  toggle.addEventListener('click', () => {
+    if (drawer.classList.contains('open')) closeDrawer(); else openDrawer();
+  });
+  closeBtn && closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeDrawer(); });
+  drawer.addEventListener('click', (e)=>{
+    const a = e.target.closest('a');
+    if (a) closeDrawer();
+  });
+})();
+
 // Intersection Observer for fade-in sections
 const io = new IntersectionObserver((entries) => {
   for (const entry of entries) {

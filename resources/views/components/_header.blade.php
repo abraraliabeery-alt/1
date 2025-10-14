@@ -7,6 +7,9 @@
       <img src="{{ $siteLogo }}" alt="Top Level - توب ليفل" />
     </a>
     <nav class="menu" aria-label="القائمة الرئيسية">
+      <button class="menu-toggle" type="button" aria-label="فتح/إغلاق القائمة" aria-expanded="false">
+        <i class="bi bi-list"></i>
+      </button>
       <ul id="nav-list">
         <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
         <li><a href="{{ route('about') }}">من نحن</a></li>
@@ -60,5 +63,26 @@
         </li>
       </ul>
     </nav>
+    <!-- Mobile drawer -->
+    <div class="drawer-overlay" id="drawer-overlay" hidden></div>
+    <aside class="drawer" id="mobile-drawer" aria-hidden="true">
+      <div class="drawer-header">
+        <strong>القائمة</strong>
+        <button class="drawer-close" type="button" aria-label="إغلاق"><i class="bi bi-x"></i></button>
+      </div>
+      <nav class="drawer-nav" aria-label="القائمة الجانبية">
+        <ul>
+          <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
+          <li><a href="{{ route('about') }}">من نحن</a></li>
+          <li><a href="{{ route('services.index') }}">الخدمات</a></li>
+          <li><a href="{{ url('/') }}#home-solutions">المنزل الذكي</a></li>
+          <li><a href="{{ url('/') }}#office-solutions">المكتب الذكي</a></li>
+          <li><a href="{{ url('/') }}#pricing">الأسعار</a></li>
+          <li><a href="{{ route('projects.index') }}">المشاريع</a></li>
+          <li><a href="{{ route('gallery.index') }}">الألبوم</a></li>
+          <li><a href="{{ url('/') }}#contact">تواصل</a></li>
+        </ul>
+      </nav>
+    </aside>
   </div>
 </header>

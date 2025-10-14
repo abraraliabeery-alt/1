@@ -498,13 +498,6 @@
             <button type="submit" class="btn btn-primary">إرسال الطلب</button>
             @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
             @php($wa = $hasSettings ? \App\Models\Setting::getValue('whatsapp_number') : null)
-            <p class="form-note">أو تواصل مباشرة عبر واتساب: 
-              @if($wa)
-                <a href="https://wa.me/{{ preg_replace('/[^0-9]/','',$wa) }}" target="_blank" rel="noopener">اضغط هنا</a>
-              @else
-                <a href="https://wa.me/" target="_blank" rel="noopener">اضغط هنا</a>
-              @endif
-            </p>
           </form>
         </div>
         <div class="map" aria-hidden="true"></div>
