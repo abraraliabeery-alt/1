@@ -47,19 +47,9 @@
     <i class="bi bi-whatsapp" aria-hidden="true"></i>
   </a>
 
-  <script src="/script.js"></script>
+  <script src="/script.js" defer></script>
+  <script src="/theme.js" defer></script>
   @stack('scripts')
-  <script>
-    (function(){
-      const key='site_theme';
-      const root=document.documentElement;
-      const btn=document.getElementById('themeToggle');
-      const set=(v)=>{ root.setAttribute('data-theme', v); if(btn){ btn.innerHTML = v==='dark' ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>'; } };
-      const stored=localStorage.getItem(key);
-      if(stored){ set(stored); }
-      btn && btn.addEventListener('click', ()=>{ const cur=root.getAttribute('data-theme')==='dark'?'dark':'light'; const next=cur==='dark'?'light':'dark'; localStorage.setItem(key,next); set(next); });
-    })();
-  </script>
 </body>
 </html>
 
