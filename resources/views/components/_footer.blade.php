@@ -14,6 +14,7 @@
           <li><a href="#services">الخدمات</a></li>
           <li><a href="#home-solutions">المنزل الذكي</a></li>
           <li><a href="#office-solutions">المكتب الذكي</a></li>
+          <li><a href="{{ route('properties.index') }}">العقارات</a></li>
           <li><a href="{{ route('projects.index') }}">المشاريع</a></li>
           <li><a href="#contact">تواصل</a></li>
           <li><a href="{{ route('privacy') }}">سياسة الخصوصية</a></li>

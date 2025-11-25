@@ -33,7 +33,7 @@
             <td>{{ $u->name }}</td>
             <td>{{ $u->email }}</td>
             <td class="text-end">
-              <form method="post" action="{{ route('admin.users.promote') }}" style="display:inline" onsubmit="return confirm('ترقية {{ $u->name }} إلى موظف؟')">
+              <form method="post" action="{{ route('admin.users.promote') }}" style="display:inline" data-confirm="ترقية {{ $u->name }} إلى موظف؟">
                 @csrf
                 <input type="hidden" name="email" value="{{ $u->email }}">
                 <button class="btn btn-primary" type="submit">ترقية لموظف</button>

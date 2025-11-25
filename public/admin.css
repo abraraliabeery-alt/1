@@ -2,47 +2,101 @@
 :root {
   --admin-bg:#f6f7fb; --admin-surface:#fff; --admin-border:#e5e7eb;
   --admin-muted:#6b7280; --admin-text:#0f172a;
-  --admin-primary:#0a66ff; --admin-primary-600:#0a58e6;
+  --admin-primary:#fcae41; --admin-primary-600:#d48b2a;
   --admin-green:#22c55e; --admin-red:#ef4444;
 }
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --admin-bg:#0b1220; --admin-surface:#0f172a; --admin-border:#1f2a44;
-  --admin-muted:#94a3b8; --admin-text:#e2e8f0;
-  --admin-primary:#3b82f6; --admin-primary-600:#2563eb;
+  --admin-bg:#000000; --admin-surface:#0f0f0f; --admin-border:#1f2937;
+  --admin-muted:#cbd5e1; --admin-text:#ffffff;
+  --admin-primary:#fcae41; --admin-primary-600:#d48b2a;
 }
 /* Layout */
 .admin-shell { background:var(--admin-bg); min-height:calc(100vh - 120px); }
-.admin-grid { display:grid; grid-template-columns:240px 1fr; gap:20px; align-items:start; }
+.admin-grid { display:grid; grid-template-columns:240px 1fr; gap:12px; align-items:start; transition: grid-template-columns .2s ease }
+/* Remove container gutters for admin pages */
+.admin-shell .container { max-width:100%; width:100%; padding:0; margin:0 }
 
-/* Aside */
-.admin-aside{ background:var(--admin-surface); border:1px solid var(--admin-border); border-radius:14px; padding:12px; position:sticky; top:16px; box-shadow: 0 8px 24px rgba(10,102,255,.06) }
-.admin-aside-title{ margin:0 0 10px 0; font-size: var(--admin-fs-sm); color:var(--admin-muted); letter-spacing:.3px }
+/* Aside - Simple flat look, flush to page side */
+.admin-aside{
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-right: 0; /* RTL: يلاصق حافة الصفحة اليمنى */
+  border-radius: 0;
+  padding: 12px;
+  position: sticky; top: 0;
+  box-shadow: none;
+}
+.admin-aside-title{
+  margin:0 0 10px 0; font-weight:800; letter-spacing:.2px;
+  color: var(--admin-muted); font-size: 11px;
+}
 .admin-aside nav{ max-height: calc(100vh - 180px); overflow:auto; padding-right:2px }
 .admin-aside nav::-webkit-scrollbar{ width:8px }
+
+/* Forms: spacing, sizing, and readability */
+.admin-shell form label{ display:block; margin:8px 0 6px; color:var(--admin-text); font-weight:600; letter-spacing:.2px }
+.admin-shell form input,
+.admin-shell form select,
+.admin-shell form textarea{ width:100%; padding:12px 14px; border:1px solid var(--admin-border); border-radius:10px; background:var(--admin-surface); color:var(--admin-text); box-sizing:border-box }
+.admin-shell form textarea{ min-height:110px }
+.admin-shell .row{ display:grid; grid-template-columns: repeat(3, minmax(240px,1fr)); gap:16px; align-items:end }
+@media (max-width: 1100px){ .admin-shell .row{ grid-template-columns: repeat(2, minmax(240px,1fr)) } }
+@media (max-width: 720px){ .admin-shell .row{ grid-template-columns: 1fr } }
+.admin-shell .col{ min-width:0 }
+.admin-shell .card{ border:1px solid var(--admin-border); border-radius:14px; padding:16px; margin-top:16px; background:var(--admin-surface); box-shadow: 0 6px 18px rgba(10,102,255,.05) }
+.admin-shell .btn{ padding:10px 14px; border:1px solid var(--admin-border); background:var(--admin-surface); color:var(--admin-text); border-radius:10px }
+.admin-shell .btn:hover{ border-color: var(--admin-primary) }
+.admin-shell .btn.btn-outline{ background:transparent }
+.admin-shell .admin-header{ margin-bottom:18px }
+.admin-shell .table.modern input{ padding:10px 12px }
+.admin-shell .table.modern th, .admin-shell .table.modern td{ vertical-align:middle }
 .admin-aside nav::-webkit-scrollbar-thumb{ background: color-mix(in oklab, var(--admin-border), #000 6%); border-radius:8px }
 
-.admin-nav{ list-style:none; margin:0; padding:0; display:grid; gap:4px; font-size: var(--admin-fs-sm) }
-.admin-nav li + li{ margin-top:2px }
-.admin-nav a{ display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:12px; color:var(--admin-text); text-decoration:none; border:1px solid transparent; transition: background .16s ease, color .16s ease, box-shadow .16s ease, transform .16s ease }
-.admin-nav a:hover{ background:#f2f6ff; border-color:#e3edff; color:#0b3a9a; transform: translateY(-1px) }
-.admin-nav a.active{ background:linear-gradient(0deg, rgba(10,102,255,.12), rgba(10,102,255,.08)); border-color:#c9ddff; color:#0b3a9a; font-weight:800; box-shadow: inset 0 0 0 1px rgba(10,102,255,.18) }
-[data-theme="dark"] .admin-nav a:hover{ background:#0b1c3b; border-color:#1e3a8a; color:#cfe1ff }
-[data-theme="dark"] .admin-nav a.active{ background:#0b1c3b; border-color:#1e3a8a; color:#cfe1ff; box-shadow: inset 0 0 0 1px rgba(59,130,246,.35) }
+.admin-nav{ list-style:none; margin:0; padding:0; display:grid; gap:6px; font-size:12px }
+.admin-nav li + li{ margin-top:0 }
+.admin-nav a{
+  display:flex; align-items:center; gap:8px;
+  padding:8px 10px; border-radius:10px; text-decoration:none;
+  color: var(--admin-text); border:1px solid transparent; background: transparent;
+  transition: background .16s ease, color .16s ease, border-color .16s ease;
+}
+.admin-nav a:hover{
+  background: #f2f4f8; border-color: var(--admin-border);
+}
+.admin-nav a.active{
+  background: #eef6ff; border-color: #c9ddff; color:#0b3a9a; font-weight:800;
+}
+[data-theme="dark"] .admin-nav a:hover{ background:#111827; border-color:#1f2937 }
+[data-theme="dark"] .admin-nav a.active{ background:#0b1c3b; border-color:#1e3a8a; color:#cfe1ff }
 
-/* Optional small icons inside links */
-.admin-nav a i{ font-size:14px; line-height:0 }
+/* Icons normal */
+.admin-nav a i{ font-size:14px; line-height:0; color:inherit }
 
-/* Divider utility between nav groups */
+/* Separators simple */
 .admin-nav .sep{ height:1px; background:var(--admin-border); margin:6px 0 }
+
+/* Collapsed Sidebar */
+html[data-admin-collapsed="true"] .admin-grid { grid-template-columns:72px 1fr; }
+html[data-admin-collapsed="true"] .admin-aside { padding:8px; }
+html[data-admin-collapsed="true"] .admin-aside .row-between { justify-content:center; }
+html[data-admin-collapsed="true"] .admin-aside .admin-aside-title { display:none; }
+html[data-admin-collapsed="true"] .admin-aside nav { padding-right:0 }
+html[data-admin-collapsed="true"] .admin-nav a { gap:0; justify-content:center; padding:8px }
+html[data-admin-collapsed="true"] .admin-nav a span { display:none }
 
 /* Content */
 .admin-content {
-  background:var(--admin-surface); border:1px solid var(--admin-border);
-  border-radius:14px; padding:14px; font-size:13px;
+  background: var(--admin-surface);
+  border:1px solid var(--admin-border);
+  border-radius:8px; padding:10px; font-size:11.5px;
+  box-shadow: none;
+  max-width: 1280px; width:100%;
+  margin-inline: auto; /* وسط العمود */
+  margin-block: 12px; /* هوامش علوية/سفلية عادية */
 }
-[data-theme="dark"] .admin-content { box-shadow:inset 0 0 0 1px rgba(255,255,255,.02); }
+[data-theme="dark"] .admin-content { box-shadow: none }
 
 /* Forms */
 .admin-content label { display:grid; gap:4px; font-weight:700; color:var(--fg); }
@@ -55,6 +109,11 @@
 .admin-content input:focus, .admin-content select:focus {
   outline:none; border-color:var(--admin-primary); box-shadow:0 0 0 2px rgba(10,102,255,.12);
 }
+.admin-content .form-check-input[type="checkbox"]{
+  width:14px; height:14px; border-radius:3px; cursor:pointer; vertical-align:middle;
+}
+.admin-content .form-check{ line-height:1; }
+.admin-content .form-check-label{ margin:0; }
 .admin-content textarea { resize:vertical; font-size:12px; }
 
 /* Buttons */
@@ -135,6 +194,22 @@
 .admin-content h1{ font-size: clamp(12px, 0.8vw + 6px, 16px) !important; margin:0 0 6px }
 .admin-header .subtitle{ margin:2px 0 0; color:var(--admin-muted); font-weight:700; font-size:10px }
 .admin-header .tools{ display:flex; align-items:center; gap:10px; flex-wrap:wrap }
+.amenities-grid .amenity{ padding:3px 5px !important; font-size:10.5px; line-height:1.1; }
+.amenities-grid .amenity i{ font-size:11px; line-height:1; }
+.amenities-grid .amenity .form-check-input{ width:11px; height:11px; margin-inline-start:2px }
+.amenities-grid .amenity span{ display:inline-block; max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+/* Location & Type card: unify field sizing and look */
+.admin-content .location-type label{ margin:0 0 6px; font-weight:700 }
+.admin-content .location-type .form-control,
+.admin-content .location-type .form-select{
+  height:36px; border-radius:8px; padding:0 10px; font-size:12px; border:1px solid var(--admin-border);
+}
+.admin-content .location-type .form-control:focus,
+.admin-content .location-type .form-select:focus{
+  outline:none; border-color:var(--admin-primary); box-shadow:0 0 0 2px rgba(10,102,255,.12);
+}
+.admin-content .location-type .row{ gap:10px }
+.admin-content .location-type #districtWarn{ line-height:1.2 }
 .admin-search {
   display:flex; align-items:center; gap:6px; padding:5px; background:var(--admin-surface);
   border:1px solid var(--admin-border); border-radius:10px;

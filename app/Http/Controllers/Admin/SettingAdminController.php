@@ -96,6 +96,15 @@ class SettingAdminController extends Controller
             'site_logo'    => Setting::getValue('site_logo', '/assets/top.png'),
             'site_favicon' => Setting::getValue('site_favicon', '/assets/favicon.svg'),
             'site_title'   => Setting::getValue('site_title', 'توب ليفل | حلول المنازل والمكاتب الذكية'),
+            'color_primary' => Setting::getValue('color_primary', '#fcae41'),
+            'color_bg'      => Setting::getValue('color_bg', '#ffffff'),
+            'color_fg'      => Setting::getValue('color_fg', '#000000'),
+            'color_card'    => Setting::getValue('color_card', '#ffffff'),
+            'color_border'  => Setting::getValue('color_border', '#e6ecff'),
+            'color_footer_bg' => Setting::getValue('color_footer_bg', '#000000'),
+            'color_footer_fg' => Setting::getValue('color_footer_fg', '#ffffff'),
+            'color_footer_accent' => Setting::getValue('color_footer_accent', '#fcae41'),
+            'hero_image'   => Setting::getValue('hero_image', '/assets/hero-smart-home.jpg'),
         ];
         return view('admin.settings.branding', $data);
     }
@@ -107,11 +116,26 @@ class SettingAdminController extends Controller
             'site_logo'    => ['nullable','image','mimes:png,jpg,jpeg,webp,svg'],
             'site_favicon' => ['nullable','mimes:png,jpg,jpeg,webp,ico,svg'],
             'favicon_same_logo' => ['nullable','in:on'],
+            'color_primary' => ['nullable','string','max:20'],
+            'color_bg'      => ['nullable','string','max:20'],
+            'color_fg'      => ['nullable','string','max:20'],
+            'color_card'    => ['nullable','string','max:20'],
+            'color_border'  => ['nullable','string','max:20'],
+            'color_footer_bg' => ['nullable','string','max:20'],
+            'color_footer_fg' => ['nullable','string','max:20'],
+            'color_footer_accent' => ['nullable','string','max:20'],
+            'hero_image'   => ['nullable','image','mimes:png,jpg,jpeg,webp,svg'],
         ]);
 
         $values = [];
         if (!empty($validated['site_title'])) {
             $values['site_title'] = trim($validated['site_title']);
+        }
+        // Colors (accept hex or css color strings as-is, trimmed)
+        foreach (['color_primary','color_bg','color_fg','color_card','color_border','color_footer_bg','color_footer_fg','color_footer_accent'] as $k) {
+            if (isset($validated[$k]) && $validated[$k] !== '') {
+                $values[$k] = trim($validated[$k]);
+            }
         }
 
         $dir = public_path('uploads/branding');
@@ -136,8 +160,15 @@ class SettingAdminController extends Controller
             $values['site_favicon'] = '/uploads/branding/'.$name;
         }
 
+        if ($request->hasFile('hero_image')) {
+            $file = $request->file('hero_image');
+            $name = 'hero_'.time().'.'.$file->getClientOriginalExtension();
+            $file->move($dir, $name);
+            $values['hero_image'] = '/uploads/branding/'.$name;
+        }
+
         if ($values) { Setting::setValues($values); }
 
-        return redirect()->route('admin.settings.branding.edit')->with('ok', 'تم تحديث الشعار والرمز بنجاح');
+        return redirect()->route('admin.settings.branding.edit')->with('ok', 'تم تحديث إعدادات الهوية والألوان بنجاح');
     }
 }

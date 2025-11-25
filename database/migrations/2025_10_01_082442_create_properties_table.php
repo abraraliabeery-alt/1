@@ -26,9 +26,12 @@ return new class extends Migration
             $table->boolean('is_featured')->default(false)->index();
             $table->string('cover_image')->nullable();
             $table->json('gallery')->nullable();
+            $table->json('amenities')->nullable();
             $table->text('description')->nullable();
-            $table->decimal('lat', 10, 7)->nullable();
-            $table->decimal('lng', 10, 7)->nullable();
+            $table->string('location_url')->nullable();
+            $table->string('video_url')->nullable();
+            $table->string('video_path')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

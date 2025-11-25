@@ -7,6 +7,7 @@ use App\Models\GalleryItem;
 use App\Models\Partner;
 use App\Models\Faq;
 use App\Models\Setting;
+use App\Models\Property;
  
 
 class HomeController extends Controller
@@ -51,9 +52,15 @@ class HomeController extends Controller
         $show_portfolio    = (bool) Setting::getValue('show_portfolio', '1');
         $show_faqs         = (bool) Setting::getValue('show_faqs', '1');
 
+        $properties = Property::query()
+            ->latest()
+            ->limit(6)
+            ->get();
+
         return view('landing', compact(
             'projects','gallery','partners','faqs','testimonials',
-            'show_testimonials','show_ip_pbx','show_servers','show_fingerprint','show_portfolio','show_faqs'
+            'show_testimonials','show_ip_pbx','show_servers','show_fingerprint','show_portfolio','show_faqs',
+            'properties'
         ));
     }
 }

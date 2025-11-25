@@ -34,18 +34,37 @@ class ServiceAdminController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:services,slug',
+            'slug' => 'nullable|string|max:255',
             'excerpt' => 'nullable|string|max:500',
             'body' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
-            'cover_image' => 'nullable|string|max:255',
+            'cover_image_url' => 'nullable|url|max:1000',
+            'cover_image_file' => 'nullable|image',
             'is_featured' => 'sometimes|boolean',
             'sort_order' => 'nullable|integer',
             'status' => 'nullable|in:draft,published',
         ]);
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title']);
+        $slugBase = Str::slug($data['title']);
+        $slug = $slugBase;
+        $i = 1;
+        while (Service::where('slug', $slug)->exists()) {
+            $slug = $slugBase.'-'.$i++;
         }
+        $data['slug'] = $slug;
+        // Cover image: URL takes precedence over upload
+        $cover = null;
+        if (!empty($data['cover_image_url'])) {
+            $cover = $data['cover_image_url'];
+        } elseif ($request->hasFile('cover_image_file')) {
+            $dir = public_path('uploads/services');
+            if (!is_dir($dir)) { @mkdir($dir, 0777, true); }
+            $file = $request->file('cover_image_file');
+            $name = 'svc_'.time().'.'.$file->getClientOriginalExtension();
+            $file->move($dir, $name);
+            $cover = '/uploads/services/'.$name;
+        }
+        $data['cover_image'] = $cover;
+
         $data['is_featured'] = (bool)($data['is_featured'] ?? false);
         $data['sort_order'] = (int)($data['sort_order'] ?? 0);
         $data['status'] = $data['status'] ?? 'published';
@@ -63,18 +82,37 @@ class ServiceAdminController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:services,slug,'.$service->id,
+            'slug' => 'nullable|string|max:255',
             'excerpt' => 'nullable|string|max:500',
             'body' => 'nullable|string',
             'icon' => 'nullable|string|max:255',
-            'cover_image' => 'nullable|string|max:255',
+            'cover_image_url' => 'nullable|url|max:1000',
+            'cover_image_file' => 'nullable|image',
             'is_featured' => 'sometimes|boolean',
             'sort_order' => 'nullable|integer',
             'status' => 'nullable|in:draft,published',
         ]);
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title']);
+        $slugBase = Str::slug($data['title']);
+        $slug = $slugBase;
+        $i = 1;
+        while (Service::where('slug', $slug)->where('id','!=',$service->id)->exists()) {
+            $slug = $slugBase.'-'.$i++;
         }
+        $data['slug'] = $slug;
+        // Cover image update
+        $cover = $service->cover_image;
+        if (!empty($data['cover_image_url'])) {
+            $cover = $data['cover_image_url'];
+        } elseif ($request->hasFile('cover_image_file')) {
+            $dir = public_path('uploads/services');
+            if (!is_dir($dir)) { @mkdir($dir, 0777, true); }
+            $file = $request->file('cover_image_file');
+            $name = 'svc_'.time().'.'.$file->getClientOriginalExtension();
+            $file->move($dir, $name);
+            $cover = '/uploads/services/'.$name;
+        }
+        $data['cover_image'] = $cover;
+
         $data['is_featured'] = (bool)($data['is_featured'] ?? false);
         $data['sort_order'] = (int)($data['sort_order'] ?? 0);
         $data['status'] = $data['status'] ?? 'published';

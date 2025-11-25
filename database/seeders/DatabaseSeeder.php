@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             GallerySeeder::class,
             ServiceSeeder::class,
+            TenderDemoSeeder::class,
+            PropertySeeder::class,
+            OneFullPropertySeeder::class,
         ]);
     }
 }

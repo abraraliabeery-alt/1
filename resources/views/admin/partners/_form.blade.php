@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $action }}" style="display:grid; gap:12px">
+<form method="POST" action="{{ $action }}" enctype="multipart/form-data" style="display:grid; gap:12px">
   @csrf
   @if($method !== 'POST')
     @method($method)
@@ -9,19 +9,19 @@
     @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </label>
   <label>
-    المعرف (slug)
-    <input type="text" name="slug" value="{{ old('slug', $partner->slug ?? '') }}" class="@error('slug') is-invalid @enderror" />
-    @error('slug')<div class="invalid-feedback">{{ $message }}</div>@enderror
-  </label>
-  <label>
     موقع الويب
     <input type="url" name="website_url" value="{{ old('website_url', $partner->website_url ?? '') }}" placeholder="https://..." class="@error('website_url') is-invalid @enderror" />
     @error('website_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </label>
   <label>
-    شعار (رابط صورة)
-    <input type="text" name="logo" value="{{ old('logo', $partner->logo ?? '') }}" placeholder="/assets/.. أو /uploads/..." class="@error('logo') is-invalid @enderror" />
-    @error('logo')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    الشعار
+    <div class="form-row">
+      <input type="text" name="logo_url" value="{{ old('logo_url') }}" placeholder="رابط الصورة (اختياري)" class="@error('logo_url') is-invalid @enderror" />
+      <input type="file" name="logo_file" accept="image/*" class="@error('logo_file') is-invalid @enderror" />
+    </div>
+    <small class="muted">يمكنك إدخال رابط أو رفع صورة. سيُستخدم الرابط إن تم إدخاله.</small>
+    @error('logo_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+    @error('logo_file')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </label>
   <div class="row-between" style="gap:12px">
     <label>

@@ -24,6 +24,15 @@ class PropertyFactory extends Factory
         $city = fake('ar_SA')->randomElement(['الرياض','جدة','الدمام','الخبر','مكة']);
         $district = fake('ar_SA')->randomElement(['الياسمين','العقيق','النرجس','السلام','الخالدية']);
         $price = fake()->numberBetween(200000, 5000000);
+        $gallery = [
+            'https://images.unsplash.com/photo-1505692794403-34b20be2a9bf?q=80&w=1200&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1200&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1200&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop',
+        ];
+        $amenities = fake('ar_SA')->randomElements([
+            'موقف سيارة','مصعد','تكييف مركزي','مطبخ راكب','قريب من الخدمات','شرفة','خدمة حراسة','حديقة','ملعب أطفال'
+        ], fake()->numberBetween(4,7));
         return [
             'title' => $title,
             'slug' => Str::slug($title.'-'.fake()->unique()->numberBetween(1000,9999)),
@@ -37,10 +46,11 @@ class PropertyFactory extends Factory
             'status' => fake()->randomElement(['جاهز للسكن','تحت الإنشاء']),
             'is_featured' => fake()->boolean(30),
             'cover_image' => null,
-            'gallery' => [],
+            'gallery' => $gallery,
+            'amenities' => $amenities,
             'description' => 'وصف مختصر للعقار مناسب للعرض ضمن النتائج.',
-            'location_url' => null,
-            'video_url' => null,
+            'location_url' => 'https://www.google.com/maps?q=24.7136,46.6753',
+            'video_url' => fake()->boolean(40) ? 'https://www.youtube.com/embed/dQw4w9WgXcQ' : null,
             'video_path' => null,
         ];
     }

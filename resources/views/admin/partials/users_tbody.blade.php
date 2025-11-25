@@ -12,7 +12,7 @@
     <td class="text-end">
       <div class="actions-vertical">
         @if(!$u->is_staff)
-          <form method="post" action="{{ route('admin.users.promote') }}" onsubmit="return confirm('ترقية {{ $u->name }} إلى موظف؟')">
+          <form method="post" action="{{ route('admin.users.promote') }}" data-confirm="ترقية {{ $u->name }} إلى موظف؟">
             @csrf
             <input type="hidden" name="email" value="{{ $u->email }}">
             <button class="btn btn-primary btn-sm" type="submit">ترقية لموظف</button>

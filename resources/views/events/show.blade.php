@@ -3,10 +3,6 @@
 @section('content')
   <main class="section">
     <div class="container">
-      @if(session('ok'))
-        <div class="card" style="margin-bottom:12px; border-color:#22c55e"><strong>تم:</strong> {{ session('ok') }}</div>
-      @endif
-
       <nav style="margin-bottom:12px"><a href="{{ route('events.index') }}">← كل الفعاليات</a></nav>
 
       <h1 style="margin:0 0 8px">{{ $event->title }}</h1>
@@ -39,7 +35,7 @@
             @if(optional(auth()->user())->is_staff)
               <div class="cta" style="display:flex; gap:8px; flex-wrap:wrap">
                 <a class="btn btn-outline" href="{{ route('events.edit', $event) }}">تعديل</a>
-                <form action="{{ route('events.destroy', $event) }}" method="POST" onsubmit="return confirm('حذف الفعالية؟')">
+                <form action="{{ route('events.destroy', $event) }}" method="POST" data-confirm="حذف الفعالية؟">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-outline" type="submit">حذف</button>

@@ -35,7 +35,7 @@
             <td class="text-end">
               <div class="actions-vertical">
                 <a class="btn btn-outline btn-sm" href="{{ route('admin.faqs.edit', $f) }}">تعديل</a>
-                <form action="{{ route('admin.faqs.destroy', $f) }}" method="POST" onsubmit="return confirm('حذف؟')">
+                <form action="{{ route('admin.faqs.destroy', $f) }}" method="POST" data-confirm="حذف؟">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger btn-sm" type="submit">حذف</button>

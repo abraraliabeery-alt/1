@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    // Google Custom Search Engine credentials
+    'google_cse_key' => env('GOOGLE_CSE_KEY'),
+    'google_cse_cx'  => env('GOOGLE_CSE_CX'),
+
 ];

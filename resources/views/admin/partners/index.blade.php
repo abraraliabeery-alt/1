@@ -39,7 +39,7 @@
               <div class="actions-vertical">
                 <a class="btn btn-outline btn-sm" href="{{ $p->website_url ?: route('admin.partners.edit', $p) }}" target="_blank" title="عرض"><i class="bi bi-eye"></i></a>
                 <a class="btn btn-outline btn-sm" href="{{ route('admin.partners.edit', $p) }}" title="تعديل"><i class="bi bi-pencil"></i></a>
-                <form action="{{ route('admin.partners.destroy', $p) }}" method="POST" onsubmit="return confirm('حذف الشريك؟');">
+                <form action="{{ route('admin.partners.destroy', $p) }}" method="POST" data-confirm="حذف الشريك؟">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger btn-sm" type="submit" title="حذف"><i class="bi bi-trash"></i></button>

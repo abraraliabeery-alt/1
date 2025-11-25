@@ -34,15 +34,34 @@ class PartnerAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:190',
-            'slug' => 'nullable|string|max:190|unique:partners,slug',
+            'slug' => 'nullable|string|max:190',
             'website_url' => 'nullable|url|max:255',
-            'logo' => 'nullable|string|max:255',
+            'logo_url' => 'nullable|url|max:1000',
+            'logo_file' => 'nullable|image',
             'sort_order' => 'nullable|integer',
             'status' => 'nullable|in:draft,published',
         ]);
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['name']);
+        $slugBase = Str::slug($data['name']);
+        $slug = $slugBase;
+        $i = 1;
+        while (Partner::where('slug', $slug)->exists()) {
+            $slug = $slugBase.'-'.$i++;
         }
+        $data['slug'] = $slug;
+        // Logo: URL wins, otherwise store upload
+        $logo = null;
+        if (!empty($data['logo_url'])) {
+            $logo = $data['logo_url'];
+        } elseif ($request->hasFile('logo_file')) {
+            $dir = public_path('uploads/partners');
+            if (!is_dir($dir)) { @mkdir($dir, 0777, true); }
+            $file = $request->file('logo_file');
+            $name = 'partner_'.time().'.'.$file->getClientOriginalExtension();
+            $file->move($dir, $name);
+            $logo = '/uploads/partners/'.$name;
+        }
+        $data['logo'] = $logo;
+
         $data['sort_order'] = (int)($data['sort_order'] ?? 0);
         $data['status'] = $data['status'] ?? 'published';
         Partner::create($data);
@@ -58,15 +77,33 @@ class PartnerAdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:190',
-            'slug' => 'nullable|string|max:190|unique:partners,slug,'.$partner->id,
+            'slug' => 'nullable|string|max:190',
             'website_url' => 'nullable|url|max:255',
-            'logo' => 'nullable|string|max:255',
+            'logo_url' => 'nullable|url|max:1000',
+            'logo_file' => 'nullable|image',
             'sort_order' => 'nullable|integer',
             'status' => 'nullable|in:draft,published',
         ]);
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['name']);
+        $slugBase = Str::slug($data['name']);
+        $slug = $slugBase;
+        $i = 1;
+        while (Partner::where('slug', $slug)->where('id','!=',$partner->id)->exists()) {
+            $slug = $slugBase.'-'.$i++;
         }
+        $data['slug'] = $slug;
+        $logo = $partner->logo;
+        if (!empty($data['logo_url'])) {
+            $logo = $data['logo_url'];
+        } elseif ($request->hasFile('logo_file')) {
+            $dir = public_path('uploads/partners');
+            if (!is_dir($dir)) { @mkdir($dir, 0777, true); }
+            $file = $request->file('logo_file');
+            $name = 'partner_'.time().'.'.$file->getClientOriginalExtension();
+            $file->move($dir, $name);
+            $logo = '/uploads/partners/'.$name;
+        }
+        $data['logo'] = $logo;
+
         $data['sort_order'] = (int)($data['sort_order'] ?? 0);
         $data['status'] = $data['status'] ?? 'published';
         $partner->update($data);

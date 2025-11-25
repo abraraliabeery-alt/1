@@ -80,7 +80,7 @@ if (form) {
     const errors = [];
     if (name.length < 2) errors.push('يرجى إدخال الاسم');
     if (!/^0?5\d{8}$/.test(phone)) errors.push('يرجى إدخال رقم جوال صحيح');
-    if (!type) errors.push('يرجى اختيار نوع المشروع');
+    if (!type) errors.push('يرجى اختيار نوع الخدمة');
 
     if (errors.length) {
       e.preventDefault();
@@ -91,7 +91,7 @@ if (form) {
     if (!hasServerAction) {
       e.preventDefault();
       // Simulated submit when no backend action
-      alert('تم استلام طلبك بنجاح! سنعاود الاتصال خلال 24 ساعة.');
+      alert('تم استلام رسالتك بنجاح! سنعاود الاتصال خلال 24 ساعة.');
       form.reset();
     }
   });

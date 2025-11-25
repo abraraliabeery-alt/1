@@ -4,11 +4,92 @@
 
 @section('content')
 
+<style>
+  :root{
+    --brand:#0ea5e9; /* cyan-500 */
+    --brand-600:#0284c7; /* cyan-600 */
+    --ink:#0f172a; /* slate-900 */
+    --muted:#64748b; /* slate-500 */
+    --card:#ffffff;
+    --beige:#f8fafc; /* slate-50 */
+    --ring: rgba(14,165,233,.18);
+    --shadow:0 20px 60px rgba(2,132,199,.18);
+  }
+  /* Hero */
+  .hero{ position:relative; min-height:80vh; display:grid; place-items:center; padding: clamp(24px,4vw,48px) 0; overflow:hidden; background:
+    radial-gradient(1100px 600px at 110% -10%, rgba(14,165,233,.12), transparent 60%),
+    linear-gradient(180deg, #f0f9ff 0%, #ffffff 38%);
+  }
+  .hero::before{ content:""; position:absolute; inset:auto -20% -30% -20%; height:70%; background: radial-gradient(closest-side, rgba(2,132,199,.12), transparent); filter: blur(30px) }
+  .hero h1{ font-weight:900; font-size: clamp(28px, 5vw, 48px); line-height:1.15; color:var(--ink); text-align:center }
+  .hero p{ color:var(--muted); font-weight:600; font-size: clamp(14px, 2.2vw, 18px); text-align:center; margin:.6rem auto 1rem; max-width:68ch }
+  .hero .btn-main{ background:var(--brand); color:#fff; border:0; padding:.8rem 1.2rem; border-radius:12px; font-weight:900; box-shadow: var(--shadow) }
+  .hero .btn-main:hover{ background:var(--brand-600) }
+  .hero .quick{ display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; margin-top:1rem }
+  .hero .quick .chip{ background:#fff; border:1px solid rgba(2,132,199,.16); border-radius:999px; padding:.4rem .8rem; font-weight:800; color:var(--brand-600) }
+
+  /* About */
+  .about-band{ background:linear-gradient(135deg, #ffffff, #f8fcff); border:1px solid rgba(2,132,199,.10); border-radius:20px; box-shadow:0 18px 50px rgba(15,23,42,.06) }
+  .about-badge{ display:inline-block; background:rgba(2,132,199,.10); color:var(--brand-600); font-weight:900; padding:.35rem .6rem; border-radius:999px; letter-spacing:.3px }
+  .check-list{ list-style:none; padding:0; margin: .6rem 0 0; display:grid; gap:.35rem }
+  .check-list li{ display:flex; align-items:center; gap:.4rem; font-weight:700; color:var(--ink) }
+  .check-list i{ color: var(--brand) }
+  .about-photo{ border-radius:18px; overflow:hidden; box-shadow:0 24px 60px rgba(15,23,42,.12) }
+
+  /* Property chips and cards */
+  #properties .btn-ink{ background:var(--ink); color:#fff; border:0 }
+  #properties .btn-outline-ink{ background:#fff; border:1px solid rgba(15,23,42,.15); color:var(--ink) }
+  .re-grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px }
+  @media (max-width:992px){ .re-grid{ grid-template-columns: repeat(2, minmax(0,1fr)) } }
+  @media (max-width:640px){ .re-grid{ grid-template-columns: 1fr } }
+  .re-card{ position:relative; display:block; border-radius:16px; overflow:hidden; background:#fff; border:1px solid rgba(15,23,42,.08); box-shadow:0 12px 30px rgba(15,23,42,.06); transition: transform .15s ease, box-shadow .2s ease }
+  .re-card:hover{ transform: translateY(-4px); box-shadow:0 18px 50px rgba(15,23,42,.10) }
+  .re-thumb{ aspect-ratio: 4/3; overflow:hidden; background:#f1f5f9 }
+  .re-thumb img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .35s ease }
+  .re-card:hover .re-thumb img{ transform: scale(1.06) }
+  .re-badge{ position:absolute; inset:12px auto auto 12px; background: #fff; color:var(--brand-600); border:1px solid rgba(2,132,199,.22); border-radius:999px; padding:.25rem .6rem; font-weight:900; font-size:.82rem }
+  .re-body{ padding:10px 12px }
+  .re-title{ margin:0; font-weight:900; color:var(--ink); font-size:1rem }
+  .re-meta{ display:flex; gap:.5rem; flex-wrap:wrap; color:var(--muted); font-size:.9rem }
+  .re-price{ font-weight:900; color:var(--ink) }
+  .re-tags{ display:flex; gap:.35rem; flex-wrap:wrap; margin-top:.35rem }
+  .re-tag{ background: #f1f5f9; color:#0f172a; border-radius:999px; padding:.15rem .5rem; font-weight:800; font-size:.78rem }
+
+  /* Services */
+  .feature-box{ background:#fff; border:1px solid rgba(15,23,42,.08); border-radius:16px; padding:18px; height:100%; box-shadow:0 14px 40px rgba(15,23,42,.06) }
+  .feature-box i{ color:#0f172a; background: linear-gradient(135deg, rgba(14,165,233,.20), rgba(14,165,233,.05)); border:1px solid rgba(14,165,233,.28); width:48px; height:48px; border-radius:12px; display:grid; place-items:center; margin-inline:auto }
+
+  /* Stats */
+  .stats{ background: linear-gradient(180deg, #f8fafc, #ffffff); padding:48px 0; border-block:1px solid rgba(15,23,42,.06) }
+  .stats h3{ font-weight:900; color:var(--ink); margin:0 }
+  .stats p{ color:var(--muted); margin:0 }
+
+  /* Testimonials */
+  .testimonial{ background:#fff; border:1px solid rgba(15,23,42,.08); border-radius:16px; padding:18px; box-shadow:0 14px 40px rgba(15,23,42,.06) }
+  .testimonial i{ color:var(--brand); font-size:22px }
+
+  /* Contact */
+  .contact{ background: linear-gradient(180deg, #ffffff, #f8fafc); padding:56px 0; border-top:1px solid rgba(15,23,42,.06) }
+  .contact .form-control{ border-radius:12px; border:1px solid rgba(15,23,42,.12); padding:.8rem .9rem }
+  .btn-ink{ background:var(--ink); color:#fff; border:0; font-weight:900; border-radius:12px; padding:.7rem 1rem }
+  .btn-outline-ink{ background:transparent; color:var(--ink); border:1px solid rgba(15,23,42,.22); border-radius:12px; padding:.7rem 1rem }
+  .btn-beige{ background:#fff7ed; color:#7c2d12; border:1px solid #fed7aa; border-radius:12px; padding:.7rem 1rem; font-weight:900 }
+
+  /* Location */
+  #location .ratio{ box-shadow:0 20px 60px rgba(2,132,199,.10); border-radius:18px }
+</style>
+
 <!-- Hero -->
 <section class="hero" id="hero">
   <h1>ابحث عن منزلك الفاخر بسهولة</h1>
   <p>استكشف آلاف العقارات الحصرية عبر بوابة العقار الأولى في المملكة</p>
   <a href="{{ route('properties.index') }}" class="btn btn-main mt-3">ابدأ الآن</a>
+  <div class="quick" aria-label="تصنيفات سريعة">
+    <a class="chip" href="{{ route('properties.index', ['type'=>'villa']) }}">فلل</a>
+    <a class="chip" href="{{ route('properties.index', ['type'=>'apartment']) }}">شقق</a>
+    <a class="chip" href="{{ route('properties.index', ['type'=>'office']) }}">مكاتب</a>
+    <a class="chip" href="{{ route('properties.index', ['featured'=>1]) }}">مميزة</a>
+  </div>
 </section>
 
 <!-- About -->
@@ -67,13 +148,31 @@
     </div>
   </div>
 
-  <div class="row g-4">
+  <div class="re-grid">
     @forelse($properties as $p)
-      <div class="col-12 col-md-6 col-lg-4">
-        <a href="{{ route('properties.show', $p->slug) }}" class="text-decoration-none text-dark">
-          <x-property-card :p="$p" />
-        </a>
-      </div>
+      <a href="{{ route('properties.show', $p->slug) }}" class="re-card" dir="rtl">
+        <div class="re-thumb">
+          @php($img = $p->cover_image ? asset('storage/'.$p->cover_image) : 'https://images.unsplash.com/photo-1505692794403-34d4982dc1f9?w=1200&q=80&auto=format&fit=crop')
+          <img src="{{ $img }}" alt="{{ $p->title }}" loading="lazy">
+        </div>
+        @if($p->is_featured)
+          <span class="re-badge">مميز</span>
+        @endif
+        <div class="re-body">
+          <h3 class="re-title">{{ $p->title }}</h3>
+          <div class="re-meta">
+            <span>{{ $p->city }}@if($p->district) • {{ $p->district }} @endif</span>
+          </div>
+          <div class="re-price mt-1">{{ number_format($p->price) }} ر.س</div>
+          <div class="re-tags">
+            @if($p->type)<span class="re-tag">{{ $p->type }}</span>@endif
+            @if($p->area)<span class="re-tag">{{ $p->area }} م²</span>@endif
+            @if($p->bedrooms)<span class="re-tag">غرف {{ $p->bedrooms }}</span>@endif
+            @if($p->bathrooms)<span class="re-tag">حمامات {{ $p->bathrooms }}</span>@endif
+            @if($p->video_url || $p->video_path)<span class="re-tag">فيديو</span>@endif
+          </div>
+        </div>
+      </a>
     @empty
       <div class="col-12">
         <div class="alert alert-info">لا توجد عقارات مميزة حالياً.</div>

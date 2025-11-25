@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         // Drop obsolete tables if they exist
         Schema::disableForeignKeyConstraints();
-        foreach (['favorites','marketing_requests','properties'] as $tbl) {
+        foreach (['favorites','marketing_requests'] as $tbl) {
             if (Schema::hasTable($tbl)) {
                 Schema::drop($tbl);
             }

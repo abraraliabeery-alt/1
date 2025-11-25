@@ -14,7 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'staff' => \App\Http\Middleware\EnsureStaff::class,
             'manager' => \App\Http\Middleware\EnsureManager::class,
+            'store_ref' => \App\Http\Middleware\StoreReferral::class,
         ]);
+        // Capture referrals/UTM on every web request
+        $middleware->appendToGroup('web', \App\Http\Middleware\StoreReferral::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

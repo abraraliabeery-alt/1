@@ -2,9 +2,9 @@
 <header class="header" id="top">
   <div class="container nav">
     @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
-    @php($siteLogo = $hasSettings ? \App\Models\Setting::getValue('site_logo', '/assets/top.png') : '/assets/top.png')
     <a class="brand" href="{{ url('/') }}#top" aria-label="Top Level">
-      <img src="{{ $siteLogo }}" alt="Top Level - توب ليفل" />
+      <img src="/img/logo/1.png" class="logo-light" alt="الشعار" />
+      <img src="/img/logo/2.png" class="logo-dark" alt="الشعار (الوضع الداكن)" />
     </a>
     <nav class="menu" aria-label="القائمة الرئيسية">
       <button class="menu-toggle" type="button" aria-label="فتح/إغلاق القائمة" aria-expanded="false">
@@ -12,18 +12,15 @@
       </button>
       <ul id="nav-list">
         <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
-        <li><a href="{{ route('about') }}">من نحن</a></li>
-        <li><a href="{{ route('services.index') }}">الخدمات</a></li>
-        <li><a href="{{ url('/') }}#home-solutions">المنزل الذكي</a></li>
-        <li><a href="{{ url('/') }}#office-solutions">المكتب الذكي</a></li>
-        <li><a href="{{ url('/') }}#pricing">الأسعار</a></li>
-        <li><a href="{{ route('projects.index') }}">المشاريع</a></li>
-        <li><a href="{{ route('gallery.index') }}">الألبوم</a></li>
+        <li><a href="{{ route('products.index') }}">المنتجات</a></li>
+        <li><a href="{{ route('properties.index') }}">العقارات</a></li>
+        <li><a href="{{ url('/') }}#services">منتجاتنا</a></li>
+        <li><a href="{{ url('/') }}#about-brief">من نحن</a></li>
         <li><a href="{{ url('/') }}#contact">تواصل</a></li>
         @auth
           @if(optional(auth()->user())->is_staff || optional(auth()->user())->role === 'manager')
             <li>
-              <a class="dash-link" href="{{ url('/admin') }}" aria-label="لوحة التحكم">
+              <a class="btn btn-primary" href="{{ url('/admin') }}" aria-label="لوحة التحكم">
                 <i class="bi bi-speedometer2" aria-hidden="true"></i>
                 <span>لوحة التحكم</span>
               </a>
@@ -32,7 +29,7 @@
           <li>
             <form action="{{ route('logout') }}" method="POST" style="display:inline">
               @csrf
-              <button type="submit" class="dash-link" aria-label="تسجيل الخروج">
+              <button type="submit" class="btn btn-primary" aria-label="تسجيل الخروج">
                 <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
                 <span>خروج</span>
               </button>
@@ -73,13 +70,10 @@
       <nav class="drawer-nav" aria-label="القائمة الجانبية">
         <ul>
           <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
-          <li><a href="{{ route('about') }}">من نحن</a></li>
-          <li><a href="{{ route('services.index') }}">الخدمات</a></li>
-          <li><a href="{{ url('/') }}#home-solutions">المنزل الذكي</a></li>
-          <li><a href="{{ url('/') }}#office-solutions">المكتب الذكي</a></li>
-          <li><a href="{{ url('/') }}#pricing">الأسعار</a></li>
-          <li><a href="{{ route('projects.index') }}">المشاريع</a></li>
-          <li><a href="{{ route('gallery.index') }}">الألبوم</a></li>
+          <li><a href="{{ route('products.index') }}">المنتجات</a></li>
+          <li><a href="{{ route('properties.index') }}">العقارات</a></li>
+          <li><a href="{{ url('/') }}#services">منتجاتنا</a></li>
+          <li><a href="{{ url('/') }}#about-brief">من نحن</a></li>
           <li><a href="{{ url('/') }}#contact">تواصل</a></li>
         </ul>
       </nav>
