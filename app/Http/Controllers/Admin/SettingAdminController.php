@@ -168,7 +168,17 @@ class SettingAdminController extends Controller
             $values['hero_image'] = '/uploads/branding/'.$name;
         }
 
-        if ($values) { Setting::setValues($values); }
+        if ($values) {
+            Setting::setValues($values);
+
+            // إذا تم تحديث مسار الفافيكون، انسخ الملف إلى public/favicon.ico
+            if (isset($values['site_favicon']) && $values['site_favicon']) {
+                $faviconPath = public_path(ltrim($values['site_favicon'], '/'));
+                if (is_file($faviconPath)) {
+                    @copy($faviconPath, public_path('favicon.ico'));
+                }
+            }
+        }
 
         return redirect()->route('admin.settings.branding.edit')->with('ok', 'تم تحديث إعدادات الهوية والألوان بنجاح');
     }
