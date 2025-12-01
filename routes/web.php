@@ -5,7 +5,6 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\GalleryController;
 
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Admin\ServiceAdminController;
 use App\Http\Controllers\Admin\ContactAdminController;
@@ -14,8 +13,6 @@ use App\Http\Controllers\Admin\FaqAdminController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\Admin\PropertyAdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TenderController;
-use App\Http\Controllers\Admin\TenderAdminController;
 
 // Landing page as the new home (IT company)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -44,14 +41,6 @@ Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('servic
 // About page
 Route::view('/about', 'about')->name('about');
 
-// Products: dynamic from uploaded TXT, with pagination
-Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
-Route::get('/products/import', [ProductsController::class, 'importForm'])->name('products.import.form');
-Route::post('/products/import', [ProductsController::class, 'importStore'])->name('products.import.store');
-
-// Admin-lite: products images review (no auth for now; add middleware later if desired)
-Route::get('/admin/products/images-review', [\App\Http\Controllers\ProductImageReviewController::class, 'index'])->name('admin.products.images.review');
-Route::post('/admin/products/images-review', [\App\Http\Controllers\ProductImageReviewController::class, 'store'])->name('admin.products.images.review.store');
 
 // Events management removed
 
@@ -144,15 +133,6 @@ Route::middleware(['auth','staff'])->group(function(){
     Route::get('/admin/settings/branding', [\App\Http\Controllers\Admin\SettingAdminController::class, 'editBranding'])->name('admin.settings.branding.edit');
     Route::post('/admin/settings/branding', [\App\Http\Controllers\Admin\SettingAdminController::class, 'updateBranding'])->name('admin.settings.branding.update');
 
-    // Tenders: Keep ONLY these routes
-    Route::get('/admin/tenders/{tender}/pdf/preview', [TenderController::class, 'previewPdf'])->name('admin.tenders.pdf.preview');
-    Route::get('/admin/tenders/{tender}/pdf/download', [TenderController::class, 'downloadPdf'])->name('admin.tenders.pdf.download');
-    Route::get('/admin/tenders/{tender}/example', [TenderController::class, 'exampleForTender'])->name('admin.tenders.example');
-    // Tenders: Management index page (dashboard styled)
-    Route::get('/admin/tenders', [TenderAdminController::class, 'index'])->name('admin.tenders.index');
-    // Tenders: Create (re-enabled)
-    Route::get('/admin/tenders/create', [TenderAdminController::class, 'create'])->name('admin.tenders.create');
-    Route::post('/admin/tenders', [TenderAdminController::class, 'store'])->name('admin.tenders.store');
 });
 
 // Favorites related to properties removed

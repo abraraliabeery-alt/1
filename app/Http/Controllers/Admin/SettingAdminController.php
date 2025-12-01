@@ -99,11 +99,12 @@ class SettingAdminController extends Controller
             'color_primary' => Setting::getValue('color_primary', '#fcae41'),
             'color_bg'      => Setting::getValue('color_bg', '#ffffff'),
             'color_fg'      => Setting::getValue('color_fg', '#000000'),
-            'color_card'    => Setting::getValue('color_card', '#ffffff'),
-            'color_border'  => Setting::getValue('color_border', '#e6ecff'),
-            'color_footer_bg' => Setting::getValue('color_footer_bg', '#000000'),
-            'color_footer_fg' => Setting::getValue('color_footer_fg', '#ffffff'),
-            'color_footer_accent' => Setting::getValue('color_footer_accent', '#fcae41'),
+            'color_strong'  => Setting::getValue('color_strong', '#000000'),
+            // ألوان الوضع الداكن (3 ألوان + لون نص قوي)
+            'color_primary_dark' => Setting::getValue('color_primary_dark', '#fcae41'),
+            'color_bg_dark'      => Setting::getValue('color_bg_dark', '#020617'),
+            'color_fg_dark'      => Setting::getValue('color_fg_dark', '#f9fafb'),
+            'color_strong_dark'  => Setting::getValue('color_strong_dark', '#f9fafb'),
             'hero_image'   => Setting::getValue('hero_image', '/assets/hero-smart-home.jpg'),
         ];
         return view('admin.settings.branding', $data);
@@ -119,11 +120,11 @@ class SettingAdminController extends Controller
             'color_primary' => ['nullable','string','max:20'],
             'color_bg'      => ['nullable','string','max:20'],
             'color_fg'      => ['nullable','string','max:20'],
-            'color_card'    => ['nullable','string','max:20'],
-            'color_border'  => ['nullable','string','max:20'],
-            'color_footer_bg' => ['nullable','string','max:20'],
-            'color_footer_fg' => ['nullable','string','max:20'],
-            'color_footer_accent' => ['nullable','string','max:20'],
+            'color_strong'  => ['nullable','string','max:20'],
+            'color_primary_dark' => ['nullable','string','max:20'],
+            'color_bg_dark'      => ['nullable','string','max:20'],
+            'color_fg_dark'      => ['nullable','string','max:20'],
+            'color_strong_dark'  => ['nullable','string','max:20'],
             'hero_image'   => ['nullable','image','mimes:png,jpg,jpeg,webp,svg'],
         ]);
 
@@ -132,7 +133,7 @@ class SettingAdminController extends Controller
             $values['site_title'] = trim($validated['site_title']);
         }
         // Colors (accept hex or css color strings as-is, trimmed)
-        foreach (['color_primary','color_bg','color_fg','color_card','color_border','color_footer_bg','color_footer_fg','color_footer_accent'] as $k) {
+        foreach (['color_primary','color_bg','color_fg','color_strong','color_primary_dark','color_bg_dark','color_fg_dark','color_strong_dark'] as $k) {
             if (isset($validated[$k]) && $validated[$k] !== '') {
                 $values[$k] = trim($validated[$k]);
             }

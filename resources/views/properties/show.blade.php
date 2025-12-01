@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" dir="rtl" style="padding-block:20px">
+<div class="container" dir="rtl" style="padding-block:24px; max-width: 1200px; margin-inline:auto;">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
   <style>
+    .prop-shell{ background: color-mix(in oklab, var(--fg), transparent 96%); border-radius:18px; padding:18px 16px 22px; box-shadow:0 14px 40px rgba(0,0,0,.06); border:1px solid color-mix(in oklab, var(--fg), transparent 90%); }
+    @media (max-width:576px){ .prop-shell{ padding-inline:12px; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.05); } }
     .prop-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px }
     .prop-title{ margin:0; font-weight:900; font-size:clamp(22px,3.2vw,30px); color: var(--fg) }
     .prop-meta{ color: color-mix(in oklab, var(--fg), transparent 40%); display:flex; gap:10px; flex-wrap:wrap }
@@ -34,21 +36,23 @@
     .stat-card .num{ font-weight:900; font-size:1.05rem; color: var(--fg) }
     .stat-card .lbl{ color: color-mix(in oklab, var(--fg), transparent 35%); font-weight:700 }
     @media (max-width:576px){ .stats-strip{ grid-template-columns: 1fr 1fr; } }
-    .sticky-cta{ position:fixed; inset:auto 20px 24px auto; z-index:95; display:flex; gap:8px; }
-    .sticky-cta .cta-btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; text-decoration:none; font-weight:800; box-shadow:0 12px 30px rgba(0,0,0,.18); border:1px solid var(--border); }
+    .sticky-cta{ position:fixed; inset:auto 20px 16px auto; z-index:95; display:flex; gap:8px; }
+    .sticky-cta .cta-btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; text-decoration:none; font-weight:800; box-shadow:0 12px 30px rgba(0,0,0,.22); border:1px solid var(--border); }
     .cta-wa{ background: linear-gradient(180deg, var(--primary), var(--primary-700)); color:#000 }
     .cta-share{ background: var(--card); color: var(--fg) }
     @media (max-width: 900px){ .sticky-cta{ left: 16px; right: auto; bottom: 80px; } }
+    @media (min-width: 992px){ .sticky-cta{ display:none; } }
   </style>
 
-  <div class="row g-3">
-    <div class="col-lg-8">
+  <div class="prop-shell">
+  <div class="row g-3 justify-content-center">
+    <div class="col-12">
       <div class="prop-header">
         <div>
           <h1 class="prop-title"><i class="fa-solid fa-house-chimney" style="color:var(--primary)"></i> {{ $property->title }}</h1>
           <div class="prop-meta">
             <span><i class="fa-solid fa-location-dot" style="color:var(--primary)"></i> {{ $property->city }} @if($property->district) - {{ $property->district }} @endif</span>
-            <span class="badge-chip"><i class="fa-solid fa-tag"></i> {{ $property->type }}</span>
+            <span class="badge-chip"><i class="fa-solid fa-tag"></i> {{ $property->type_label ?? $property->type }}</span>
             @if($property->status)
               <span class="badge-chip"><i class="fa-solid fa-circle-check"></i> {{ $property->status }}</span>
             @endif
@@ -70,22 +74,22 @@
           @if(!empty($gallery))
             <div id="propCarousel-{{ $property->id }}" class="carousel slide mb-2" data-bs-ride="carousel">
               <div class="carousel-indicators">
-                <button type="button" data-bs-target="#propCarousel-{{ $property->id }}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#propCarousel-{{ $property->id }}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="الشريحة 1"></button>
                 @foreach($gallery as $i => $img)
-                  <button type="button" data-bs-target="#propCarousel-{{ $property->id }}" data-bs-slide-to="{{ $i+1 }}" aria-label="Slide {{ $i+2 }}"></button>
+                  <button type="button" data-bs-target="#propCarousel-{{ $property->id }}" data-bs-slide-to="{{ $i+1 }}" aria-label="الشريحة {{ $i+2 }}"></button>
                 @endforeach
               </div>
               <div class="carousel-inner" style="border-radius:12px; overflow:hidden">
                 <div class="carousel-item active ratio ratio-16x9">
                   <a href="{{ $cover }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                    <img src="{{ $cover }}" class="d-block w-100" alt="cover" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+                    <img src="{{ $cover }}" class="d-block w-100" alt="صورة العقار" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
                   </a>
                 </div>
                 @foreach($gallery as $img)
                   @php($src = \Illuminate\Support\Str::startsWith($img, ['http://','https://']) ? $img : (\Illuminate\Support\Facades\Storage::disk('public')->exists($img) ? asset('storage/'.$img) : $fallback))
                   <div class="carousel-item ratio ratio-16x9">
                     <a href="{{ $src }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                      <img src="{{ $src }}" class="d-block w-100" alt="gallery" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+                      <img src="{{ $src }}" class="d-block w-100" alt="صورة من معرض العقار" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
                     </a>
                   </div>
                 @endforeach
@@ -109,31 +113,13 @@
               @foreach($gallery as $img)
                 @php($src = \Illuminate\Support\Str::startsWith($img, ['http://','https://']) ? $img : (\Illuminate\Support\Facades\Storage::disk('public')->exists($img) ? asset('storage/'.$img) : $fallback))
                 <a href="{{ $src }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                  <img src="{{ $src }}" alt="gallery" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+                  <img src="{{ $src }}" alt="صورة من معرض العقار" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
                 </a>
               @endforeach
             </div>
           @endif
         </div>
       </div>
-
-      @php($agent = ($property->user_id ?? null) ? \App\Models\User::find($property->user_id) : null)
-      @if($agent)
-      <div class="card mt-3">
-        <div class="card-body d-flex align-items-center gap-3">
-          <div>
-            <div class="fw-bold">{{ $agent->name }}</div>
-            @if($agent->email)
-              <div class="text-muted small">{{ $agent->email }}</div>
-            @endif
-          </div>
-          <div class="ms-auto d-flex gap-2">
-            <a class="btn btn-outline" href="mailto:{{ $agent->email }}"><i class="fa-regular fa-envelope"></i> بريد</a>
-            <a class="btn btn-outline" href="https://wa.me/966503310071?text={{ urlencode('استفسار حول العقار: '.$property->title) }}" target="_blank"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
-          </div>
-        </div>
-      </div>
-      @endif
 
       @if($property->video_url || $property->video_path)
       <div class="card mb-3">
@@ -233,12 +219,14 @@
         <div class="card-body">
           <div class="section-title"><i class="fa-solid fa-comments" style="color:var(--primary)"></i> التعليقات</div>
           <div class="text-muted mb-2">لا توجد تعليقات حتى الآن.</div>
-          @if(session('ok'))
-            <div class="alert alert-success" role="alert">{{ session('ok') }}</div>
-          @endif
-          @if(($errors ?? null) && $errors->any())
-            <div class="alert alert-danger" role="alert">حدثت أخطاء، يرجى مراجعة الحقول وإعادة المحاولة.</div>
-          @endif
+          <div id="comment-status">
+            @if(session('ok'))
+              <div class="alert alert-success" role="alert">{{ session('ok') }}</div>
+            @endif
+            @if(($errors ?? null) && $errors->any())
+              <div class="alert alert-danger" role="alert">حدثت أخطاء، يرجى مراجعة الحقول وإعادة المحاولة.</div>
+            @endif
+          </div>
           <form id="comment-form" method="POST" action="{{ route('contact.home.store') }}" class="row g-2" novalidate>
             @csrf
             <input type="hidden" name="subject" value="تعليق على العقار: {{ $property->title }} ">
@@ -265,27 +253,24 @@
       </div>
     </div>
 
-    <div class="col-lg-4">
+    @if($property->location_url)
+    <div class="col-12">
       <div class="card">
         <div class="card-body">
-          @if($property->location_url)
-            <div class="mt-3">
-              <a class="btn btn-outline w-100" href="{{ $property->location_url }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> فتح على الخريطة</a>
+          <div class="mt-3">
+            <a class="btn btn-outline w-100" href="{{ $property->location_url }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> فتح على الخريطة</a>
+          </div>
+          @php($isEmbeddable = \Illuminate\Support\Str::contains($property->location_url, ['google.com/maps','maps.google','goo.gl/maps','maps.app.goo']))
+          @if($isEmbeddable)
+            <div class="ratio ratio-16x9 mt-2" style="border:1px solid var(--border); border-radius:12px; overflow:hidden">
+              <iframe src="{{ $property->location_url }}" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            @php($isEmbeddable = \Illuminate\Support\Str::contains($property->location_url, ['google.com/maps','maps.google','goo.gl/maps','maps.app.goo']))
-            @if($isEmbeddable)
-              <div class="ratio ratio-16x9 mt-2" style="border:1px solid var(--border); border-radius:12px; overflow:hidden">
-                <iframe src="{{ $property->location_url }}" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              </div>
-            @endif
           @endif
         </div>
       </div>
-
-      @auth
-      
-      @endauth
     </div>
+    @endif
+  </div>
   </div>
 
   @if(($similar ?? collect())->count())
@@ -295,14 +280,16 @@
       <div class="row g-3">
         @foreach($similar as $p)
           <div class="col-12 col-md-6 col-lg-4">
-            <a href="{{ route('properties.show', $p->slug) }}" class="card" style="text-decoration:none">
-              <div class="ratio ratio-16x9" style="border-radius:10px; overflow:hidden">
+            <a href="{{ route('properties.show', $p->slug) }}" class="card" style="text-decoration:none; border-radius:14px; overflow:hidden; border:1px solid var(--border); background:var(--card);">
+              <div class="ratio ratio-16x9">
                 <img src="{{ $p->cover_image_url ?? 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop' }}" alt="{{ $p->title }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
               </div>
               <div class="p-2">
                 <div class="fw-bold" style="color:var(--fg)">{{ $p->title }}</div>
-                <div class="text-muted small">{{ $p->address }}</div>
-                <div class="fw-bold" style="color:var(--footer-accent)">{{ number_format($p->price) }} ر.س</div>
+                @if($p->address)
+                  <div class="text-muted small">{{ $p->address }}</div>
+                @endif
+                <div class="fw-bold mt-1" style="color:var(--footer-accent)">{{ number_format($p->price) }} ر.س</div>
               </div>
             </a>
           </div>
@@ -329,10 +316,44 @@
       GLightbox({ selector: '.glightbox' });
       const f = document.getElementById('comment-form');
       if(f){
-        f.addEventListener('submit', function(){
+        f.addEventListener('submit', function(e){
+          e.preventDefault();
           const btn = f.querySelector('button[type="submit"]');
-          if(btn){ btn.disabled = true; btn.dataset.orig = btn.innerHTML; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الإرسال...'; }
-        }, { once: true });
+          const statusEl = document.getElementById('comment-status');
+          if(statusEl){ statusEl.innerHTML = ''; }
+          if(btn){
+            btn.disabled = true;
+            btn.dataset.orig = btn.dataset.orig || btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الإرسال...';
+          }
+          fetch(f.action, {
+            method: f.method || 'POST',
+            body: new FormData(f),
+            credentials: 'same-origin',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          }).then(function(resp){
+            if(statusEl){
+              if(resp.ok){
+                statusEl.innerHTML = '<div class="alert alert-success" role="alert">تم إرسال رسالتك بنجاح، سنعود إليك قريبًا.</div>';
+              } else {
+                statusEl.innerHTML = '<div class="alert alert-danger" role="alert">تعذر إرسال الرسالة، يرجى المحاولة مرة أخرى.</div>';
+              }
+            }
+            if(btn){
+              btn.disabled = false;
+              btn.innerHTML = btn.dataset.orig || 'إرسال التعليق';
+            }
+            if(resp.ok){ f.reset(); }
+          }).catch(function(){
+            if(statusEl){
+              statusEl.innerHTML = '<div class="alert alert-danger" role="alert">تعذر إرسال الرسالة، يرجى التحقق من الاتصال وإعادة المحاولة.</div>';
+            }
+            if(btn){
+              btn.disabled = false;
+              btn.innerHTML = btn.dataset.orig || 'إرسال التعليق';
+            }
+          });
+        });
       }
       // Share button behavior
       const shareBtn = document.getElementById('share-prop-btn');

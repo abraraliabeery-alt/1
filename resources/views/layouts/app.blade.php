@@ -6,7 +6,16 @@
   @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
   @php($siteTitle = $hasSettings ? \App\Models\Setting::getValue('site_title', 'مؤسسة طور البناء للتجارة | أدوات البناء والسباكة والصحية والكهربائية والعدد') : 'مؤسسة طور البناء للتجارة | أدوات البناء والسباكة والصحية والكهربائية والعدد')
   @php($siteLogo = $hasSettings ? \App\Models\Setting::getValue('site_logo', '/assets/top.png') : '/assets/top.png')
-  @php($favicon = '/assets/top.png')
+  @php($favicon = $hasSettings ? \App\Models\Setting::getValue('site_favicon', '/assets/favicon.svg') : '/assets/favicon.svg')
+
+  @php($colorPrimary = $hasSettings ? \App\Models\Setting::getValue('color_primary', '#c0ae8a') : '#c0ae8a')
+  @php($colorBg      = $hasSettings ? \App\Models\Setting::getValue('color_bg', '#ffffff') : '#ffffff')
+  @php($colorFg      = $hasSettings ? \App\Models\Setting::getValue('color_fg', '#051461') : '#051461')
+  @php($colorStrong  = $hasSettings ? \App\Models\Setting::getValue('color_strong', $colorFg) : $colorFg)
+  @php($colorPrimaryDark = $hasSettings ? \App\Models\Setting::getValue('color_primary_dark', '#fcae41') : '#fcae41')
+  @php($colorBgDark      = $hasSettings ? \App\Models\Setting::getValue('color_bg_dark', '#020617') : '#020617')
+  @php($colorFgDark      = $hasSettings ? \App\Models\Setting::getValue('color_fg_dark', '#f9fafb') : '#f9fafb')
+  @php($colorStrongDark  = $hasSettings ? \App\Models\Setting::getValue('color_strong_dark', $colorFgDark) : $colorFgDark)
   <title>{{ $siteTitle }}</title>
   <meta name="theme-color" content="#c8b79a" />
   <meta name="description" content="نوفّر في مؤسسة طور البناء للتجارة مجموعة متكاملة من أدوات السباكة والبناء والأدوات الصحية والكهربائية والعدد، مع البيع بالآجل والسداد على دفعات ميسرة." />
@@ -32,14 +41,31 @@
   @yield('head_extra')
   <style>
     :root{
-      --primary: #c8b79a;   /* beige from logo */
-      --bg: #ffffff;        /* white */
-      --fg: #000000;        /* black text */
-      --card: #ffffff;
-      --border: #c8b79a;    /* soft beige border */
-      --footer-bg: #000000; /* black block */
-      --footer-fg: #ffffff; /* white text */
-      --footer-accent: #283241; /* dark navy/gray word color */
+      /* 3 ألوان للوضع الفاتح */
+      --light-bg:   {{ $colorBg }};         /* خلفية الصفحات */
+      --light-text: {{ $colorFg }};         /* النصوص الأساسية */
+      --light-main: {{ $colorPrimary }};    /* اللون الرئيسي */
+
+      /* 3 ألوان للوضع الداكن + لون نص قوي */
+      --dark-bg:    {{ $colorBgDark }};     /* خلفية داكنة (مثلاً للفوتر) */
+      --dark-text:  {{ $colorFgDark }};     /* نص في الوضع الداكن */
+      --dark-main:  {{ $colorPrimaryDark }};/* لون رئيسي في الداكن */
+      --strong-text-dark: {{ $colorStrongDark }}; /* نص قوي في الداكن */
+
+      /* لون نص قوي بديل للأسود، قابل للتحكم من الإعدادات */
+      --strong-text: {{ $colorStrong }};
+
+      /* ربط المتغيرات المستخدمة في الواجهات */
+      --primary: var(--light-main);
+      --bg:      var(--light-bg);
+      --fg:      var(--light-text);
+      --card:    var(--light-bg);
+      --border:  var(--light-main);
+
+      /* الفوتر وما يشبهه يستخدم ألوان الداكن */
+      --footer-bg:      var(--dark-bg);
+      --footer-fg:      var(--dark-text);
+      --footer-accent:  var(--dark-main);
     }
   </style>
 </head>

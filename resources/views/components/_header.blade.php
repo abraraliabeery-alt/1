@@ -12,9 +12,7 @@
       </button>
       <ul id="nav-list">
         <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
-        <li><a href="{{ route('products.index') }}">المنتجات</a></li>
         <li><a href="{{ route('properties.index') }}">العقارات</a></li>
-        <li><a href="{{ url('/') }}#services">منتجاتنا</a></li>
         <li><a href="{{ url('/') }}#about-brief">من نحن</a></li>
         <li><a href="{{ url('/') }}#contact">تواصل</a></li>
         @auth
@@ -70,9 +68,7 @@
       <nav class="drawer-nav" aria-label="القائمة الجانبية">
         <ul>
           <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
-          <li><a href="{{ route('products.index') }}">المنتجات</a></li>
           <li><a href="{{ route('properties.index') }}">العقارات</a></li>
-          <li><a href="{{ url('/') }}#services">منتجاتنا</a></li>
           <li><a href="{{ url('/') }}#about-brief">من نحن</a></li>
           <li><a href="{{ url('/') }}#contact">تواصل</a></li>
         </ul>

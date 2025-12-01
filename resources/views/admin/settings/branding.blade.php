@@ -42,22 +42,22 @@
 
       <div class="card" style="padding:12px">
         <label>
-          <span>رمز التبويب (Favicon)</span>
+          <span>رمز التبويب</span>
           <input type="file" name="site_favicon" accept="image/*,.ico,.svg">
         </label>
-        <label style="margin-top:8px; display:flex; align-items:center; gap:8px">
+        <label style="margin-top:8px; display:flex; align-items:center; gap:8px; font-size:13px">
           @php($same = empty($site_favicon) || $site_favicon === $site_logo)
-          <input type="checkbox" name="favicon_same_logo" {{ $same ? 'checked' : '' }}>
+          <input type="checkbox" name="favicon_same_logo" {{ $same ? 'checked' : '' }} style="width:auto; min-width:auto; flex:0 0 auto;">
           <span>استخدام نفس الشعار كأيقونة تبويب</span>
         </label>
         <div class="row-between" style="margin-top:8px">
           <div class="text-muted" style="font-size:12px">الحالي:</div>
-          <img src="{{ $same ? $site_logo : $site_favicon }}" alt="الرمز الحالي" style="height:24px; width:auto">
+          <img src="{{ $same ? $site_logo : $site_favicon }}" alt="الرمز الحالي" style="height:32px; width:auto">
         </div>
       </div>
 
       <div class="card" style="padding:12px">
-        <h4 class="h3-compact">ألوان الموقع</h4>
+        <h4 class="h3-compact">ألوان الوضع الفاتح</h4>
         <div class="form-row" style="margin-top:8px">
           <label>
             <span>اللون الأساسي (primary)</span>
@@ -83,42 +83,46 @@
             </div>
           </label>
           <label>
-            <span>خلفية البطاقات (card)</span>
+            <span>لون النص القوي (strong)</span>
             <div style="display:flex; gap:8px; align-items:center">
-              <input type="color" data-color="color_card" value="{{ old('color_card', $color_card) }}">
-              <input type="text" name="color_card" data-color-text="color_card" value="{{ old('color_card', $color_card) }}" placeholder="#ffffff" class="field" style="direction:ltr; text-transform:lowercase">
+              <input type="color" data-color="color_strong" value="{{ old('color_strong', $color_strong) }}">
+              <input type="text" name="color_strong" data-color-text="color_strong" value="{{ old('color_strong', $color_strong) }}" placeholder="#000000" class="field" style="direction:ltr; text-transform:lowercase">
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="card" style="padding:12px">
+        <h4 class="h3-compact">ألوان الوضع الداكن (3 ألوان)</h4>
+        <div class="form-row" style="margin-top:8px">
+          <label>
+            <span>اللون الأساسي الداكن (primary dark)</span>
+            <div style="display:flex; gap:8px; align-items:center">
+              <input type="color" data-color="color_primary_dark" value="{{ old('color_primary_dark', $color_primary_dark) }}">
+              <input type="text" name="color_primary_dark" data-color-text="color_primary_dark" value="{{ old('color_primary_dark', $color_primary_dark) }}" placeholder="#fcae41" class="field" style="direction:ltr; text-transform:lowercase">
+            </div>
+          </label>
+          <label>
+            <span>خلفية الوضع الداكن (bg dark)</span>
+            <div style="display:flex; gap:8px; align-items:center">
+              <input type="color" data-color="color_bg_dark" value="{{ old('color_bg_dark', $color_bg_dark) }}">
+              <input type="text" name="color_bg_dark" data-color-text="color_bg_dark" value="{{ old('color_bg_dark', $color_bg_dark) }}" placeholder="#020617" class="field" style="direction:ltr; text-transform:lowercase">
             </div>
           </label>
         </div>
         <div class="form-row">
           <label>
-            <span>لون الحدود (border)</span>
+            <span>لون النص في الداكن (fg dark)</span>
             <div style="display:flex; gap:8px; align-items:center">
-              <input type="color" data-color="color_border" value="{{ old('color_border', $color_border) }}">
-              <input type="text" name="color_border" data-color-text="color_border" value="{{ old('color_border', $color_border) }}" placeholder="#e6ecff" class="field" style="direction:ltr; text-transform:lowercase">
+              <input type="color" data-color="color_fg_dark" value="{{ old('color_fg_dark', $color_fg_dark) }}">
+              <input type="text" name="color_fg_dark" data-color-text="color_fg_dark" value="{{ old('color_fg_dark', $color_fg_dark) }}" placeholder="#f9fafb" class="field" style="direction:ltr; text-transform:lowercase">
             </div>
           </label>
           <label>
-            <span>تذييل: الخلفية</span>
+            <span>لون النص القوي في الداكن (strong dark)</span>
             <div style="display:flex; gap:8px; align-items:center">
-              <input type="color" data-color="color_footer_bg" value="{{ old('color_footer_bg', $color_footer_bg) }}">
-              <input type="text" name="color_footer_bg" data-color-text="color_footer_bg" value="{{ old('color_footer_bg', $color_footer_bg) }}" placeholder="#000000" class="field" style="direction:ltr; text-transform:lowercase">
-            </div>
-          </label>
-        </div>
-        <div class="form-row">
-          <label>
-            <span>تذييل: النص</span>
-            <div style="display:flex; gap:8px; align-items:center">
-              <input type="color" data-color="color_footer_fg" value="{{ old('color_footer_fg', $color_footer_fg) }}">
-              <input type="text" name="color_footer_fg" data-color-text="color_footer_fg" value="{{ old('color_footer_fg', $color_footer_fg) }}" placeholder="#ffffff" class="field" style="direction:ltr; text-transform:lowercase">
-            </div>
-          </label>
-          <label>
-            <span>تذييل: اللون المميز</span>
-            <div style="display:flex; gap:8px; align-items:center">
-              <input type="color" data-color="color_footer_accent" value="{{ old('color_footer_accent', $color_footer_accent) }}">
-              <input type="text" name="color_footer_accent" data-color-text="color_footer_accent" value="{{ old('color_footer_accent', $color_footer_accent) }}" placeholder="#fcae41" class="field" style="direction:ltr; text-transform:lowercase">
+              <input type="color" data-color="color_strong_dark" value="{{ old('color_strong_dark', $color_strong_dark) }}">
+              <input type="text" name="color_strong_dark" data-color-text="color_strong_dark" value="{{ old('color_strong_dark', $color_strong_dark) }}" placeholder="#f9fafb" class="field" style="direction:ltr; text-transform:lowercase">
             </div>
           </label>
         </div>

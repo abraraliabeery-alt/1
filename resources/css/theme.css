@@ -1,12 +1,12 @@
-:root{ --ink:#000000; --paper:#ffffff; --beige:#c8b79a; --border:#c8b79a; --muted:#6b7280; --white:#ffffff; --gray:#808080; --radius:14px; --shadow-sm:0 1px 2px rgba(0,0,0,.08); --shadow:0 10px 30px rgba(0,0,0,.10); --card-shadow:0 10px 30px rgba(0,0,0,.08); --hero-start: rgba(0,0,0,.55); --hero-end: rgba(0,0,0,.7) }
+:root{ --ink:var(--strong-text); --paper:var(--light-bg); --beige:var(--light-main); --border:var(--light-main); --muted:color-mix(in oklab, var(--light-text), transparent 40%); --white:var(--light-bg); --gray:color-mix(in oklab, var(--light-text), transparent 50%); --radius:14px; --shadow-sm:0 1px 2px color-mix(in oklab, var(--light-text), transparent 92%); --shadow:0 10px 30px color-mix(in oklab, var(--light-text), transparent 90%); --card-shadow:0 10px 30px color-mix(in oklab, var(--light-text), transparent 92%); --hero-start: color-mix(in oklab, var(--dark-bg), transparent 45%); --hero-end: color-mix(in oklab, var(--dark-bg), transparent 30%) }
 body{ font-family: 'Cairo', 'Tajawal', system-ui; background:linear-gradient(180deg, var(--paper), var(--paper)); color:var(--ink); padding-top:72px; scroll-behavior:smooth }
-.container{ width:100%; max-width:1240px; margin:0 auto; padding:0 14px }
 a{ color:var(--ink); text-decoration:none }
 /* Header */
-header{ background:#fff }
+header{ background:var(--paper) }
 nav.simple a{ margin-inline:.6rem; padding:.35rem .6rem; border-radius:10px }
-nav.simple a.active{ background:var(--ink); color:#fff }
+nav.simple a.active{ background:var(--ink); color:var(--light-bg) }
 /* Sections */
+.section{ background:var(--paper); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow-sm); margin: .9rem 0 }
 .section{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow-sm); margin: .9rem 0 }
 .muted{ color:var(--muted) }
 /* Buttons: handled by Bootstrap; removed custom .btn to avoid conflicts */
@@ -25,9 +25,9 @@ nav.simple a.active{ background:var(--ink); color:#fff }
 .navbar{ backdrop-filter: blur(8px); background-color: rgba(255,255,255,0.9) !important }
 
 /* Landing sections */
-.hero{ background: linear-gradient(var(--hero-start), var(--hero-end)), url('https://images.unsplash.com/photo-1599423300746-b62533397364?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; color:#fff; height:100vh; display:flex; align-items:center; text-align:center; justify-content:center; flex-direction:column; animation: fadeIn 2s ease-in-out }
+.hero{ background: linear-gradient(var(--hero-start), var(--hero-end)), url('https://images.unsplash.com/photo-1599423300746-b62533397364?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; color:var(--dark-text); height:100vh; display:flex; align-items:center; text-align:center; justify-content:center; flex-direction:column; animation: fadeIn 2s ease-in-out }
 .hero h1{ font-size:3.5rem; font-weight:800; letter-spacing:1px }
-.hero p{ font-size:1.3rem; color:#eee }
+.hero p{ font-size:1.3rem; color:color-mix(in oklab, var(--dark-text), transparent 30%) }
 .btn-main{ background-color: var(--beige); border:none; color: var(--ink); padding:12px 35px; border-radius:50px; transition:.3s }
 .btn-main:hover{ filter: brightness(.9) }
 .section-title{ text-align:center; margin-bottom:3rem; color: var(--ink); font-weight:700 }
@@ -51,14 +51,14 @@ nav.simple a.active{ background:var(--ink); color:#fff }
 .stats h3{ font-size:2.5rem; font-weight:800 }
 .testimonial{ background:#fff; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,.05); padding:25px; min-height:200px; display:flex; align-items:center }
 .testimonial i{ color: var(--beige); font-size:2rem }
-.contact{ background:#f6f9f8; padding:70px 0 }
-.about-band{ background: linear-gradient(180deg, var(--beige), #fff); border-radius:16px }
+.contact{ background:color-mix(in oklab, var(--light-bg), var(--light-main) 5%); padding:70px 0 }
+.about-band{ background: linear-gradient(180deg, var(--beige), var(--paper)); border-radius:16px }
 .about-badge{ display:inline-block; background: var(--ink); color: var(--white); padding:6px 12px; border-radius:999px; font-weight:700; font-size:.9rem }
 .check-list{ list-style:none; padding:0; margin:0 }
 .check-list li{ display:flex; align-items:center; gap:.5rem; color: var(--ink) }
 .check-list i{ color: var(--beige) }
 .about-photo{ position:relative; border-radius:16px; overflow:hidden; box-shadow: var(--card-shadow) }
-.about-photo::after{ content:""; position:absolute; inset:0; box-shadow: inset 0 0 0 2px rgba(0,0,0,.04); border-radius:16px; pointer-events:none }
+.about-photo::after{ content:""; position:absolute; inset:0; box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--ink), transparent 96%); border-radius:16px; pointer-events:none }
 footer{ background: var(--ink); color: var(--white); padding:60px 0 }
 footer a{ color: var(--beige); text-decoration:none }
 
@@ -99,12 +99,12 @@ footer a{ color: var(--beige); text-decoration:none }
 .h-320{ height:320px }
 
 /* Bands */
-.band-white{ background:#fff; border-top:1px solid var(--border); border-bottom:1px solid var(--border) }
+.band-white{ background:var(--paper); border-top:1px solid var(--border); border-bottom:1px solid var(--border) }
 .band-beige{ background:var(--beige) }
 
 /* Home specific helpers */
 .hero-section{ min-height:58vh }
-.hero-center{ min-height:58vh; color:#fff }
+.hero-center{ min-height:58vh; color:var(--dark-text) }
 .stats-grid{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:1rem }
 @media (max-width:768px){ .stats-grid{ grid-template-columns: repeat(2, minmax(0,1fr)) } }
 .card-image-160{ height:160px }
@@ -138,7 +138,7 @@ footer a{ color: var(--beige); text-decoration:none }
 .footer-cta .wrap{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.8rem 0; flex-wrap:wrap }
 
 /* Brochure-like panels */
-.panel-dark{ background:#0c1518; color:#fff; position:relative }
+.panel-dark{ background:var(--dark-bg); color:var(--dark-text); position:relative }
 .panel-beige{ background:var(--beige); position:relative }
 .curve-bottom{ position:relative }
 .curve-bottom::after{ content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:-1px; width:160%; height:160px; background:var(--beige); border-top-left-radius:100% 160px; border-top-right-radius:100% 160px; }
