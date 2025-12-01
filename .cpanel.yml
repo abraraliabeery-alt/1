@@ -1,0 +1,15 @@
+---
+deployment:
+  tasks:
+    # مسار مجلد الويب في الاستضافة
+    - export DEPLOYPATH=/home/goldemma/public_html
+
+    # نسخ الملفات من الريبو إلى public_html مع استثناء الملفات غير المطلوبة
+    - /bin/rsync -av --delete \
+        --exclude '.git' \
+        --exclude '.cpanel.yml' \
+        --exclude 'node_modules' \
+        --exclude 'vendor' \
+        --exclude 'storage/logs' \
+        --exclude 'storage/framework/sessions' \
+        ./ $DEPLOYPATH
