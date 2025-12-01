@@ -1,1 +1,0 @@
-@include('tenders.pages.cover')

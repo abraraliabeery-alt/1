@@ -4,7 +4,6 @@
     @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
     <a class="brand" href="{{ url('/') }}#top" aria-label="Top Level">
       <img src="/img/logo/1.png" class="logo-light" alt="الشعار" />
-      <img src="/img/logo/2.png" class="logo-dark" alt="الشعار (الوضع الداكن)" />
     </a>
     <nav class="menu" aria-label="القائمة الرئيسية">
       <button class="menu-toggle" type="button" aria-label="فتح/إغلاق القائمة" aria-expanded="false">

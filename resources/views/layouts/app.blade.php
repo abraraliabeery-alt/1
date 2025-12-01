@@ -3,19 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
-  @php($siteTitle = $hasSettings ? \App\Models\Setting::getValue('site_title', 'مؤسسة طور البناء للتجارة | أدوات البناء والسباكة والصحية والكهربائية والعدد') : 'مؤسسة طور البناء للتجارة | أدوات البناء والسباكة والصحية والكهربائية والعدد')
-  @php($siteLogo = $hasSettings ? \App\Models\Setting::getValue('site_logo', '/assets/top.png') : '/assets/top.png')
-  @php($favicon = $hasSettings ? \App\Models\Setting::getValue('site_favicon', '/assets/favicon.svg') : '/assets/favicon.svg')
-
-  @php($colorPrimary = $hasSettings ? \App\Models\Setting::getValue('color_primary', '#c0ae8a') : '#c0ae8a')
-  @php($colorBg      = $hasSettings ? \App\Models\Setting::getValue('color_bg', '#ffffff') : '#ffffff')
-  @php($colorFg      = $hasSettings ? \App\Models\Setting::getValue('color_fg', '#051461') : '#051461')
-  @php($colorStrong  = $hasSettings ? \App\Models\Setting::getValue('color_strong', $colorFg) : $colorFg)
-  @php($colorPrimaryDark = $hasSettings ? \App\Models\Setting::getValue('color_primary_dark', '#fcae41') : '#fcae41')
-  @php($colorBgDark      = $hasSettings ? \App\Models\Setting::getValue('color_bg_dark', '#020617') : '#020617')
-  @php($colorFgDark      = $hasSettings ? \App\Models\Setting::getValue('color_fg_dark', '#f9fafb') : '#f9fafb')
-  @php($colorStrongDark  = $hasSettings ? \App\Models\Setting::getValue('color_strong_dark', $colorFgDark) : $colorFgDark)
   <title>{{ $siteTitle }}</title>
   <meta name="theme-color" content="#c8b79a" />
   <meta name="description" content="نوفّر في مؤسسة طور البناء للتجارة مجموعة متكاملة من أدوات السباكة والبناء والأدوات الصحية والكهربائية والعدد، مع البيع بالآجل والسداد على دفعات ميسرة." />
@@ -83,9 +70,7 @@
   <button class="back-to-top" aria-label="الرجوع للأعلى">↑</button>
 
   <!-- Floating WhatsApp Button -->
-  @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
-  @php($wa = $hasSettings ? \App\Models\Setting::getValue('whatsapp_number', config('app.whatsapp_number', '966000000000')) : config('app.whatsapp_number', '966000000000'))
-  <a class="whatsapp-fab" href="https://api.whatsapp.com/send?phone={{ urlencode($wa) }}" target="_blank" rel="noopener" aria-label="التواصل عبر واتساب">
+  <a class="whatsapp-fab" href="https://api.whatsapp.com/send?phone={{ urlencode($whatsappNumber) }}" target="_blank" rel="noopener" aria-label="التواصل عبر واتساب">
     <i class="bi bi-whatsapp" aria-hidden="true"></i>
   </a>
 
