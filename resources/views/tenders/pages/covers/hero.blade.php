@@ -1,15 +1,9 @@
-<?php
-$brand = \App\Models\Setting::getValue('color_primary', config('brand.color'));
-$siteName = \App\Models\Setting::getValue('site_title', config('brand.name'));
-$siteLogo = \App\Models\Setting::getValue('site_logo', asset(config('brand.logo_path')));
-$coverSrc = $tender->cover_image_url ?? $tender->cover_image ?? asset('assets/company-profile-cover.jpg');
-?>
 <section class="hero-cover" style="position:relative; min-height:297mm;">
   <style>
     .hero-wrap{ position:relative; height:297mm; color:#fff; }
     .hero-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter: saturate(110%); }
     .hero-overlay{ position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.65)); }
-    .hero-brand{ position:absolute; left:0; right:0; bottom:0; height:10mm; background: <?= $brand ?>; opacity:.9 }
+    .hero-brand{ position:absolute; left:0; right:0; bottom:0; height:10mm; background: {{ $brand }}; opacity:.9 }
     .hero-head{ position:absolute; top:20mm; right:20mm; display:flex; gap:8mm; align-items:center }
     .hero-head img{ height:18mm; background:#fff; border-radius:6mm; padding:2mm }
     .hero-title{ position:absolute; top:50%; right:10%; transform:translateY(-50%); max-width:110mm }

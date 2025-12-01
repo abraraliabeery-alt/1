@@ -1,13 +1,7 @@
-<?php
-$brand = \App\Models\Setting::getValue('color_primary', config('brand.color'));
-$siteName = \App\Models\Setting::getValue('site_title', config('brand.name'));
-$siteLogo = \App\Models\Setting::getValue('site_logo', asset(config('brand.logo_path')));
-$coverSrc = $tender->cover_image_url ?? $tender->cover_image ?? asset('assets/company-profile-cover.jpg');
-?>
 <section class="side-cover" style="position:relative; min-height:297mm;">
   <style>
     .side-wrap{ position:relative; height:297mm; display:grid; grid-template-columns: 70mm 1fr; background:#fff; color:#0b0e14 }
-    .side-left{ background: <?= $brand ?>; color:#fff; position:relative }
+    .side-left{ background: {{ $brand }}; color:#fff; position:relative }
     .side-left .logo{ position:absolute; top:16mm; right:16mm; height:16mm; background:#fff; border-radius:6mm; padding:2mm }
     .side-left .meta{ position:absolute; bottom:18mm; right:16mm; left:16mm; font-weight:800 }
     .side-right{ position:relative }
@@ -18,7 +12,7 @@ $coverSrc = $tender->cover_image_url ?? $tender->cover_image ?? asset('assets/co
     .side-title h1{ margin:0 0 4mm; font-size:15mm; font-weight:900 }
     .side-title .sub{ font-weight:800; color:#334155 }
     .side-badges{ display:flex; flex-wrap:wrap; gap:3mm; margin-top:5mm }
-    .side-badges .b{ display:inline-flex; align-items:center; gap:2mm; padding:2mm 3.2mm; background: color-mix(in oklab, <?= $brand ?>, #fff 85%); color:#0b0e14; border:1px solid color-mix(in oklab, <?= $brand ?>, #000 92%); border-radius:999px; font-weight:900; font-size:3.3mm }
+    .side-badges .b{ display:inline-flex; align-items:center; gap:2mm; padding:2mm 3.2mm; background: color-mix(in oklab, {{ $brand }}, #fff 85%); color:#0b0e14; border:1px solid color-mix(in oklab, {{ $brand }}, #000 92%); border-radius:999px; font-weight:900; font-size:3.3mm }
     @page{ size:A4; margin:0 }
   </style>
   <div class="side-wrap">

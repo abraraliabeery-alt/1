@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tender;
+use App\Models\Setting;
 use App\Services\TenderPdfService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -72,7 +73,9 @@ class TenderController extends Controller
 
     public function templateExample()
     {
-        $brandColor = '#0B5FAD';
+        $brand = Setting::getValue('color_primary', config('brand.color', '#0B5FAD'));
+        $siteName = Setting::getValue('site_title', config('brand.name'));
+        $siteLogo = Setting::getValue('site_logo', asset(config('brand.logo_path')));
         $tender = Tender::with([
             'client',
             'boqHeaders' => function($q){ $q->where('is_current', true)->with(['items']); },
@@ -102,13 +105,27 @@ class TenderController extends Controller
         $previousWorks = $tender?->previousProjects ?? collect();
         $fo = $tender?->financialOffers?->first();
         $attachments = $tender?->attachments ?? collect();
+        $coverSrc = $tender?->cover_image_url ?? $tender?->cover_image ?? asset('assets/company-profile-cover.jpg');
 
-        return view('tenders.example', compact('brandColor','tender','boqChunks','offsets','previousWorks','fo','attachments'));
+        return view('tenders.example', compact(
+            'brand',
+            'siteName',
+            'siteLogo',
+            'coverSrc',
+            'tender',
+            'boqChunks',
+            'offsets',
+            'previousWorks',
+            'fo',
+            'attachments'
+        ));
     }
 
     public function exampleForTender(Tender $tender)
     {
-        $brandColor = '#0B5FAD';
+        $brand = Setting::getValue('color_primary', config('brand.color', '#0B5FAD'));
+        $siteName = Setting::getValue('site_title', config('brand.name'));
+        $siteLogo = Setting::getValue('site_logo', asset(config('brand.logo_path')));
         $tender->load([
             'client',
             'boqHeaders' => function($q){ $q->where('is_current', true)->with(['items']); },
@@ -138,7 +155,20 @@ class TenderController extends Controller
         $previousWorks = $tender->previousProjects ?? collect();
         $fo = $tender->financialOffers?->first();
         $attachments = $tender->attachments ?? collect();
-        return view('tenders.example', compact('brandColor','tender','boqChunks','offsets','previousWorks','fo','attachments'));
+        $coverSrc = $tender->cover_image_url ?? $tender->cover_image ?? asset('assets/company-profile-cover.jpg');
+
+        return view('tenders.example', compact(
+            'brand',
+            'siteName',
+            'siteLogo',
+            'coverSrc',
+            'tender',
+            'boqChunks',
+            'offsets',
+            'previousWorks',
+            'fo',
+            'attachments'
+        ));
     }
 
     public function templateCompare()

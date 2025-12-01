@@ -1,13 +1,7 @@
-<?php
-$brand = \App\Models\Setting::getValue('color_primary', config('brand.color'));
-$siteName = \App\Models\Setting::getValue('site_title', config('brand.name'));
-$siteLogo = \App\Models\Setting::getValue('site_logo', asset(config('brand.logo_path')));
-$coverSrc = $tender->cover_image_url ?? $tender->cover_image ?? asset('assets/company-profile-cover.jpg');
-?>
 <section class="arch-cover" style="position:relative; min-height:297mm;">
   <style>
     .arch-wrap{ position:relative; height:297mm; background:#fff; color:#0b0e14; overflow:hidden }
-    .arch-band{ position:absolute; inset:-40mm -40mm auto -40mm; height:120mm; background: color-mix(in oklab, <?= $brand ?>, #fff 70%); clip-path: ellipse(60% 100% at 50% 100%); box-shadow:0 20px 40px rgba(0,0,0,.12) }
+    .arch-band{ position:absolute; inset:-40mm -40mm auto -40mm; height:120mm; background: color-mix(in oklab, {{ $brand }}, #fff 70%); clip-path: ellipse(60% 100% at 50% 100%); box-shadow:0 20px 40px rgba(0,0,0,.12) }
     .arch-photo{ position:absolute; right:18mm; top:70mm; width:90mm; height:120mm; border-radius:8mm; overflow:hidden; border:2px solid #e5e7eb; box-shadow:0 12px 30px rgba(0,0,0,.10) }
     .arch-photo img{ width:100%; height:100%; object-fit:cover }
     .arch-title{ position:absolute; left:18mm; top:50%; transform:translateY(-50%); max-width:90mm }

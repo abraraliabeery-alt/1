@@ -12,24 +12,23 @@
   <link rel="stylesheet" href="{{ asset('tender.css') }}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <?php $brand = $brandColor ?? config('brand.color'); ?>
   <style>
     @media print { .no-print{display:none!important} body{-webkit-print-color-adjust:exact;print-color-adjust:exact} main{box-shadow:none!important} }
     @page{ size:A4; margin:0 }
-    .hr-brand{ height:2px; background: <?= $brand ?> }
-    .thead-brand th{ background: <?= $brand ?> !important; color:#fff !important }
-    .brand-text{ color: <?= $brand ?> }
+    .hr-brand{ height:2px; background: {{ $brand }} }
+    .thead-brand th{ background: {{ $brand }} !important; color:#fff !important }
+    .brand-text{ color: {{ $brand }} }
     table.bw th, table.bw td { border-width: 1.2px !important }
     .a4{ width:210mm; min-height:297mm; background:#fff; margin:0 auto 12px; box-shadow: 0 1px 8px rgba(0,0,0,.06); position:relative }
-    .a4 .page-header{ position:absolute; top:0; left:0; right:0; height:20mm; padding:6mm 15mm; display:flex; align-items:center; justify-content:space-between; border-bottom:2px solid <?= $brand ?> }
-    .a4 .page-footer{ position:absolute; bottom:0; left:0; right:0; height:15mm; padding:4mm 15mm; display:flex; align-items:center; justify-content:space-between; border-top:2px solid <?= $brand ?>; font-size:10px; color:#4b5563 }
+    .a4 .page-header{ position:absolute; top:0; left:0; right:0; height:20mm; padding:6mm 15mm; display:flex; align-items:center; justify-content:space-between; border-bottom:2px solid {{ $brand }} }
+    .a4 .page-footer{ position:absolute; bottom:0; left:0; right:0; height:15mm; padding:4mm 15mm; display:flex; align-items:center; justify-content:space-between; border-top:2px solid {{ $brand }}; font-size:10px; color:#4b5563 }
     .a4 .content{ padding: 28mm 15mm 22mm 15mm }
     .a4:not(:last-child){ page-break-after: always }
     .page-break{ display:none }
     .subtitle{ color: #6b7280 }
   </style>
 </head>
-<body class="bg-gray-100 font-sans tender-doc" style="font-family:'Cairo',system-ui; --brand: <?= $brand ?>;">
+<body class="bg-gray-100 font-sans tender-doc" style="font-family:'Cairo',system-ui; --brand: {{ $brand }};">
   <div class="container mx-auto p-6">
     <div class="text-center mb-6 no-print">
       <a href="{{ route('admin.tenders.index') }}" class="text-sm text-gray-600">رجوع</a>

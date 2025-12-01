@@ -1,14 +1,8 @@
-<?php
-$brand = \App\Models\Setting::getValue('color_primary', config('brand.color'));
-$siteName = \App\Models\Setting::getValue('site_title', config('brand.name'));
-$siteLogo = \App\Models\Setting::getValue('site_logo', asset(config('brand.logo_path')));
-$coverSrc = $tender->cover_image_url ?? $tender->cover_image ?? asset('assets/company-profile-cover.jpg');
-?>
 <section class="min-cover" style="position:relative; min-height:297mm;">
   <style>
     .min-wrap{ position:relative; height:297mm; background:#fff; color:#0b0e14; overflow:hidden }
-    .min-edge{ position:absolute; right:0; top:0; bottom:0; width:8mm; background: <?= $brand ?> }
-    .min-top{ position:absolute; left:0; right:0; top:0; height:22mm; background: color-mix(in oklab, <?= $brand ?>, #fff 85%) }
+    .min-edge{ position:absolute; right:0; top:0; bottom:0; width:8mm; background: {{ $brand }} }
+    .min-top{ position:absolute; left:0; right:0; top:0; height:22mm; background: color-mix(in oklab, {{ $brand }}, #fff 85%) }
     .min-title{ position:absolute; top:45%; left:50%; transform: translate(-50%,-50%); text-align:center; max-width:160mm }
     .min-title h1{ margin:0 0 4mm; font-size:16mm; font-weight:900 }
     .min-title .sub{ font-weight:800; color:#334155; font-size:5mm }
