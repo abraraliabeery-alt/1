@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© <span id="year"></span> توب ليفل. جميع الحقوق محفوظة. · <a href="{{ route('privacy') }}" style="color:inherit">سياسة الخصوصية</a></p>
+      <p>© <span id="year"></span> توب ليفل. جميع الحقوق محفوظة. · <a href="{{ route('privacy') }}" style="color:inherit">سياسة الخصوصية</a> · <span style="opacity:.7">اختبار النشر</span></p>
     </div>
   </div>
 </footer>
