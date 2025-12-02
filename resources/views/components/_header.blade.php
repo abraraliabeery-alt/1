@@ -18,7 +18,7 @@
           }
         }
       @endphp
-      @if($logo)
+      @if(!empty($logo ?? null))
         <img src="{{ $logo }}" class="logo-light" alt="الشعار" onerror="this.style.display='none'" />
       @endif
     </a>
