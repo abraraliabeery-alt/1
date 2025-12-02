@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name','شركة مدى الذهبية') }}</title>
-    <link rel="icon" href="{{ $favicon }}" />
     @vite(['resources/css/app.css','resources/js/app.js'])
   </head>
   <body class="bg-slate-50 text-slate-800 font-sans">
