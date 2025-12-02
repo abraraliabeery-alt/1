@@ -3,7 +3,24 @@
   <div class="container nav">
     @php($hasSettings = \Illuminate\Support\Facades\Schema::hasTable('settings'))
     <a class="brand" href="{{ url('/') }}#top" aria-label="Top Level">
-      <img src="/img/logo/1.png" class="logo-light" alt="الشعار" />
+      @php
+        $candidate = $hasSettings ? \App\Models\Setting::getValue('site_logo', config('brand.logo_path')) : config('brand.logo_path');
+        $logo = null;
+        if ($candidate) {
+          if (\Illuminate\Support\Str::startsWith($candidate, ['http://','https://'])) {
+            $logo = $candidate;
+          } elseif (\Illuminate\Support\Str::startsWith($candidate, ['/'])) {
+            $logo = asset(ltrim($candidate, '/'));
+          } elseif (\Illuminate\Support\Facades\Storage::disk('public')->exists($candidate)) {
+            $logo = asset('storage/'.$candidate);
+          } else {
+            $logo = asset($candidate);
+          }
+        }
+      @endphp
+      @if($logo)
+        <img src="{{ $logo }}" class="logo-light" alt="الشعار" onerror="this.style.display='none'" />
+      @endif
     </a>
     <nav class="menu" aria-label="القائمة الرئيسية">
       <button class="menu-toggle" type="button" aria-label="فتح/إغلاق القائمة" aria-expanded="false">
