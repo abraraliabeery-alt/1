@@ -536,12 +536,12 @@
     <section class="tpl-clients section reveal">
       <div class="container">
         <div class="clients-row">
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
         </div>
       </div>
     </section>
@@ -562,12 +562,12 @@
     <section class="tpl-clients section">
       <div class="container">
         <div class="clients-row">
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/top.png') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
         </div>
       </div>
     </section>
