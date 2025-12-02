@@ -22,7 +22,7 @@
   <meta name="twitter:title" content="{{ $siteTitle }}" />
   <meta name="twitter:description" content="مجموعة متكاملة من أدوات السباكة والبناء والصحية والكهربائية والعدد. البيع بالآجل والسداد على دفعات ميسرة." />
   <meta name="twitter:image" content="{{ request()->getSchemeAndHttpHost() }}/assets/top.png" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css" rel="stylesheet" integrity="sha384-D4sG5I9z4e2m0cS9mH+0r8e6sQy4YqUq9q3v4xgWmX9o9F1k1s5I4l5s2x" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v={{ @filemtime(public_path('styles.css')) }}" />
   @vite(['resources/css/app.css','resources/js/app.js'])
   @yield('head_extra')

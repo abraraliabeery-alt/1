@@ -536,12 +536,12 @@
     <section class="tpl-clients section reveal">
       <div class="container">
         <div class="clients-row">
-          <div class="client"><img src="/assets/clients/1.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/2.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/3.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/4.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/5.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/6.svg" alt="Client" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
         </div>
       </div>
     </section>
@@ -553,7 +553,7 @@
           <p>فريقنا المتخصص يعمل بروح التعاون والالتزام لتحقيق رضا العملاء وبناء علاقات متينة ومستدامة معهم.</p>
           <a href="#contact" class="btn btn-primary">اتصل بنا</a>
         </div>
-        <div><img src="/assets/showcase/feature-b.jpg" alt="تواصل" class="band-img" loading="lazy" decoding="async" onerror="this.style.display='none'" /></div>
+        <div><img src="{{ asset('assets/hero-smart-home.jpg') }}" alt="تواصل" class="band-img" loading="lazy" decoding="async" onerror="this.style.display='none'" /></div>
       </div>
     </section>
 
@@ -562,12 +562,12 @@
     <section class="tpl-clients section">
       <div class="container">
         <div class="clients-row">
-          <div class="client"><img src="/assets/clients/1.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/2.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/3.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/4.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/5.svg" alt="Client" onerror="this.style.opacity=.35"></div>
-          <div class="client"><img src="/assets/clients/6.svg" alt="Client" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
+          <div class="client"><img src="{{ asset('assets/brand.svg') }}" alt="عميل" onerror="this.style.opacity=.35"></div>
         </div>
       </div>
     </section>
