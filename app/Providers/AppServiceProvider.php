@@ -51,10 +51,13 @@ class AppServiceProvider extends ServiceProvider
             $whatsappNumber   = Setting::getValue('whatsapp_number', $whatsappNumber);
         }
 
+        $ogImage = $siteLogo;
+
         View::share([
             'siteTitle'        => $siteTitle,
             'siteLogo'         => $siteLogo,
             'favicon'          => $favicon,
+            'ogImage'          => $ogImage,
             'colorPrimary'     => $colorPrimary,
             'colorBg'          => $colorBg,
             'colorFg'          => $colorFg,
