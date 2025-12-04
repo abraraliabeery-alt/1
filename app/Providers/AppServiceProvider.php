@@ -6,6 +6,7 @@ use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,11 +54,20 @@ class AppServiceProvider extends ServiceProvider
 
         $ogImage = $siteLogo;
 
+        // Build an absolute URL for social previews. If the stored value is already
+        // an absolute URL (starts with http/https) we use it as-is; otherwise we
+        // prefix it with the application URL.
+        $ogImageUrl = $ogImage;
+        if (! empty($ogImage) && ! Str::startsWith($ogImage, ['http://', 'https://'])) {
+            $ogImageUrl = rtrim(config('app.url', ''), '/') . '/' . ltrim($ogImage, '/');
+        }
+
         View::share([
             'siteTitle'        => $siteTitle,
             'siteLogo'         => $siteLogo,
             'favicon'          => $favicon,
             'ogImage'          => $ogImage,
+            'ogImageUrl'       => $ogImageUrl,
             'colorPrimary'     => $colorPrimary,
             'colorBg'          => $colorBg,
             'colorFg'          => $colorFg,

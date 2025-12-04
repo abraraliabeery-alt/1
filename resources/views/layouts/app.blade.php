@@ -15,13 +15,13 @@
   <meta property="og:title" content="{{ $siteTitle }}" />
   <meta property="og:description" content="مجموعة متكاملة من أدوات السباكة والبناء والصحية والكهربائية والعدد. البيع بالآجل والسداد على دفعات ميسرة." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="{{ rtrim(request()->getSchemeAndHttpHost(), '/') }}/{{ ltrim($ogImage ?? $siteLogo, '/') }}" />
+  <meta property="og:image" content="{{ $ogImageUrl ?? (url($ogImage ?? $siteLogo)) }}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{{ $siteTitle }}" />
   <meta name="twitter:description" content="مجموعة متكاملة من أدوات السباكة والبناء والصحية والكهربائية والعدد. البيع بالآجل والسداد على دفعات ميسرة." />
-  <meta name="twitter:image" content="{{ rtrim(request()->getSchemeAndHttpHost(), '/') }}/{{ ltrim($ogImage ?? $siteLogo, '/') }}" />
+  <meta name="twitter:image" content="{{ $ogImageUrl ?? (url($ogImage ?? $siteLogo)) }}" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v={{ @filemtime(public_path('styles.css')) }}" />
   @vite(['resources/css/app.css','resources/js/app.js'])
