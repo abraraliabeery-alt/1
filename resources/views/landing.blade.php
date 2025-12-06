@@ -134,10 +134,10 @@
   /* Wave dividers */
   .wave{ line-height:0; height:48px; overflow:hidden }
   .wave svg{ display:block; width:100%; height:48px }
-  /* Mobile CTA bar */
+  /* Mobile CTA bar (disabled on mobile) */
   #mobile-cta{ position:fixed; inset:auto 0 12px 0; z-index:70; display:none; justify-content:center }
   #mobile-cta .bar{ display:flex; gap:.5rem; background:color-mix(in oklab, var(--card), transparent 0%); border:1px solid var(--border); box-shadow: 0 8px 24px rgba(0,0,0,.12); padding:.5rem; margin-inline:auto; border-radius:999px }
-  @media (max-width:768px){ #mobile-cta{ display:flex } }
+  /* تم إلغاء إظهار شريط CTA على شاشات الجوال */
   /* Button variants */
   .btn-ghost{ background:transparent; color: var(--fg); border:1px solid color-mix(in oklab, var(--fg), transparent 85%) }
   .btn-subtle{ background: color-mix(in oklab, var(--fg), transparent 94%); color: var(--fg); border:1px solid color-mix(in oklab, var(--fg), transparent 90%) }

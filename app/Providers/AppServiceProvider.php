@@ -26,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
         // Share branding / layout settings with all views
         $siteTitle        = 'مؤسسة طور البناء للتجارة | أدوات البناء والسباكة والصحية والكهربائية والعدد';
         $siteLogo         = '/assets/top.png';
-        $favicon          = '/assets/favicon.svg';
+        // Default to the standard favicon path; admin settings can still override it
+        $favicon          = '/favicon.ico';
         $colorPrimary     = '#c0ae8a';
         $colorBg          = '#ffffff';
         $colorFg          = '#051461';
@@ -56,10 +57,10 @@ class AppServiceProvider extends ServiceProvider
 
         // Build an absolute URL for social previews. If the stored value is already
         // an absolute URL (starts with http/https) we use it as-is; otherwise we
-        // prefix it with the application URL.
+        // rely on Laravel's url() helper to generate a full URL for the current app.
         $ogImageUrl = $ogImage;
         if (! empty($ogImage) && ! Str::startsWith($ogImage, ['http://', 'https://'])) {
-            $ogImageUrl = rtrim(config('app.url', ''), '/') . '/' . ltrim($ogImage, '/');
+            $ogImageUrl = url($ogImage);
         }
 
         View::share([
