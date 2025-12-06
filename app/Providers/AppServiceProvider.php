@@ -63,12 +63,30 @@ class AppServiceProvider extends ServiceProvider
             $ogImageUrl = url($ogImage);
         }
 
+        // Unified social preview image used by Open Graph / Twitter, with safe
+        // fallbacks all handled at the PHP layer (not inside Blade views).
+        $socialImage = $ogImageUrl
+            ?: ($ogImage ? url($ogImage) : ($siteLogo ? url($siteLogo) : asset('img/logo/1.png')));
+
+        // Organization schema (JSON-LD) shared with views that need rich
+        // snippets, e.g. the landing page.
+        $organizationSchema = [
+            '@context' => 'https://schema.org',
+            '@type'    => 'Organization',
+            'name'     => 'شركة مدى الذهبية',
+            'url'      => url('/'),
+            'logo'     => $socialImage,
+            'description' => 'شركة عقارية تقدم خدمات شراء وبيع وتأجير وإدارة أملاك، تقييم وتسويق عقاري واستشارات استثمارية، بخبرة محلية ورؤية احترافية.',
+            'sameAs'   => [],
+        ];
+
         View::share([
             'siteTitle'        => $siteTitle,
             'siteLogo'         => $siteLogo,
             'favicon'          => $favicon,
             'ogImage'          => $ogImage,
             'ogImageUrl'       => $ogImageUrl,
+            'socialImage'      => $socialImage,
             'colorPrimary'     => $colorPrimary,
             'colorBg'          => $colorBg,
             'colorFg'          => $colorFg,
@@ -78,6 +96,7 @@ class AppServiceProvider extends ServiceProvider
             'colorFgDark'      => $colorFgDark,
             'colorStrongDark'  => $colorStrongDark,
             'whatsappNumber'   => $whatsappNumber,
+            'organizationSchema' => $organizationSchema,
         ]);
     }
 }

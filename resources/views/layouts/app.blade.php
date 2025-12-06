@@ -12,10 +12,6 @@
   <link rel="icon" href="{{ url($favicon) }}" />
   <!-- Bootstrap Icons for standard iconography -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  @php(
-    $socialImage = $ogImageUrl
-      ?? ($ogImage ? url($ogImage) : ($siteLogo ? url($siteLogo) : asset('img/logo/1.png')))
-  )
   <meta property="og:title" content="{{ $siteTitle }}" />
   <meta property="og:description" content="مجموعة متكاملة من أدوات السباكة والبناء والصحية والكهربائية والعدد. البيع بالآجل والسداد على دفعات ميسرة." />
   <meta property="og:type" content="website" />

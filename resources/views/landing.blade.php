@@ -2,15 +2,7 @@
 
 @section('head_extra')
 <script type="application/ld+json">
-{!! json_encode([
-  '@context' => 'https://schema.org',
-  '@type' => 'Organization',
-  'name' => 'شركة مدى الذهبية',
-  'url' => url('/'),
-  'logo' => $siteLogo ? url($siteLogo) : asset('img/logo/1.png'),
-  'description' => 'شركة عقارية تقدم خدمات شراء وبيع وتأجير وإدارة أملاك، تقييم وتسويق عقاري واستشارات استثمارية، بخبرة محلية ورؤية احترافية.',
-  'sameAs' => [],
-], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+@json($organizationSchema, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
