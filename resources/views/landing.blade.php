@@ -181,7 +181,7 @@
   /* Floating FAB */
   #fab{ position:fixed; inset:auto 12px 12px auto; z-index:75; display:flex; flex-direction:column; gap:.5rem }
   #fab a{ width:48px; height:48px; display:grid; place-items:center; border-radius:999px; background: var(--primary); color:#000; box-shadow:0 10px 24px rgba(0,0,0,.18) }
-  #fab a.secondary{ background: color-mix(in oklab, var(--fg), transparent 90%) }
+  #fab a.secondary{ background: var(--primary); color:#000 }
   /* News marquee */
   #newsbar{ position:sticky; top:0; z-index:65; background: color-mix(in oklab, var(--accent), transparent 85%); color: inherit; border-bottom:1px solid color-mix(in oklab, var(--fg), transparent 85%); font-weight:700; display:none }
   #newsbar .wrap{ display:flex; gap:1rem; overflow:hidden; padding:.35rem 1rem }
@@ -342,9 +342,8 @@
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
-<!-- Floating action buttons -->
-<div id="fab" aria-label="اختصارات">
-  <a href="{{ $whatsappLink ?? '#' }}" target="_blank" rel="noopener" title="WhatsApp" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>WA</a>
+<!-- Floating action button (phone only) -->
+<div id="fab" aria-label="اختصار الاتصال">
   <a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}" class="secondary" title="اتصل" @if(empty($contactPhone)) style="pointer-events:none; opacity:.5" @endif>☎</a>
   <div id="cursor-blob" aria-hidden="true"></div>
 </div>
@@ -589,8 +588,7 @@
           <h2><span class="title-deco">تواصل معنا</span></h2>
           <p>يسعدنا خدمتك والإجابة على استفساراتك وتقديم أفضل عرض يناسب مشروعك.</p>
           <div class="info-list">
-            <div class="info-item"><i class="fa-solid fa-phone"></i><div><strong>الجوال</strong><div><a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}">{{ $contactPhone ?? '—' }}</a></div></div></div>
-            <div class="info-item"><i class="fa-brands fa-whatsapp"></i><div><strong>واتساب</strong><div><a href="{{ $whatsappLink ?? '#' }}" target="_blank" rel="noopener" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>راسلنا مباشرة</a></div></div></div>
+            <div class="info-item"><i class="fa-solid fa-phone"></i><div><strong>رقم التواصل</strong><div><a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}">{{ $contactPhone ?? '—' }}</a></div></div></div>
             <div class="info-item"><i class="fa-regular fa-envelope"></i><div><strong>البريد</strong><div><a href="{{ !empty($contactEmail) ? 'mailto:'.$contactEmail : '#' }}">{{ $contactEmail ?? '—' }}</a></div></div></div>
           </div>
         </div>

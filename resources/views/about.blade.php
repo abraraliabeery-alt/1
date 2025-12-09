@@ -46,7 +46,7 @@
             {{ $contactEmail ?? '—' }}
           </a>
         </p>
-        <p class="m-0">رقم الجوال:
+        <p class="m-0">رقم التواصل:
           <a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}">
             {{ $contactPhone ?? '—' }}
           </a>
