@@ -35,8 +35,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        @php $profileUrl = \Illuminate\Support\Facades\Route::has('profile.edit') ? route('profile.edit') : route('dashboard'); @endphp
-                        <x-dropdown-link :href="$profileUrl">
+                        <x-dropdown-link :href="\Illuminate\Support\Facades\Route::has('profile.edit') ? route('profile.edit') : route('dashboard')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
@@ -84,8 +83,7 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                @php $profileUrl = \Illuminate\Support\Facades\Route::has('profile.edit') ? route('profile.edit') : route('dashboard'); @endphp
-                <x-responsive-nav-link :href="$profileUrl">
+                <x-responsive-nav-link :href="\Illuminate\Support\Facades\Route::has('profile.edit') ? route('profile.edit') : route('dashboard')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 

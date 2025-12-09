@@ -13,21 +13,8 @@
     <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="{{ route('home') }}" class="flex items-center gap-2 font-extrabold text-slate-800">
-          @php
-            $candidate = \App\Models\Setting::getValue('site_logo', config('brand.logo_path'));
-            $logo = null;
-            if ($candidate) {
-              if (\Illuminate\Support\Str::startsWith($candidate, ['http://','https://'])) {
-                $logo = $candidate;
-              } elseif (\Illuminate\Support\Facades\Storage::disk('public')->exists($candidate)) {
-                $logo = asset('storage/'.$candidate);
-              } else {
-                $logo = asset($candidate);
-              }
-            }
-          @endphp
-          @if($logo)
-            <img src="{{ $logo }}" class="w-8 h-8 rounded-lg hidden sm:block" onerror="this.style.display='none'" alt="logo">
+          @if(!empty($siteLogoUrl))
+            <img src="{{ $siteLogoUrl }}" class="w-8 h-8 rounded-lg hidden sm:block" onerror="this.style.display='none'" alt="logo">
           @endif
           <span>{{ config('app.name','شركة مدى الذهبية') }}</span>
         </a>

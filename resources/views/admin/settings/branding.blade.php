@@ -46,13 +46,12 @@
           <input type="file" name="site_favicon" accept="image/*,.ico,.svg">
         </label>
         <label style="margin-top:8px; display:flex; align-items:center; gap:8px; font-size:13px">
-          @php($same = empty($site_favicon) || $site_favicon === $site_logo)
-          <input type="checkbox" name="favicon_same_logo" {{ $same ? 'checked' : '' }} style="width:auto; min-width:auto; flex:0 0 auto;">
+          <input type="checkbox" name="favicon_same_logo" @checked(empty($site_favicon) || $site_favicon === $site_logo) style="width:auto; min-width:auto; flex:0 0 auto;">
           <span>استخدام نفس الشعار كأيقونة تبويب</span>
         </label>
         <div class="row-between" style="margin-top:8px">
           <div class="text-muted" style="font-size:12px">الحالي:</div>
-          <img src="{{ $same ? $site_logo : $site_favicon }}" alt="الرمز الحالي" style="height:32px; width:auto">
+          <img src="{{ empty($site_favicon) || $site_favicon === $site_logo ? $site_logo : $site_favicon }}" alt="الرمز الحالي" style="height:32px; width:auto">
         </div>
       </div>
 

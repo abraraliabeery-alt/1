@@ -31,10 +31,9 @@
     </label>
     <label>
       الحالة
-      @php($st = old('status', $partner->status ?? 'published'))
       <select name="status">
-        <option value="draft" {{ $st==='draft' ? 'selected' : '' }}>مسودة</option>
-        <option value="published" {{ $st==='published' ? 'selected' : '' }}>منشور</option>
+        <option value="draft" @selected(old('status', $partner->status ?? 'published')==='draft')>مسودة</option>
+        <option value="published" @selected(old('status', $partner->status ?? 'published')==='published')>منشور</option>
       </select>
     </label>
   </div>

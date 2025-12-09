@@ -61,6 +61,51 @@ class Property extends Model
         return 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop';
     }
 
+    /**
+     * Primary image used in cards and detail pages.
+     */
+    public function getPrimaryImageUrlAttribute(): string
+    {
+        $fallback = 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop';
+
+        // Prefer explicit cover image accessor when available
+        $cover = $this->cover_image_url;
+        if ($cover && $cover !== $fallback) {
+            return $cover;
+        }
+
+        $gallery = $this->gallery_urls;
+        if (!empty($gallery)) {
+            return $gallery[0];
+        }
+
+        return $fallback;
+    }
+
+    /**
+     * Resolved gallery URLs with storage / external handling.
+     */
+    public function getGalleryUrlsAttribute(): array
+    {
+        $raw = is_array($this->gallery ?? null) ? $this->gallery : [];
+        $urls = [];
+
+        foreach ($raw as $img) {
+            if (!$img) {
+                continue;
+            }
+            if (Str::startsWith($img, ['http://','https://'])) {
+                $urls[] = $img;
+                continue;
+            }
+            if (Storage::disk('public')->exists($img)) {
+                $urls[] = asset('storage/'.$img);
+            }
+        }
+
+        return $urls;
+    }
+
     // Derived attributes for cleaner Blade templates
     public function getAddressAttribute(): string
     {
@@ -103,6 +148,33 @@ class Property extends Model
         if (!isset($this->attributes['furnished'])) return null;
         $v = strtolower((string)$this->attributes['furnished']);
         return in_array($v, ['yes','true','1','furnished','مؤثث'], true) ? 'مؤثث' : 'غير مؤثث';
+    }
+
+    /**
+     * Normalized amenities list for display.
+     */
+    public function getAmenitiesListAttribute(): array
+    {
+        $raw = is_array($this->amenities ?? null)
+            ? $this->amenities
+            : (is_array($this->features ?? null) ? $this->features : []);
+
+        return array_values(array_filter($raw, function ($am) {
+            return !empty($am);
+        }));
+    }
+
+    /**
+     * Whether the location URL is embeddable in an iframe (Google Maps, etc.).
+     */
+    public function getIsLocationEmbeddableAttribute(): bool
+    {
+        $url = (string) ($this->location_url ?? '');
+        if ($url === '') {
+            return false;
+        }
+
+        return Str::contains($url, ['google.com/maps','maps.google','goo.gl/maps','maps.app.goo']);
     }
 
     // Helper to fetch similar properties

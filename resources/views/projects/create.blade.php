@@ -35,21 +35,19 @@
           </label>
           <label>المدينة
             <select name="city" class="@error('city') is-invalid @enderror">
-              @php($cityOld = old('city'))
               <option value="">اختر المدينة</option>
-              <option value="الرياض" {{ $cityOld==='الرياض' ? 'selected' : '' }}>الرياض</option>
+              <option value="الرياض" @selected(old('city')==='الرياض')>الرياض</option>
             </select>
             @error('city')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>
           <label>التصنيف
             <select name="category" class="@error('category') is-invalid @enderror">
-              @php($catOld = old('category'))
               <option value="">اختر التصنيف</option>
-              <option value="فيلا" {{ $catOld==='فيلا' ? 'selected' : '' }}>فيلا</option>
-              <option value="مكتب" {{ $catOld==='مكتب' ? 'selected' : '' }}>مكتب</option>
-              <option value="متجر" {{ $catOld==='متجر' ? 'selected' : '' }}>متجر</option>
-              <option value="مجمع" {{ $catOld==='مجمع' ? 'selected' : '' }}>مجمع</option>
-              <option value="مصنع" {{ $catOld==='مصنع' ? 'selected' : '' }}>مصنع</option>
+              <option value="فيلا" @selected(old('category')==='فيلا')>فيلا</option>
+              <option value="مكتب" @selected(old('category')==='مكتب')>مكتب</option>
+              <option value="متجر" @selected(old('category')==='متجر')>متجر</option>
+              <option value="مجمع" @selected(old('category')==='مجمع')>مجمع</option>
+              <option value="مصنع" @selected(old('category')==='مصنع')>مصنع</option>
             </select>
             @error('category')<div class="invalid-feedback">{{ $message }}</div>@enderror
           </label>

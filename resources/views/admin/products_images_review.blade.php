@@ -20,11 +20,10 @@
 
   <div class="row g-3">
     @forelse($items as $p)
-      @php($img = trim((string)($p['image'] ?? '')) ?: '/assets/products/placeholder.svg')
       <div class="col-6 col-sm-4 col-md-3 col-lg-2">
         <div class="card h-100">
           <div class="ratio ratio-1x1 bg-light">
-            <img src="{{ $img }}" alt="{{ $p['name_ar'] ?? '' }}" class="img-fluid w-100 h-100" style="object-fit:cover" />
+            <img src="{{ trim((string)($p['image'] ?? '')) ?: '/assets/products/placeholder.svg' }}" alt="{{ $p['name_ar'] ?? '' }}" class="img-fluid w-100 h-100" style="object-fit:cover" />
           </div>
           <div class="card-body p-2">
             <div class="small fw-bold text-truncate" title="{{ $p['name_ar'] ?? '' }}">{{ $p['name_ar'] ?? '' }}</div>

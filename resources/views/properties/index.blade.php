@@ -67,21 +67,12 @@
             <div class="ep-grid">
               @forelse($properties as $property)
               <div class="ep-card">
-                @php($gallery = is_array($property->gallery ?? null) ? $property->gallery : [])
-                @php($first = $gallery[0] ?? null)
-                @php($fallback = 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop')
-                @php($cover = $property->cover_image_url)
-                @if(!$cover && $first)
-                  @php($cover = \Illuminate\Support\Str::startsWith($first, ['http://','https://']) ? $first : (\Illuminate\Support\Facades\Storage::disk('public')->exists($first) ? asset('storage/'.$first) : $fallback))
-                @endif
-                @php($cover = $cover ?: $fallback)
-                @if(!empty($gallery))
+                @if(!empty($property->gallery_urls))
                   <div class="ep-slider" id="card-{{ $property->id }}">
                     <div class="ep-slides">
-                      <img class="ep-slide active" src="{{ $cover }}" alt="{{ $property->title }}" onerror="this.onerror=null;this.src='{{ $fallback }}'">
-                      @foreach($gallery as $img)
-                        @php($src = \Illuminate\Support\Str::startsWith($img, ['http://','https://']) ? $img : (\Illuminate\Support\Facades\Storage::disk('public')->exists($img) ? asset('storage/'.$img) : $fallback))
-                        <img class="ep-slide" src="{{ $src }}" alt="gallery" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+                      <img class="ep-slide active" src="{{ $property->primary_image_url }}" alt="{{ $property->title }}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+                      @foreach($property->gallery_urls as $img)
+                        <img class="ep-slide" src="{{ $img }}" alt="gallery" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
                       @endforeach
                     </div>
                     <button class="ep-sbtn ep-prev" type="button" aria-label="السابق"><i class="fa-solid fa-chevron-right"></i></button>
@@ -90,7 +81,7 @@
                   </div>
                 @else
                   <a href="{{ route('properties.show', $property) }}" class="d-block">
-                    <img src="{{ $cover }}" alt="{{ $property->title }}" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+                    <img src="{{ $property->primary_image_url }}" alt="{{ $property->title }}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
                   </a>
                 @endif
                 <div class="ep-card-content">

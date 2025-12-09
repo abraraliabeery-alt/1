@@ -23,10 +23,9 @@
     <h3 class="h3-compact">إدارة المتابعة</h3>
     <label>
       الحالة
-      @php($st = old('status', $contact->status ?? 'new'))
       <select name="status" class="@error('status') is-invalid @enderror">
-        <option value="new" {{ $st==='new' ? 'selected' : '' }}>جديد</option>
-        <option value="in_progress" {{ $st==='in_progress' ? 'selected' : '' }}>قيد المتابعة</option>
+        <option value="new" @selected(old('status', $contact->status ?? 'new')==='new')>جديد</option>
+        <option value="in_progress" @selected(old('status', $contact->status ?? 'new')==='in_progress')>قيد المتابعة</option>
         <option value="closed" {{ $st==='closed' ? 'selected' : '' }}>مغلق</option>
       </select>
       @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror

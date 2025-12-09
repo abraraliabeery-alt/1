@@ -106,12 +106,11 @@
 
         <div>
             <label class="block mb-2 font-semibold">المزايا</label>
-            @php($checkedOld = old('amenities_list', $property->amenities ?? []))
             <div class="row row-cols-6 g-1 amenities-grid">
                 @foreach(($amenityOptions ?? []) as $key=>$opt)
                   <div class="col">
                     <label class="d-flex align-items-center gap-1 border rounded p-1 hover-bg-light cursor-pointer w-100 amenity">
-                      <input class="form-check-input" type="checkbox" name="amenities_list[]" value="{{ $key }}" @checked(in_array($key, $checkedOld))>
+                      <input class="form-check-input" type="checkbox" name="amenities_list[]" value="{{ $key }}" @checked(in_array($key, old('amenities_list', $property->amenities ?? [])))>
                       <i class="bi {{ $opt['icon'] ?? 'bi-check2-circle' }}"></i>
                       <span>{{ $opt['label'] ?? $key }}</span>
                     </label>
@@ -127,24 +126,19 @@
 
         <div>
             <label class="block mb-1">صورة الغلاف</label>
-            @php($fallback='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=600&auto=format&fit=crop')
-            @if($property->cover_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($property->cover_image))
-                <img src="{{ asset('storage/'.$property->cover_image) }}" onerror="this.onerror=null;this.src='{{ $fallback }}'" class="w-48 h-32 object-cover rounded mb-2 border"/>
-            @elseif($property->cover_image)
-                <img src="{{ $fallback }}" class="w-48 h-32 object-cover rounded mb-2 border"/>
+            @if($property->cover_image)
+                <img src="{{ $property->cover_image_url }}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=600&auto=format&fit=crop'" class="w-48 h-32 object-cover rounded mb-2 border"/>
             @endif
             <input type="file" name="cover_image" accept="image/*" class="form-control">
         </div>
 
-        @php($gallery = is_array($property->gallery ?? null) ? $property->gallery : [])
-        @if(count($gallery))
+        @if(!empty($property->gallery_urls))
         <div>
             <label class="block mb-2 font-semibold">معرض الصور الحالي</label>
             <div class="d-flex flex-wrap gap-2">
-              @foreach($gallery as $img)
+              @foreach($property->gallery_urls as $img)
                 <div class="border rounded p-1 text-center" style="width:110px;">
-                  @php($src = Str::startsWith($img, ['http://','https://']) ? $img : (\Illuminate\Support\Facades\Storage::disk('public')->exists($img) ? asset('storage/'.$img) : $fallback))
-                  <img src="{{ $src }}" class="w-100" style="height:90px;object-fit:cover" onerror="this.onerror=null;this.src='{{ $fallback }}'"/>
+                  <img src="{{ $img }}" class="w-100" style="height:90px;object-fit:cover" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=600&auto=format&fit=crop'"/>
                   <div class="form-check mt-1">
                     <input class="form-check-input" type="checkbox" name="remove_gallery[]" value="{{ $img }}" id="rm_{{ md5($img) }}">
                     <label class="form-check-label small" for="rm_{{ md5($img) }}">إزالة</label>

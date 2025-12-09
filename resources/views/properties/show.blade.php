@@ -63,33 +63,24 @@
 
       <div class="card mb-3">
         <div class="card-body">
-          @php($gallery = is_array($property->gallery ?? null) ? $property->gallery : [])
-          @php($fallback = 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop')
-          @php($first = $gallery[0] ?? null)
-          @php($cover = $property->cover_image_url)
-          @if(!$cover && $first)
-            @php($cover = \Illuminate\Support\Str::startsWith($first, ['http://','https://']) ? $first : (\Illuminate\Support\Facades\Storage::disk('public')->exists($first) ? asset('storage/'.$first) : $fallback))
-          @endif
-          @php($cover = $cover ?: $fallback)
-          @if(!empty($gallery))
+          @if(!empty($property->gallery_urls))
             <div id="propCarousel-{{ $property->id }}" class="carousel slide mb-2" data-bs-ride="carousel">
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#propCarousel-{{ $property->id }}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="الشريحة 1"></button>
-                @foreach($gallery as $i => $img)
+                @foreach($property->gallery_urls as $i => $img)
                   <button type="button" data-bs-target="#propCarousel-{{ $property->id }}" data-bs-slide-to="{{ $i+1 }}" aria-label="الشريحة {{ $i+2 }}"></button>
                 @endforeach
               </div>
               <div class="carousel-inner" style="border-radius:12px; overflow:hidden">
                 <div class="carousel-item active ratio ratio-16x9">
-                  <a href="{{ $cover }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                    <img src="{{ $cover }}" class="d-block w-100" alt="صورة العقار" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+                  <a href="{{ $property->primary_image_url }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
+                    <img src="{{ $property->primary_image_url }}" class="d-block w-100" alt="صورة العقار" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
                   </a>
                 </div>
-                @foreach($gallery as $img)
-                  @php($src = \Illuminate\Support\Str::startsWith($img, ['http://','https://']) ? $img : (\Illuminate\Support\Facades\Storage::disk('public')->exists($img) ? asset('storage/'.$img) : $fallback))
+                @foreach($property->gallery_urls as $img)
                   <div class="carousel-item ratio ratio-16x9">
-                    <a href="{{ $src }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                      <img src="{{ $src }}" class="d-block w-100" alt="صورة من معرض العقار" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+                    <a href="{{ $img }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
+                      <img src="{{ $img }}" class="d-block w-100" alt="صورة من معرض العقار" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
                     </a>
                   </div>
                 @endforeach
@@ -105,15 +96,14 @@
             </div>
           @else
             <div class="ratio ratio-16x9 mb-2" style="background: color-mix(in oklab, var(--fg), transparent 92%); border-radius:12px; overflow:hidden">
-              <img src="{{ $cover }}" alt="{{ $property->title }}" style="width:100%; height:100%; object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+              <img src="{{ $property->primary_image_url }}" alt="{{ $property->title }}" style="width:100%; height:100%; object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
             </div>
           @endif
-          @if(!empty($gallery))
+          @if(!empty($property->gallery_urls))
             <div class="thumbs">
-              @foreach($gallery as $img)
-                @php($src = \Illuminate\Support\Str::startsWith($img, ['http://','https://']) ? $img : (\Illuminate\Support\Facades\Storage::disk('public')->exists($img) ? asset('storage/'.$img) : $fallback))
-                <a href="{{ $src }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                  <img src="{{ $src }}" alt="صورة من معرض العقار" loading="lazy" onerror="this.onerror=null;this.src='{{ $fallback }}'">
+              @foreach($property->gallery_urls as $img)
+                <a href="{{ $img }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
+                  <img src="{{ $img }}" alt="صورة من معرض العقار" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
                 </a>
               @endforeach
             </div>
@@ -193,22 +183,19 @@
             @endif
           </div>
           <div class="d-flex gap-2 mt-2">
-            <a class="btn btn-outline" href="https://wa.me/966503310071?text={{ urlencode('استفسار حول العقار: '.$property->title.' - '.request()->fullUrl()) }}" target="_blank"><i class="fa-brands fa-whatsapp"></i> تواصل واتساب</a>
+            <a class="btn btn-outline" href="{{ $whatsappLink ? $whatsappLink.'?text='.urlencode('استفسار حول العقار: '.$property->title.' - '.request()->fullUrl()) : '#' }}" target="_blank" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif><i class="fa-brands fa-whatsapp"></i> تواصل واتساب</a>
             <button class="btn btn-outline" type="button" onclick="navigator.clipboard && navigator.clipboard.writeText('{{ request()->fullUrl() }}').then(()=>this.innerHTML='تم نسخ الرابط').catch(()=>window.prompt('انسخ الرابط:', '{{ request()->fullUrl() }}'))"><i class="fa-regular fa-copy"></i> نسخ الرابط</button>
           </div>
         </div>
       </div>
 
-      @php($amenities = is_array($property->amenities ?? null) ? $property->amenities : (is_array($property->features ?? null) ? $property->features : []))
-      @if(!empty($amenities))
+      @if(!empty($property->amenities_list))
       <div class="card mb-3">
         <div class="card-body">
           <div class="section-title"><i class="fa-solid fa-star" style="color:var(--primary)"></i> المزايا</div>
           <div class="amenities">
-            @foreach($amenities as $am)
-              @if(!empty($am))
-                <span class="badge-chip">{{ is_array($am) ? ($am['name'] ?? '') : $am }}</span>
-              @endif
+            @foreach($property->amenities_list as $am)
+              <span class="badge-chip">{{ is_array($am) ? ($am['name'] ?? '') : $am }}</span>
             @endforeach
           </div>
         </div>
@@ -246,7 +233,7 @@
             </div>
             <div class="col-12 d-flex gap-2">
               <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> إرسال التعليق</button>
-              <a class="btn btn-outline" href="https://wa.me/966503310071?text={{ urlencode('استفسار حول العقار: '.$property->title.' - '.request()->fullUrl()) }}" target="_blank"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+              <a class="btn btn-outline" href="{{ $whatsappLink ? $whatsappLink.'?text='.urlencode('استفسار حول العقار: '.$property->title.' - '.request()->fullUrl()) : '#' }}" target="_blank" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif><i class="fa-brands fa-whatsapp"></i> واتساب</a>
             </div>
           </form>
         </div>
@@ -260,8 +247,7 @@
           <div class="mt-3">
             <a class="btn btn-outline w-100" href="{{ $property->location_url }}" target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot"></i> فتح على الخريطة</a>
           </div>
-          @php($isEmbeddable = \Illuminate\Support\Str::contains($property->location_url, ['google.com/maps','maps.google','goo.gl/maps','maps.app.goo']))
-          @if($isEmbeddable)
+          @if($property->is_location_embeddable)
             <div class="ratio ratio-16x9 mt-2" style="border:1px solid var(--border); border-radius:12px; overflow:hidden">
               <iframe src="{{ $property->location_url }}" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
@@ -301,7 +287,7 @@
 
   <!-- Sticky CTA: WhatsApp & Share -->
   <div class="sticky-cta">
-    <a class="cta-btn cta-wa" href="https://wa.me/966503310071?text={{ urlencode('استفسار حول العقار: '.$property->title.' - '.request()->fullUrl()) }}" target="_blank" rel="noopener">
+    <a class="cta-btn cta-wa" href="{{ $whatsappLink ? $whatsappLink.'?text='.urlencode('استفسار حول العقار: '.$property->title.' - '.request()->fullUrl()) : '#' }}" target="_blank" rel="noopener" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>
       <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
     </a>
     <a class="cta-btn cta-share" href="#" id="share-prop-btn">

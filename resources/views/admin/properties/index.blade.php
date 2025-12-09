@@ -27,9 +27,6 @@
         </thead>
         <tbody>
         @forelse($properties as $p)
-          @php($hasVideo = !empty($p->video_url) || !empty($p->video_path))
-          @php($hasLoc = !empty($p->location_url))
-          @php($gc = is_array($p->gallery??null) ? count($p->gallery) : 0)
           <tr>
             <td><input type="checkbox" name="ids[]" value="{{ $p->id }}" class="chk-row"></td>
             <td>{{ $p->id }}</td>
@@ -44,26 +41,15 @@
             </td>
             <td>{{ $p->city }} @if($p->district) - {{ $p->district }} @endif</td>
             <td>
-              <span class="badge bg-info text-dark" title="صور">{{ $gc }} صور</span>
-              @if($hasVideo)<span class="badge bg-warning text-dark" title="فيديو">فيديو</span>@endif
-              @if($hasLoc)<span class="badge bg-success" title="موقع">خريطة</span>@endif
+              <span class="badge bg-info text-dark" title="صور">{{ is_array($p->gallery ?? null) ? count($p->gallery) : 0 }} صور</span>
+              @if($p->video_url || $p->video_path)<span class="badge bg-warning text-dark" title="فيديو">فيديو</span>@endif
+              @if(!empty($p->location_url))<span class="badge bg-success" title="موقع">خريطة</span>@endif
             </td>
             <td><strong>{{ number_format($p->price) }}</strong></td>
             <td>
-              @php($gallery = is_array($p->gallery ?? null) ? $p->gallery : [])
-              @php($first = $gallery[0] ?? null)
-              @php($fallback = 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=600&auto=format&fit=crop')
-              @php($cover = null)
-              @if($p->cover_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($p->cover_image))
-                @php($cover = asset('storage/'.$p->cover_image))
-              @elseif($first)
-                @php($cover = \Illuminate\Support\Str::startsWith($first, ['http://','https://']) ? $first : (\Illuminate\Support\Facades\Storage::disk('public')->exists($first) ? asset('storage/'.$first) : $fallback))
-              @else
-                @php($cover = $fallback)
-              @endif
               <div class="d-flex align-items-center gap-2">
-                <img src="{{ $cover }}" alt="cover" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;" onerror="this.onerror=null;this.src='{{ $fallback }}'"/>
-                <span class="badge bg-info text-dark" title="عدد صور المعرض">{{ $gc }} صور</span>
+                <img src="{{ $p->primary_image_url }}" alt="cover" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=600&auto=format&fit=crop'"/>
+                <span class="badge bg-info text-dark" title="عدد صور المعرض">{{ is_array($p->gallery ?? null) ? count($p->gallery) : 0 }} صور</span>
               </div>
             </td>
             <td class="d-flex gap-1">

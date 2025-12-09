@@ -41,8 +41,16 @@
       <section class="card" style="padding:16px; margin-bottom:16px">
         <h2 class="h3-compact">تواصل معنا</h2>
         <p class="m-0">رقم السجل التجاري: <strong>1010851048</strong></p>
-        <p class="m-0">البريد الإلكتروني: <a href="mailto:tour@tourcons.com">tour@tourcons.com</a></p>
-        <p class="m-0">رقم الجوال: <a href="tel:0503310071">0503310071</a></p>
+        <p class="m-0">البريد الإلكتروني: 
+          <a href="{{ !empty($contactEmail) ? 'mailto:'.$contactEmail : '#' }}">
+            {{ $contactEmail ?? '—' }}
+          </a>
+        </p>
+        <p class="m-0">رقم الجوال:
+          <a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}">
+            {{ $contactPhone ?? '—' }}
+          </a>
+        </p>
         <p class="m-0">الموقع الإلكتروني: <a href="https://touralbina.com/" target="_blank" rel="noopener">https://touralbina.com/</a></p>
       </section>
     </div>

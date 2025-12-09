@@ -1,4 +1,3 @@
-@php($isEdit = isset($faq) && $faq && $faq->exists)
 <form action="{{ $action }}" method="POST" class="card" style="display:grid; gap:12px; padding:16px">
   @csrf
   @if(($method ?? 'POST') !== 'POST')
@@ -21,9 +20,8 @@
     <label>
       الحالة
       <select name="status" class="@error('status') is-invalid @enderror">
-        @php($st = old('status', $faq->status ?? 'published'))
-        <option value="published" {{ $st==='published'?'selected':'' }}>منشور</option>
-        <option value="draft" {{ $st==='draft'?'selected':'' }}>مسودة</option>
+        <option value="published" {{ old('status', $faq->status ?? 'published')==='published'?'selected':'' }}>منشور</option>
+        <option value="draft" {{ old('status', $faq->status ?? 'published')==='draft'?'selected':'' }}>مسودة</option>
       </select>
       @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </label>

@@ -132,9 +132,8 @@
     <label>
       الحالة
       <select name="status">
-        @php($st = old('status', $service->status ?? 'published'))
-        <option value="draft" {{ $st==='draft' ? 'selected' : '' }}>مسودة</option>
-        <option value="published" {{ $st==='published' ? 'selected' : '' }}>منشور</option>
+        <option value="draft" @selected(old('status', $service->status ?? 'published')==='draft')>مسودة</option>
+        <option value="published" @selected(old('status', $service->status ?? 'published')==='published')>منشور</option>
       </select>
     </label>
   </div>

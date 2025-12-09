@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('head_extra')
 <script type="application/ld+json">
 @json($organizationSchema, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)
@@ -345,8 +344,8 @@
 
 <!-- Floating action buttons -->
 <div id="fab" aria-label="اختصارات">
-  <a href="https://wa.me/966503310071" target="_blank" rel="noopener" title="WhatsApp">WA</a>
-  <a href="tel:0503310071" class="secondary" title="اتصل">☎</a>
+  <a href="{{ $whatsappLink ?? '#' }}" target="_blank" rel="noopener" title="WhatsApp" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>WA</a>
+  <a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}" class="secondary" title="اتصل" @if(empty($contactPhone)) style="pointer-events:none; opacity:.5" @endif>☎</a>
   <div id="cursor-blob" aria-hidden="true"></div>
 </div>
   
@@ -382,13 +381,12 @@
           </div>
         </div>
         <div class="hero-media">
-          @php(
-            $heroSetting = \App\Models\Setting::getValue('hero_image')
-          )
-          @php(
-            $hero = (!empty($heroSetting)) ? $heroSetting : asset('assets/hero-smart-home.jpg')
-          )
-          <img src="{{ $hero }}" alt="صورة هيرو" class="tpl-hero-img" onerror="this.onerror=null; this.src='{{ asset('assets/hero-smart-home.jpg') }}'" />
+          <img
+            src="{{ \App\Models\Setting::getValue('hero_image') ?: asset('assets/hero-smart-home.jpg') }}"
+            alt="صورة هيرو"
+            class="tpl-hero-img"
+            onerror="this.onerror=null; this.src='{{ asset('assets/hero-smart-home.jpg') }}'"
+          />
         </div>
       </div>
     </section>
@@ -426,14 +424,11 @@
           @forelse(($properties ?? collect()) as $p)
             <div class="ep-card">
               <a href="{{ route('properties.show', $p) }}" class="d-block">
-                @php($fallbackImg = 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop')
-                @php($gallery = is_array($p->gallery ?? null) ? $p->gallery : [])
-                @php($first = $gallery[0] ?? null)
-                @php($src = $p->cover_image_url ?? $fallbackImg)
-                @if(!$p->cover_image_url && $first)
-                  @php($src = \Illuminate\Support\Str::startsWith($first, ['http://','https://']) ? $first : (\Illuminate\Support\Facades\Storage::disk('public')->exists($first) ? asset('storage/'.$first) : $fallbackImg))
-                @endif
-                <img src="{{ $src }}" alt="{{ $p->title }}" onerror="this.onerror=null;this.src='{{ $fallbackImg }}'">
+                <img
+                  src="{{ $p->primary_image_url }}"
+                  alt="{{ $p->title }}"
+                  onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'"
+                >
               </a>
               <div class="ep-body">
                 <h4><i class="fa-solid fa-house-chimney" style="color:var(--primary)"></i> {{ $p->title }}</h4>
@@ -582,7 +577,7 @@
         </div>
         <div class="cta-actions">
           <a href="#contact" class="btn btn-primary">تواصل معنا</a>
-          <a href="https://wa.me/966503310071" class="btn btn-outline" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="{{ $whatsappLink ?? '#' }}" class="btn btn-outline" target="_blank" rel="noopener" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>WhatsApp</a>
         </div>
       </div>
     </section>
@@ -594,9 +589,9 @@
           <h2><span class="title-deco">تواصل معنا</span></h2>
           <p>يسعدنا خدمتك والإجابة على استفساراتك وتقديم أفضل عرض يناسب مشروعك.</p>
           <div class="info-list">
-            <div class="info-item"><i class="fa-solid fa-phone"></i><div><strong>الجوال</strong><div><a href="tel:0503310071">0503310071</a></div></div></div>
-            <div class="info-item"><i class="fa-brands fa-whatsapp"></i><div><strong>واتساب</strong><div><a href="https://wa.me/966503310071" target="_blank" rel="noopener">راسلنا مباشرة</a></div></div></div>
-            <div class="info-item"><i class="fa-regular fa-envelope"></i><div><strong>البريد</strong><div><a href="mailto:tour@tourcons.com">tour@tourcons.com</a></div></div></div>
+            <div class="info-item"><i class="fa-solid fa-phone"></i><div><strong>الجوال</strong><div><a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}">{{ $contactPhone ?? '—' }}</a></div></div></div>
+            <div class="info-item"><i class="fa-brands fa-whatsapp"></i><div><strong>واتساب</strong><div><a href="{{ $whatsappLink ?? '#' }}" target="_blank" rel="noopener" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>راسلنا مباشرة</a></div></div></div>
+            <div class="info-item"><i class="fa-regular fa-envelope"></i><div><strong>البريد</strong><div><a href="{{ !empty($contactEmail) ? 'mailto:'.$contactEmail : '#' }}">{{ $contactEmail ?? '—' }}</a></div></div></div>
           </div>
         </div>
         <div class="form-card">
@@ -640,7 +635,7 @@
             </div>
             <div style="margin-top:.8rem; display:flex; gap:.6rem; flex-wrap:wrap">
               <button class="btn btn-primary" type="submit">إرسال</button>
-              <a class="btn btn-outline" href="https://wa.me/966503310071" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="btn btn-outline" href="{{ $whatsappLink ?? '#' }}" target="_blank" rel="noopener" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>WhatsApp</a>
             </div>
           </form>
         </div>
@@ -681,64 +676,6 @@
         card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
       });
     });
-    // KPI counters
-    const kpiNums = Array.from(document.querySelectorAll('#kpis .num'));
-    if(kpiNums.length){
-      const once = new Set();
-      const ko = new IntersectionObserver((entries)=>{
-        entries.forEach(en=>{
-          if(en.isIntersecting){
-            const el = en.target; if(once.has(el)) return; once.add(el);
-            const to = parseInt(el.getAttribute('data-to')||'0',10);
-            const dur = 1200; const t0 = performance.now();
-            const tick = (now)=>{
-              const p = Math.min(1, (now - t0)/dur);
-              const val = Math.floor(to * (1 - Math.pow(1-p, 3)));
-              el.textContent = val.toLocaleString('ar-SA');
-              if(p<1) requestAnimationFrame(tick);
-            };
-            requestAnimationFrame(tick);
-            ko.unobserve(el);
-          }
-        });
-      }, { threshold: .3 });
-      kpiNums.forEach(n=>ko.observe(n));
-    }
-    // Mobile CTA
-    const ctabar = document.getElementById('mobile-cta');
-    if(ctabar){ setTimeout(()=> ctabar.hidden = false, 600); }
-    // Sticky subnav active state + accent updates
-    const subnav = document.getElementById('subnav');
-    const links = subnav ? Array.from(subnav.querySelectorAll('a')) : [];
-    const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-    const so = new IntersectionObserver((ents)=>{
-      ents.forEach(en=>{
-        if(en.isIntersecting){
-          const id = '#' + en.target.id;
-          links.forEach(l=>l.classList.toggle('active', l.getAttribute('href')===id));
-          document.documentElement.style.setProperty('--accent', getComputedStyle(document.documentElement).getPropertyValue('--primary'));
-        }
-      })
-    }, { threshold:.4 });
-    sections.forEach(s=>so.observe(s));
-    // Cursor blob follow
-    const blob = document.getElementById('cursor-blob');
-    if(blob){
-      window.addEventListener('pointermove', (e)=>{
-        blob.style.left = e.clientX + 'px';
-        blob.style.top = e.clientY + 'px';
-      }, { passive:true });
-    }
-    // Magnetic buttons
-    document.querySelectorAll('.magnet').forEach(btn=>{
-      btn.addEventListener('mousemove', (ev)=>{
-        const r = btn.getBoundingClientRect();
-        const dx = (ev.clientX - (r.left + r.width/2)) / r.width;
-        const dy = (ev.clientY - (r.top + r.height/2)) / r.height;
-        btn.style.transform = `translate(${dx*6}px, ${dy*6}px)`;
-      });
-      btn.addEventListener('mouseleave', ()=>{ btn.style.transform = 'translate(0,0)'; });
-    });
     // Before/After slider control
     const ba = document.querySelector('#beforeAfter');
     if(ba){
@@ -760,8 +697,8 @@
 <!-- Mobile sticky CTA bar -->
 <div id="mobile-cta" hidden>
   <div class="bar">
-    <a class="btn" href="tel:0503310071">اتصل الآن</a>
-    <a class="btn btn-outline" href="https://wa.me/966503310071" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn" href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}" @if(empty($contactPhone)) style="pointer-events:none; opacity:.5" @endif>اتصل الآن</a>
+    <a class="btn btn-outline" href="{{ $whatsappLink ?? '#' }}" target="_blank" rel="noopener" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>WhatsApp</a>
     <a class="btn btn-outline" href="#contact">تواصل معنا</a>
   </div>
 </div>
