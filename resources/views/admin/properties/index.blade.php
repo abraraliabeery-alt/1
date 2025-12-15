@@ -7,74 +7,77 @@
     <a href="{{ route('admin.properties.create') }}" class="btn btn-primary">إضافة عقار</a>
   </div>
 
-  
-
-  <form method="POST" action="{{ route('admin.properties.bulk_destroy') }}" onsubmit="return confirm('حذف العناصر المحددة؟');">
-    @csrf
-    <div class="table-responsive bg-white rounded shadow-sm">
-      <table class="table align-middle text-sm">
-        <thead class="table-light">
-          <tr>
-            <th style="width:32px"><input type="checkbox" id="chk-all"></th>
-            <th>#</th>
-            <th>العنوان</th>
-            <th>المدينة</th>
-            <th>الوسائط</th>
-            <th>السعر</th>
-            <th>الصور</th>
-            <th>خيارات</th>
-          </tr>
-        </thead>
-        <tbody>
-        @forelse($properties as $p)
-          <tr>
-            <td><input type="checkbox" name="ids[]" value="{{ $p->id }}" class="chk-row"></td>
-            <td>{{ $p->id }}</td>
-            <td>
-              <div class="d-flex flex-column">
-                <strong>{{ $p->title }}</strong>
-                <div class="small text-muted">
-                  <span class="badge bg-secondary">{{ $p->type }}</span>
-                  @if($p->status)<span class="badge bg-light text-dark">{{ $p->status }}</span>@endif
-                </div>
+  <div class="table-responsive bg-white rounded shadow-sm">
+    <table class="table align-middle text-sm">
+      <thead class="table-light">
+        <tr>
+          <th style="width:32px"><input type="checkbox" id="chk-all"></th>
+          <th>#</th>
+          <th>العنوان</th>
+          <th>المدينة</th>
+          <th>الوسائط</th>
+          <th>السعر</th>
+          <th>الصور</th>
+          <th>خيارات</th>
+        </tr>
+      </thead>
+      <tbody>
+      @forelse($properties as $p)
+        <tr>
+          <td><input type="checkbox" name="ids[]" value="{{ $p->id }}" class="chk-row"></td>
+          <td>{{ $p->id }}</td>
+          <td>
+            <div class="d-flex flex-column">
+              <strong>{{ $p->title }}</strong>
+              <div class="small text-muted">
+                <span class="badge bg-secondary">{{ $p->type }}</span>
+                @if($p->status)<span class="badge bg-light text-dark">{{ $p->status }}</span>@endif
               </div>
-            </td>
-            <td>{{ $p->city }} @if($p->district) - {{ $p->district }} @endif</td>
-            <td>
-              <span class="badge bg-info text-dark" title="صور">{{ is_array($p->gallery ?? null) ? count($p->gallery) : 0 }} صور</span>
-              @if($p->video_url || $p->video_path)<span class="badge bg-warning text-dark" title="فيديو">فيديو</span>@endif
-              @if(!empty($p->location_url))<span class="badge bg-success" title="موقع">خريطة</span>@endif
-            </td>
-            <td><strong>{{ number_format($p->price) }}</strong></td>
-            <td>
-              <div class="d-flex align-items-center gap-2">
-                <img src="{{ $p->primary_image_url }}" alt="cover" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;"/>
-                <span class="badge bg-info text-dark" title="عدد صور المعرض">{{ is_array($p->gallery ?? null) ? count($p->gallery) : 0 }} صور</span>
-              </div>
-            </td>
-            <td class="d-flex gap-1">
-              <a class="btn-icon" href="{{ route('admin.properties.edit', $p) }}" title="تعديل" aria-label="تعديل">
-                <i class="bi bi-pencil"></i>
-              </a>
-              <a class="btn-icon" href="{{ route('properties.show', $p) }}" target="_blank" title="عرض" aria-label="عرض">
-                <i class="bi bi-box-arrow-up-right"></i>
-              </a>
-              <button type="button" class="btn-icon js-delete-one" data-url="{{ route('admin.properties.destroy', $p) }}" title="حذف" aria-label="حذف">
+            </div>
+          </td>
+          <td>{{ $p->city }} @if($p->district) - {{ $p->district }} @endif</td>
+          <td>
+            <span class="badge bg-info text-dark" title="صور">{{ is_array($p->gallery ?? null) ? count($p->gallery) : 0 }} صور</span>
+            @if($p->video_url || $p->video_path)<span class="badge bg-warning text-dark" title="فيديو">فيديو</span>@endif
+            @if(!empty($p->location_url))<span class="badge bg-success" title="موقع">خريطة</span>@endif
+          </td>
+          <td><strong>{{ number_format($p->price) }}</strong></td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <img src="{{ $p->primary_image_url }}" alt="cover" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;"/>
+              <span class="badge bg-info text-dark" title="عدد صور المعرض">{{ is_array($p->gallery ?? null) ? count($p->gallery) : 0 }} صور</span>
+            </div>
+          </td>
+          <td class="d-flex gap-1">
+            <a class="btn-icon" href="{{ route('admin.properties.edit', $p) }}" title="تعديل" aria-label="تعديل">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <a class="btn-icon" href="{{ route('properties.show', $p) }}" target="_blank" title="عرض" aria-label="عرض">
+              <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+            <form method="POST" action="{{ route('admin.properties.destroy', $p) }}" onsubmit="return confirm('تأكيد الحذف؟');">
+              @csrf
+              @method('DELETE')
+              <button class="btn-icon" title="حذف" aria-label="حذف">
                 <i class="bi bi-trash"></i>
               </button>
-            </td>
-          </tr>
-        @empty
-          <tr><td colspan="8" class="text-center text-muted">لا توجد سجلات.</td></tr>
-        @endforelse
-        </tbody>
-      </table>
-    </div>
-    <div class="d-flex align-items-center justify-content-between mt-2">
-      <button class="btn btn-outline-danger" type="submit">حذف المحدد</button>
-      <div>{{ $properties->links() }}</div>
-    </div>
-  </form>
+            </form>
+          </td>
+        </tr>
+      @empty
+        <tr><td colspan="8" class="text-center text-muted">لا توجد سجلات.</td></tr>
+      @endforelse
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-between mt-2">
+    <form id="bulkDeleteForm" method="POST" action="{{ route('admin.properties.bulk_destroy') }}" class="m-0">
+      @csrf
+      <button type="button" id="bulkDeleteBtn" class="btn btn-outline-danger">حذف المحدد</button>
+    </form>
+    <div>{{ $properties->links() }}</div>
+  </div>
 
   <script>
   (function(){
@@ -93,32 +96,31 @@
       });
     });
 
-    // حذف عقار واحد بدون تعارض مع نموذج الحذف الجماعي
-    document.querySelectorAll('.js-delete-one').forEach(btn=>{
-      btn.addEventListener('click', async ()=>{
-        if(!confirm('تأكيد حذف هذا العقار؟')) return;
-        const url = btn.getAttribute('data-url');
-        try{
-          const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'X-CSRF-TOKEN': token,
-              'X-Requested-With': 'XMLHttpRequest',
-              'Accept': 'application/json, text/plain, */*'
-            },
-            body: new URLSearchParams({ _method: 'DELETE' })
-          });
-          if(res.ok){
-            // أبسط شيء: إعادة تحميل الصفحة لتحديث الجدول
-            window.location.reload();
-          } else {
-            alert('تعذر حذف العقار، يرجى المحاولة مرة أخرى.');
-          }
-        } catch(e){
-          alert('حدث خطأ أثناء الحذف، يرجى التحقق من الاتصال ثم المحاولة مرة أخرى.');
+    // حذف جماعي: بناء قائمة المعرفات المختارة ثم إرسال النموذج
+    const bulkForm = document.getElementById('bulkDeleteForm');
+    const bulkBtn  = document.getElementById('bulkDeleteBtn');
+    if(bulkForm && bulkBtn){
+      bulkBtn.addEventListener('click', ()=>{
+        const checked = Array.from(document.querySelectorAll('.chk-row:checked')).map(c=>c.value);
+        if(!checked.length){
+          alert('يرجى اختيار عقار واحد على الأقل.');
+          return;
         }
+        if(!confirm('حذف العناصر المحددة؟')) return;
+
+        // إزالة أي مدخلات قديمة
+        bulkForm.querySelectorAll('input[name="ids[]"]').forEach(el=>el.remove());
+        // إضافة المعرفات المختارة كنماذج مخفية
+        checked.forEach(id=>{
+          const inp = document.createElement('input');
+          inp.type = 'hidden';
+          inp.name = 'ids[]';
+          inp.value = id;
+          bulkForm.appendChild(inp);
+        });
+        bulkForm.submit();
       });
-    });
+    }
   })();
   </script>
 </div>
