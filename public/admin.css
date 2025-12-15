@@ -194,10 +194,15 @@ html[data-admin-collapsed="true"] .admin-nav a span { display:none }
 .admin-content h1{ font-size: clamp(12px, 0.8vw + 6px, 16px) !important; margin:0 0 6px }
 .admin-header .subtitle{ margin:2px 0 0; color:var(--admin-muted); font-weight:700; font-size:10px }
 .admin-header .tools{ display:flex; align-items:center; gap:10px; flex-wrap:wrap }
-.amenities-grid .amenity{ padding:3px 5px !important; font-size:10.5px; line-height:1.1; }
-.amenities-grid .amenity i{ font-size:11px; line-height:1; }
-.amenities-grid .amenity .form-check-input{ width:11px; height:11px; margin-inline-start:2px }
-.amenities-grid .amenity span{ display:inline-block; max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.amenities-grid .amenity{ padding:6px 8px !important; font-size:12px; line-height:1.25; }
+.amenities-grid .amenity i{ font-size:13px; line-height:1; }
+.amenities-grid .amenity .form-check-input{ width:13px; height:13px; margin-inline-start:2px }
+.amenities-grid .amenity span{
+  display:inline-block;
+  max-width:100%;
+  white-space:normal;
+  overflow:visible;
+}
 /* Location & Type card: unify field sizing and look */
 .admin-content .location-type label{ margin:0 0 6px; font-weight:700 }
 .admin-content .location-type .form-control,

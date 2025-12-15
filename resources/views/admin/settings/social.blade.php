@@ -46,8 +46,8 @@
           <input type="url" name="social_instagram" value="{{ old('social_instagram', $social_instagram) }}" placeholder="https://instagram.com/..." />
         </label>
         <label>
-          <span><i class="bi bi-linkedin" style="margin-inline-start:6px"></i> LinkedIn</span>
-          <input type="url" name="social_linkedin" value="{{ old('social_linkedin', $social_linkedin) }}" placeholder="https://linkedin.com/company/..." />
+          <span><i class="bi bi-snapchat" style="margin-inline-start:6px"></i> Snapchat</span>
+          <input type="url" name="social_linkedin" value="{{ old('social_linkedin', $social_linkedin) }}" placeholder="https://www.snapchat.com/add/username" />
         </label>
         <label>
           <span><i class="bi bi-facebook" style="margin-inline-start:6px"></i> Facebook</span>

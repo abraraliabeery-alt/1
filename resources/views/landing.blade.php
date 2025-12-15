@@ -440,7 +440,7 @@
                 <div class="ep-price"><i class="fa-solid fa-coins"></i>{{ number_format($p->price) }} ر.س</div>
                 <div class="ep-actions">
                   <a href="{{ route('properties.show', $p) }}" class="ep-btn details"><i class="fa-solid fa-circle-info"></i> تفاصيل</a>
-                  <a href="{{ route('properties.show', $p) }}?contact=1" class="ep-btn contact"><i class="fa-solid fa-phone"></i> تواصل</a>
+                  <a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}" class="ep-btn contact" @if(empty($contactPhone)) style="pointer-events:none; opacity:.5" @endif><i class="fa-solid fa-phone"></i> تواصل</a>
                 </div>
               </div>
             </div>
@@ -586,7 +586,7 @@
       <div class="container grid-2">
         <div class="aside">
           <h2><span class="title-deco">تواصل معنا</span></h2>
-          <p>يسعدنا خدمتك والإجابة على استفساراتك وتقديم أفضل عرض يناسب مشروعك.</p>
+          <p>تواصل معنا لحجز معاينة عقارية أو طلب استشارة حول بيع، شراء أو تأجير عقارك، وفريقنا جاهز للرد على جميع استفساراتك.</p>
           <div class="info-list">
             <div class="info-item"><i class="fa-solid fa-phone"></i><div><strong>رقم التواصل</strong><div><a href="{{ !empty($contactPhone) ? 'tel:'.preg_replace('/\s+/', '', $contactPhone) : '#' }}">{{ $contactPhone ?? '—' }}</a></div></div></div>
             <div class="info-item"><i class="fa-regular fa-envelope"></i><div><strong>البريد</strong><div><a href="{{ !empty($contactEmail) ? 'mailto:'.$contactEmail : '#' }}">{{ $contactEmail ?? '—' }}</a></div></div></div>
