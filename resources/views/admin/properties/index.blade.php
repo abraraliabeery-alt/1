@@ -59,12 +59,9 @@
               <a class="btn-icon" href="{{ route('properties.show', $p) }}" target="_blank" title="عرض" aria-label="عرض">
                 <i class="bi bi-box-arrow-up-right"></i>
               </a>
-              <form method="POST" action="{{ route('admin.properties.destroy', $p) }}" onsubmit="return confirm('تأكيد الحذف؟');">
-                @csrf @method('DELETE')
-                <button class="btn-icon" title="حذف" aria-label="حذف">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </form>
+              <button type="button" class="btn-icon js-delete-one" data-url="{{ route('admin.properties.destroy', $p) }}" title="حذف" aria-label="حذف">
+                <i class="bi bi-trash"></i>
+              </button>
             </td>
           </tr>
         @empty
@@ -86,11 +83,40 @@
       chkAll.addEventListener('change',()=>{ document.querySelectorAll('.chk-row').forEach(c=>c.checked=chkAll.checked); });
     }
     const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+    // تبديل حالة "مميز"
     document.querySelectorAll('.js-toggle-featured').forEach(btn=>{
       btn.addEventListener('click', async ()=>{
         const id = btn.getAttribute('data-id');
         const res = await fetch(`{{ url('/admin/properties') }}/${id}/toggle-featured`, {method:'POST', headers:{'X-CSRF-TOKEN':token,'Accept':'application/json'}});
         if(res.ok){ const j = await res.json(); btn.textContent = j.is_featured ? 'نعم' : 'لا'; btn.classList.toggle('btn-success', j.is_featured); btn.classList.toggle('btn-outline-secondary', !j.is_featured); }
+      });
+    });
+
+    // حذف عقار واحد بدون تعارض مع نموذج الحذف الجماعي
+    document.querySelectorAll('.js-delete-one').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        if(!confirm('تأكيد حذف هذا العقار؟')) return;
+        const url = btn.getAttribute('data-url');
+        try{
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': token,
+              'X-Requested-With': 'XMLHttpRequest',
+              'Accept': 'application/json, text/plain, */*'
+            },
+            body: new URLSearchParams({ _method: 'DELETE' })
+          });
+          if(res.ok){
+            // أبسط شيء: إعادة تحميل الصفحة لتحديث الجدول
+            window.location.reload();
+          } else {
+            alert('تعذر حذف العقار، يرجى المحاولة مرة أخرى.');
+          }
+        } catch(e){
+          alert('حدث خطأ أثناء الحذف، يرجى التحقق من الاتصال ثم المحاولة مرة أخرى.');
+        }
       });
     });
   })();
