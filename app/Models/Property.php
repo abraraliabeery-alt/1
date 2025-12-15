@@ -155,9 +155,79 @@ class Property extends Model
             ? $this->amenities
             : (is_array($this->features ?? null) ? $this->features : []);
 
-        return array_values(array_filter($raw, function ($am) {
-            return !empty($am);
-        }));
+        // نفس قائمة المزايا المستخدمة في لوحة التحكم (Admin\PropertyAdminController)
+        // نستخدمها هنا لتحويل المفاتيح الإنجليزية إلى تسميات عربية عند العرض فقط.
+        $labels = [
+            'parking' => 'موقف سيارة',
+            'elevator' => 'مصعد',
+            'central_ac' => 'تكييف مركزي',
+            'split_ac' => 'مكيفات سبليت',
+            'furnished' => 'مفروش',
+            'balcony' => 'بلكونة',
+            'maid_room' => 'غرفة خادمة',
+            'driver_room' => 'غرفة سائق',
+            'pool' => 'مسبح',
+            'garden' => 'حديقة',
+            'roof' => 'سطح',
+            'basement' => 'قبو',
+            'security' => 'حراسة',
+            'cameras' => 'كاميرات',
+            'smart_home' => 'منزل ذكي',
+            'solar' => 'طاقة شمسية',
+            'fireplace' => 'مدفأة',
+            'laundry_room' => 'غرفة غسيل',
+            'storage' => 'مستودع',
+            'playground' => 'ملعب',
+            'gym' => 'نادي رياضي',
+            'clubhouse' => 'نادي اجتماعي',
+            'sea_view' => 'إطلالة بحرية',
+            'corner' => 'زاوية',
+            'two_streets' => 'شارعين',
+            'near_metro' => 'قريب مترو',
+            'near_mall' => 'قريب مول',
+            'schools' => 'قريب مدارس',
+            'hospitals' => 'قريب مستشفيات',
+            'mosques' => 'قريب مساجد',
+            'supermarket' => 'قريب سوبرماركت',
+            'private_entrance' => 'مدخل خاص',
+            'duplex' => 'دوبلكس',
+            'annex' => 'ملحق',
+            'new_build' => 'بناء جديد',
+            'renovated' => 'مجدّد',
+            'open_kitchen' => 'مطبخ مفتوح',
+            'closed_kitchen' => 'مطبخ مغلق',
+            'marble_floor' => 'أرضيات رخام',
+            'ceramic_floor' => 'أرضيات سيراميك',
+            'wooden_floor' => 'أرضيات خشب',
+            'water_well' => 'بئر ماء',
+            'electricity' => 'كهرباء',
+            'asphalt' => 'سفلت',
+            'deed' => 'صك',
+            'mortgage_ok' => 'قبول رهن',
+            'installments' => 'أقساط',
+            'negotiable' => 'قابل للتفاوض',
+        ];
+
+        $out = [];
+        foreach ($raw as $am) {
+            if (empty($am)) {
+                continue;
+            }
+
+            // في حال كانت القيمة مصفوفة قديمة تحوي اسمًا
+            if (is_array($am)) {
+                $name = $am['name'] ?? null;
+                if (!empty($name)) {
+                    $out[] = $name;
+                }
+                continue;
+            }
+
+            $key = strtolower((string)$am);
+            $out[] = $labels[$key] ?? (string)$am;
+        }
+
+        return array_values(array_filter($out, fn($v) => $v !== ''));
     }
 
     /**
