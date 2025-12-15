@@ -57,10 +57,8 @@ class Property extends Model
         if (Str::startsWith($v, ['http://','https://'])) {
             return $v;
         }
-        if (Storage::disk('public')->exists($v)) {
-            return asset('storage/'.$v);
-        }
-        return null;
+        // Assume relative path under public (e.g. /uploads/properties/filename.jpg)
+        return url(ltrim($v, '/'));
     }
 
     /**
@@ -98,9 +96,7 @@ class Property extends Model
                 $urls[] = $img;
                 continue;
             }
-            if (Storage::disk('public')->exists($img)) {
-                $urls[] = asset('storage/'.$img);
-            }
+            $urls[] = url(ltrim($img, '/'));
         }
 
         return $urls;

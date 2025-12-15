@@ -139,7 +139,12 @@ class PropertyAdminController extends Controller
         $data['user_id'] = auth()->id();
 
         if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('images/properties', 'public');
+            $file = $request->file('cover_image');
+            $dir  = public_path('uploads/properties');
+            if (!is_dir($dir)) { @mkdir($dir, 0777, true); }
+            $name = 'cover_'.time().'_'.Str::random(8).'.'.$file->getClientOriginalExtension();
+            $file->move($dir, $name);
+            $data['cover_image'] = '/uploads/properties/'.$name;
         }
 
         if ($request->hasFile('video_file')) {
@@ -167,7 +172,11 @@ class PropertyAdminController extends Controller
         if ($request->hasFile('gallery_images')) {
             foreach ($request->file('gallery_images') as $img) {
                 if ($img && $img->isValid()) {
-                    $gallery[] = $img->store('images/properties', 'public');
+                    $dir = public_path('uploads/properties');
+                    if (!is_dir($dir)) { @mkdir($dir, 0777, true); }
+                    $name = 'gallery_'.time().'_'.Str::random(8).'.'.$img->getClientOriginalExtension();
+                    $img->move($dir, $name);
+                    $gallery[] = '/uploads/properties/'.$name;
                 }
             }
         }
@@ -266,9 +275,15 @@ class PropertyAdminController extends Controller
 
         if ($request->hasFile('cover_image')) {
             if ($property->cover_image) {
-                Storage::disk('public')->delete($property->cover_image);
+                $old = public_path(ltrim($property->cover_image, '/'));
+                if (is_file($old)) { @unlink($old); }
             }
-            $data['cover_image'] = $request->file('cover_image')->store('images/properties', 'public');
+            $file = $request->file('cover_image');
+            $dir  = public_path('uploads/properties');
+            if (!is_dir($dir)) { @mkdir($dir, 0777, true); }
+            $name = 'cover_'.time().'_'.Str::random(8).'.'.$file->getClientOriginalExtension();
+            $file->move($dir, $name);
+            $data['cover_image'] = '/uploads/properties/'.$name;
         }
 
         if ($request->hasFile('video_file')) {
@@ -302,14 +317,19 @@ class PropertyAdminController extends Controller
         $remove = (array)$request->input('remove_gallery', []);
         if (!empty($remove)) {
             foreach ($remove as $path) {
-                Storage::disk('public')->delete($path);
+                $full = public_path(ltrim($path, '/'));
+                if (is_file($full)) { @unlink($full); }
             }
             $current = array_values(array_diff($current, $remove));
         }
         if ($request->hasFile('gallery_images')) {
             foreach ($request->file('gallery_images') as $img) {
                 if ($img && $img->isValid()) {
-                    $current[] = $img->store('images/properties', 'public');
+                    $dir = public_path('uploads/properties');
+                    if (!is_dir($dir)) { @mkdir($dir, 0777, true); }
+                    $name = 'gallery_'.time().'_'.Str::random(8).'.'.$img->getClientOriginalExtension();
+                    $img->move($dir, $name);
+                    $current[] = '/uploads/properties/'.$name;
                 }
             }
         }
@@ -323,7 +343,8 @@ class PropertyAdminController extends Controller
     public function destroy(Property $property)
     {
         if ($property->cover_image) {
-            Storage::disk('public')->delete($property->cover_image);
+            $full = public_path(ltrim($property->cover_image, '/'));
+            if (is_file($full)) { @unlink($full); }
         }
         if ($property->video_path) {
             Storage::disk('public')->delete($property->video_path);
@@ -337,7 +358,10 @@ class PropertyAdminController extends Controller
         $ids = (array)$request->input('ids', []);
         $items = Property::query()->whereIn('id', $ids)->get();
         foreach ($items as $property) {
-            if ($property->cover_image) { Storage::disk('public')->delete($property->cover_image); }
+            if ($property->cover_image) {
+                $full = public_path(ltrim($property->cover_image, '/'));
+                if (is_file($full)) { @unlink($full); }
+            }
             if ($property->video_path) { Storage::disk('public')->delete($property->video_path); }
             $property->delete();
         }
