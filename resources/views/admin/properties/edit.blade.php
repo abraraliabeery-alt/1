@@ -127,7 +127,7 @@
         <div>
             <label class="block mb-1">صورة الغلاف</label>
             @if($property->cover_image)
-                <img src="{{ $property->cover_image_url }}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=600&auto=format&fit=crop'" class="w-48 h-32 object-cover rounded mb-2 border"/>
+                <img src="{{ $property->cover_image_url }}" class="w-48 h-32 object-cover rounded mb-2 border"/>
             @endif
             <input type="file" name="cover_image" accept="image/*" class="form-control">
         </div>
@@ -138,7 +138,7 @@
             <div class="d-flex flex-wrap gap-2">
               @foreach($property->gallery_urls as $img)
                 <div class="border rounded p-1 text-center" style="width:110px;">
-                  <img src="{{ $img }}" class="w-100" style="height:90px;object-fit:cover" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=600&auto=format&fit=crop'"/>
+                  <img src="{{ $img }}" class="w-100" style="height:90px;object-fit:cover"/>
                   <div class="form-check mt-1">
                     <input class="form-check-input" type="checkbox" name="remove_gallery[]" value="{{ $img }}" id="rm_{{ md5($img) }}">
                     <label class="form-check-label small" for="rm_{{ md5($img) }}">إزالة</label>

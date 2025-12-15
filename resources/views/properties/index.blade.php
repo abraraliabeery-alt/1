@@ -70,9 +70,9 @@
                 @if(!empty($property->gallery_urls))
                   <div class="ep-slider" id="card-{{ $property->id }}">
                     <div class="ep-slides">
-                      <img class="ep-slide active" src="{{ $property->primary_image_url }}" alt="{{ $property->title }}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+                      <img class="ep-slide active" src="{{ $property->primary_image_url }}" alt="{{ $property->title }}">
                       @foreach($property->gallery_urls as $img)
-                        <img class="ep-slide" src="{{ $img }}" alt="gallery" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+                        <img class="ep-slide" src="{{ $img }}" alt="gallery">
                       @endforeach
                     </div>
                     <button class="ep-sbtn ep-prev" type="button" aria-label="السابق"><i class="fa-solid fa-chevron-right"></i></button>
@@ -81,7 +81,7 @@
                   </div>
                 @else
                   <a href="{{ route('properties.show', $property) }}" class="d-block">
-                    <img src="{{ $property->primary_image_url }}" alt="{{ $property->title }}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+                    <img src="{{ $property->primary_image_url }}" alt="{{ $property->title }}">
                   </a>
                 @endif
                 <div class="ep-card-content">

@@ -426,7 +426,6 @@
                 <img
                   src="{{ $p->primary_image_url }}"
                   alt="{{ $p->title }}"
-                  onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'"
                 >
               </a>
               <div class="ep-body">

@@ -74,13 +74,13 @@
               <div class="carousel-inner" style="border-radius:12px; overflow:hidden">
                 <div class="carousel-item active ratio ratio-16x9">
                   <a href="{{ $property->primary_image_url }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                    <img src="{{ $property->primary_image_url }}" class="d-block w-100" alt="صورة العقار" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+                    <img src="{{ $property->primary_image_url }}" class="d-block w-100" alt="صورة العقار" style="object-fit:cover" loading="lazy">
                   </a>
                 </div>
                 @foreach($property->gallery_urls as $img)
                   <div class="carousel-item ratio ratio-16x9">
                     <a href="{{ $img }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                      <img src="{{ $img }}" class="d-block w-100" alt="صورة من معرض العقار" style="object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+                      <img src="{{ $img }}" class="d-block w-100" alt="صورة من معرض العقار" style="object-fit:cover" loading="lazy">
                     </a>
                   </div>
                 @endforeach
@@ -96,14 +96,14 @@
             </div>
           @else
             <div class="ratio ratio-16x9 mb-2" style="background: color-mix(in oklab, var(--fg), transparent 92%); border-radius:12px; overflow:hidden">
-              <img src="{{ $property->primary_image_url }}" alt="{{ $property->title }}" style="width:100%; height:100%; object-fit:cover" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+              <img src="{{ $property->primary_image_url }}" alt="{{ $property->title }}" style="width:100%; height:100%; object-fit:cover" loading="lazy">
             </div>
           @endif
           @if(!empty($property->gallery_urls))
             <div class="thumbs">
               @foreach($property->gallery_urls as $img)
                 <a href="{{ $img }}" class="glightbox" data-gallery="prop-{{ $property->id }}">
-                  <img src="{{ $img }}" alt="صورة من معرض العقار" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+                  <img src="{{ $img }}" alt="صورة من معرض العقار" loading="lazy">
                 </a>
               @endforeach
             </div>
@@ -268,7 +268,7 @@
           <div class="col-12 col-md-6 col-lg-4">
             <a href="{{ route('properties.show', $p->slug) }}" class="card" style="text-decoration:none; border-radius:14px; overflow:hidden; border:1px solid var(--border); background:var(--card);">
               <div class="ratio ratio-16x9">
-                <img src="{{ $p->cover_image_url ?? 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop' }}" alt="{{ $p->title }}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop'">
+                <img src="{{ $p->cover_image_url }}" alt="{{ $p->title }}" loading="lazy">
               </div>
               <div class="p-2">
                 <div class="fw-bold" style="color:var(--fg)">{{ $p->title }}</div>

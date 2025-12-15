@@ -51,26 +51,26 @@ class Property extends Model
     public function getCoverImageUrlAttribute(): ?string
     {
         $v = $this->cover_image;
-        if (!$v) return 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop';
+        if (!$v) {
+            return null;
+        }
         if (Str::startsWith($v, ['http://','https://'])) {
             return $v;
         }
         if (Storage::disk('public')->exists($v)) {
             return asset('storage/'.$v);
         }
-        return 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop';
+        return null;
     }
 
     /**
      * Primary image used in cards and detail pages.
      */
-    public function getPrimaryImageUrlAttribute(): string
+    public function getPrimaryImageUrlAttribute(): ?string
     {
-        $fallback = 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1200&auto=format&fit=crop';
-
         // Prefer explicit cover image accessor when available
         $cover = $this->cover_image_url;
-        if ($cover && $cover !== $fallback) {
+        if (!empty($cover)) {
             return $cover;
         }
 
@@ -79,7 +79,7 @@ class Property extends Model
             return $gallery[0];
         }
 
-        return $fallback;
+        return null;
     }
 
     /**

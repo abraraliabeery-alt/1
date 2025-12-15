@@ -48,7 +48,7 @@
             <td><strong>{{ number_format($p->price) }}</strong></td>
             <td>
               <div class="d-flex align-items-center gap-2">
-                <img src="{{ $p->primary_image_url }}" alt="cover" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=600&auto=format&fit=crop'"/>
+                <img src="{{ $p->primary_image_url }}" alt="cover" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;"/>
                 <span class="badge bg-info text-dark" title="عدد صور المعرض">{{ is_array($p->gallery ?? null) ? count($p->gallery) : 0 }} صور</span>
               </div>
             </td>

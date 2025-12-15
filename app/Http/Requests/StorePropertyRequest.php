@@ -26,7 +26,7 @@ class StorePropertyRequest extends FormRequest
             'is_featured' => ['sometimes','boolean'],
             'description' => ['nullable','string'],
             'location_url' => ['nullable','url','max:2048'],
-            'cover_image' => ['nullable','image','mimes:jpeg,png,jpg,webp','max:5120'],
+            'cover_image' => ['required','image','mimes:jpeg,png,jpg,webp','max:5120'],
             'video_file' => ['nullable','file','mimetypes:video/mp4,video/webm,video/ogg','max:51200'],
             'video_url' => ['nullable','url','max:2048'],
         ];
