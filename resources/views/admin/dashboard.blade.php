@@ -25,6 +25,10 @@
       <strong>الألبوم</strong>
       <span class="text-muted" style="display:block">إضافة صور وترتيب</span>
     </a>
+    <a class="card" href="{{ route('admin.properties.index', ['type' => 'land']) }}" style="padding:16px; display:block; text-decoration:none">
+      <strong>الأراضي</strong>
+      <span class="text-muted" style="display:block">إدارة العقارات من نوع أرض</span>
+    </a>
     @if(optional(auth()->user())->role === 'manager')
       <a class="card" href="{{ route('admin.users.promote.form') }}" style="padding:16px; display:block; text-decoration:none">
         <strong>إدارة المستخدمين</strong>

@@ -17,6 +17,7 @@ class ServiceSeeder extends Seeder
                 'body' => "نقدم خدمات تركيب كاميرات المراقبة باحترافية تبدأ من الاستشارة والتصميم وكتابة مخطط النظام، مرورًا بتوريد المعدات والتركيب والاختبار، وانتهاءً بالتدريب والدعم المستمر. تشمل الحلول كاميرات متحركة وثابتة، أنظمة تسجيل NVR/DVR، تخزين محلي وسحابي، وتكامل إنذارات وتنبيهات.",
                 'icon' => 'bi bi-camera-video',
                 'cover_image' => '/assets/smart-office.jpg',
+                'type' => 1,
                 'sort_order' => 10,
             ],
             [
@@ -25,6 +26,7 @@ class ServiceSeeder extends Seeder
                 'body' => "نوفّر حلول حماية شاملة ضد السرقة والتهديدات الخارجية عبر حساسات حركة وصوت/صورة وكواشف دخان وغاز، مع ربط فوري بالتطبيقات والإنترنت لإرسال التنبيهات. تصميم استراتيجي وتركيب احترافي وتحديثات وصيانة مستمرة.",
                 'icon' => 'bi bi-alarm',
                 'cover_image' => '/assets/smart-home.jpg',
+                'type' => 1,
                 'sort_order' => 20,
             ],
             [
@@ -33,6 +35,7 @@ class ServiceSeeder extends Seeder
                 'body' => "نصمم أنظمة ذكية متكاملة توفر راحة وأمانًا وكفاءة طاقة أعلى. يشمل ذلك لوحات تحكم ذكية، أقفال ومفاتيح وإضاءة، ستائر وتكييف متعدد المناطق، توزيع صوت، وإنتركم، مع تكامل Alexa/Google وبروتوكولات Matter/Zigbee.",
                 'icon' => 'bi bi-houses',
                 'cover_image' => '/assets/hero-smart-home.jpg',
+                'type' => 1,
                 'sort_order' => 30,
             ],
             [
@@ -41,6 +44,7 @@ class ServiceSeeder extends Seeder
                 'body' => "نقدّم تصميم شبكات سلكية/لاسلكية مع نقاط وصول مُدارة مركزيًا، ضبط SSID والقنوات والطاقة، ومراقبة الأداء. هدفنا اتصال موثوق وقوي يناسب المنازل والمكاتب والمتاجر والمؤسسات.",
                 'icon' => 'bi bi-wifi',
                 'cover_image' => '/assets/smart-office.jpg',
+                'type' => 1,
                 'sort_order' => 40,
             ],
             [
@@ -49,6 +53,7 @@ class ServiceSeeder extends Seeder
                 'body' => "نوفّر أنظمة سنترالات رقمية حديثة تدعم ربط الفروع عالميًا وإدارة مكالمات احترافية وتكامل مع الحواسيب والإنترنت. حلول اقتصادية قابلة للتوسع مع دعم فني مستمر.",
                 'icon' => 'bi bi-telephone',
                 'cover_image' => '/assets/smart-office.jpg',
+                'type' => 1,
                 'sort_order' => 50,
             ],
             [
@@ -57,6 +62,7 @@ class ServiceSeeder extends Seeder
                 'body' => "نجهّز خوادم واستضافة مواقع وخدمات مؤسسية مع حماية فورية ضد البرمجيات الخبيثة، بنية نسخ احتياطي ومراقبة، واستجابة عالية. إعدادات احترافية تظهر نتائجها فورًا على الموقع والخدمات.",
                 'icon' => 'bi bi-hdd-network',
                 'cover_image' => '/assets/smart-home.jpg',
+                'type' => 1,
                 'sort_order' => 60,
             ],
             [
@@ -65,6 +71,7 @@ class ServiceSeeder extends Seeder
                 'body' => "نوفّر حلول أجهزة البصمة والحضور مع تحكم بالدخول للمناطق المصرّح بها وتكامل مع أنظمة الأمن والمراقبة. تركيب وصيانة وتحديثات متواصلة ودعم فني محترف.",
                 'icon' => 'bi bi-fingerprint',
                 'cover_image' => '/assets/smart-home.jpg',
+                'type' => 1,
                 'sort_order' => 70,
             ],
         ];
@@ -79,6 +86,7 @@ class ServiceSeeder extends Seeder
                     'body' => $data['body'],
                     'icon' => $data['icon'],
                     'cover_image' => $data['cover_image'],
+                    'type' => $data['type'],
                     'is_featured' => in_array($i, [0,2,3]),
                     'sort_order' => $data['sort_order'],
                     'status' => 'published',

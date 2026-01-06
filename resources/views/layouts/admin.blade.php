@@ -24,6 +24,7 @@
                 <li><a class="{{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}" href="{{ route('admin.faqs.index') }}" title="الأسئلة الشائعة" aria-label="الأسئلة الشائعة"><i class="bi bi-question-circle"></i><span> الأسئلة الشائعة</span></a></li>
                 <li><a class="{{ request()->routeIs('gallery.sort*') ? 'active' : '' }}" href="{{ route('gallery.sort') }}" title="إدارة الألبوم" aria-label="إدارة الألبوم"><i class="bi bi-images"></i><span> إدارة الألبوم</span></a></li>
                 <li><a class="{{ request()->routeIs('admin.properties.*') ? 'active' : '' }}" href="{{ route('admin.properties.index') }}" title="إدارة العقارات" aria-label="إدارة العقارات"><i class="bi bi-building"></i><span> إدارة العقارات</span></a></li>
+                <li><a href="{{ route('projects.index') }}" title="مشاريع المقاولات" aria-label="مشاريع المقاولات"><i class="bi bi-diagram-3"></i><span> مشاريع المقاولات</span></a></li>
                 <li class="sep"></li>
                 <!-- التواصل -->
                 <li><a class="{{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}" title="رسائل التواصل" aria-label="رسائل التواصل"><i class="bi bi-envelope"></i><span> رسائل التواصل</span></a></li>

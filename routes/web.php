@@ -6,6 +6,7 @@ use App\Http\Controllers\GalleryController;
 
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ContractingController;
 use App\Http\Controllers\Admin\ServiceAdminController;
 use App\Http\Controllers\Admin\ContactAdminController;
 use App\Http\Controllers\Admin\PartnerAdminController;
@@ -13,9 +14,15 @@ use App\Http\Controllers\Admin\FaqAdminController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\Admin\PropertyAdminController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 // Landing page as the new home (IT company)
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::post('/theme', function (Request $request) {
+    $request->session()->put('theme', 'theme1');
+    return redirect()->back();
+})->name('theme.set');
 // Search (Google Custom Search JSON API)
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 // Batch image search (upload .txt of product names)
@@ -35,11 +42,14 @@ Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'storeH
 // Events removed
 
 // Services public
-Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
-Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+// Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+// Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
 
 // About page
-Route::view('/about', 'about')->name('about');
+// Route::view('/about', 'about')->name('about');
+
+// Contracting landing page
+Route::get('/contracting', [ContractingController::class, 'index'])->name('contracting');
 
 
 // Events management removed
@@ -51,6 +61,9 @@ Route::get('/gallery/{slug}', [GalleryController::class, 'show'])->name('gallery
 // Properties public
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/properties/{property}', [PropertyController::class, 'show'])->name('properties.show');
+
+// Lands public (lands-only listing)
+Route::get('/lands', [PropertyController::class, 'lands'])->name('lands.index');
 
 // Gallery management (staff) — add-only
 Route::middleware(['auth','staff'])->group(function(){
@@ -65,7 +78,14 @@ Route::get('/projects', [ProjectController::class, 'index'])->name('projects.ind
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
 
 // Privacy policy (required for ads)
-Route::view('/privacy', 'privacy')->name('privacy');
+Route::get('/privacy', function () {
+    $theme = config('app.theme', 'theme1');
+    $view = "themes.{$theme}.privacy";
+    if (!view()->exists($view)) {
+        $view = 'privacy';
+    }
+    return view($view);
+})->name('privacy');
 
 // Projects management (staff)
 Route::middleware(['auth','staff'])->group(function(){

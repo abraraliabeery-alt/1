@@ -138,7 +138,6 @@
       <div class="card mb-3">
         <div class="card-body">
           <div class="section-title"><i class="fa-solid fa-list-check" style="color:var(--primary)"></i> مواصفات العقار</div>
-          
 
           <div class="stats-strip">
             @if(!empty($property->area))
@@ -179,7 +178,7 @@
               <div class="lbl"><i class="fa-solid fa-road"></i> عرض الشارع</div><div class="val">{{ $property->street_width }} م</div>
             @endif
             @if(!empty($property->created_at))
-              <div class="lbl"><i class="fa-regular fa-clock"></i> تاريخ الإضافة</div><div class="val">{{ $property->created_at->diffForHumans() }}</div>
+              <div class="lbl"><i class="fa-regular fa-clock"></i> تاريخ الإضافة</div><div class="val">{{ $property->created_at->locale('ar')->diffForHumans() }}</div>
             @endif
           </div>
           <div class="d-flex gap-2 mt-2">
@@ -285,7 +284,6 @@
   </div>
   @endif
 
-  <!-- Sticky CTA: WhatsApp & Share -->
   <div class="sticky-cta">
     <a class="cta-btn cta-wa" href="{{ $whatsappLink ? $whatsappLink.'?text='.urlencode('استفسار حول العقار: '.$property->title.' - '.request()->fullUrl()) : '#' }}" target="_blank" rel="noopener" @if(empty($whatsappLink)) style="pointer-events:none; opacity:.5" @endif>
       <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
@@ -341,7 +339,6 @@
           });
         });
       }
-      // Share button behavior
       const shareBtn = document.getElementById('share-prop-btn');
       if(shareBtn){
         shareBtn.addEventListener('click', function(e){

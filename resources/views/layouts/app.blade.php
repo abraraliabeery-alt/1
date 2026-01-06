@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ $siteTitle }}</title>
-  <meta name="theme-color" content="#c8b79a" />
+  <meta name="theme-color" content="{{ $colorPrimary }}" />
   <meta name="description" content="نوفّر في مؤسسة طور البناء للتجارة مجموعة متكاملة من أدوات السباكة والبناء والأدوات الصحية والكهربائية والعدد، مع البيع بالآجل والسداد على دفعات ميسرة." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,7 @@
   <meta name="twitter:image" content="{{ $socialImage }}" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css?v={{ @filemtime(public_path('styles.css')) }}" />
+  <link rel="stylesheet" href="/themes/{{ config('app.theme', 'theme1') }}.css?v={{ @filemtime(public_path('themes/'.config('app.theme', 'theme1').'.css')) }}" />
   @vite(['resources/css/app.css','resources/js/app.js'])
   @yield('head_extra')
   <style>
@@ -55,36 +56,67 @@
       --footer-fg:      var(--dark-text);
       --footer-accent:  var(--dark-main);
     }
+
+    :root[data-theme="dark"]{
+      --primary: var(--dark-main);
+      --bg:      var(--dark-bg);
+      --fg:      var(--dark-text);
+      --card:    var(--dark-bg);
+      --border:  var(--dark-main);
+      --strong-text: var(--strong-text-dark);
+    }
+
+    html, body{ background: var(--bg) !important; color: var(--fg) !important; }
+
+    .logo-dark{ display:none }
+    :root[data-theme="dark"] .logo-light{ display:none }
+    :root[data-theme="dark"] .logo-dark{ display:inline }
   </style>
 </head>
 <body>
 
-  @include('components._header')
+  @unless(View::hasSection('hideSiteChrome'))
+    @includeFirst([
+      'themes.'.config('app.theme','theme1').'.components._header',
+      'themes.theme1.components._header',
+      'components._header'
+    ])
+  @endunless
 
             <main class="flex-grow-1">
                 {{ $slot ?? '' }}
                 @yield('content')
             </main>
-  @include('components._footer')
+  @unless(View::hasSection('hideSiteChrome'))
+    @includeFirst([
+      'themes.'.config('app.theme','theme1').'.components._footer',
+      'themes.theme1.components._footer',
+      'components._footer'
+    ])
+  @endunless
 
   <!-- Back to top button -->
-  <button class="back-to-top" aria-label="الرجوع للأعلى">↑</button>
+  @unless(View::hasSection('hideSiteChrome'))
+    <button class="back-to-top" aria-label="الرجوع للأعلى">↑</button>
+  @endunless
 
   <!-- Floating WhatsApp Button -->
-  <a class="whatsapp-fab" href="https://api.whatsapp.com/send?phone={{ urlencode($whatsappNumber) }}" target="_blank" rel="noopener" aria-label="التواصل عبر واتساب">
-    <i class="bi bi-whatsapp" aria-hidden="true"></i>
-  </a>
+  @unless(View::hasSection('hideSiteChrome'))
+    <a class="whatsapp-fab" href="https://api.whatsapp.com/send?phone={{ urlencode($whatsappNumber) }}" target="_blank" rel="noopener" aria-label="التواصل عبر واتساب">
+      <i class="bi bi-whatsapp" aria-hidden="true"></i>
+    </a>
+  @endunless
 
   <script src="/script.js" defer></script>
   <script src="/theme.js" defer></script>
   <style>
     .toast-wrap{ position:fixed; inset:auto 12px 12px auto; z-index:9999; display:grid; gap:8px; max-width:min(92vw, 360px) }
-    .toast{ display:flex; align-items:flex-start; gap:10px; background:#ffffff; color:#283241; border:1px solid #c8b79a; border-radius:12px; padding:10px 12px; box-shadow:0 10px 30px rgba(0,0,0,.12) }
-    .toast.success{ border-color:#c8b79a }
-    .toast.error{ border-color:#283241 }
-    .toast.info{ border-color:#283241 }
+    .toast{ display:flex; align-items:flex-start; gap:10px; background:var(--card); color:var(--fg); border:1px solid color-mix(in oklab, var(--primary), transparent 20%); border-radius:12px; padding:10px 12px; box-shadow:0 10px 30px rgba(0,0,0,.12) }
+    .toast.success{ border-color: color-mix(in oklab, var(--primary), transparent 10%) }
+    .toast.error{ border-color: color-mix(in oklab, var(--fg), transparent 55%) }
+    .toast.info{ border-color: color-mix(in oklab, var(--fg), transparent 55%) }
     .toast .title{ font-weight:800; margin-bottom:2px }
-    .toast .close{ margin-inline-start:auto; background:transparent; border:0; cursor:pointer; color:#283241 }
+    .toast .close{ margin-inline-start:auto; background:transparent; border:0; cursor:pointer; color:var(--fg) }
   </style>
   <div class="toast-wrap" id="toast-wrap" aria-live="polite"></div>
   <script>
@@ -119,11 +151,11 @@
     (function(){
       function buildModal(message){
         const overlay=document.createElement('div');
-        overlay.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;z-index:9999';
+        overlay.style.cssText='position:fixed;inset:0;background:color-mix(in oklab, var(--fg), transparent 55%);display:flex;align-items:center;justify-content:center;z-index:9999';
         const box=document.createElement('div');
-        box.style.cssText='background:#fff;border-radius:14px;min-width:320px;max-width:90vw;padding:16px;border:1px solid #e5e7eb;box-shadow:0 10px 30px rgba(0,0,0,.15)';
-        box.innerHTML=`<div style="font-weight:700;margin-bottom:8px;color:#0f172a">تأكيد الإجراء</div>
-          <div style="color:#374151;margin-bottom:14px">${message}</div>
+        box.style.cssText='background:var(--card);border-radius:14px;min-width:320px;max-width:90vw;padding:16px;border:1px solid color-mix(in oklab, var(--fg), transparent 85%);box-shadow:0 10px 30px rgba(0,0,0,.15)';
+        box.innerHTML=`<div style="font-weight:700;margin-bottom:8px;color:var(--fg)">تأكيد الإجراء</div>
+          <div style="color:color-mix(in oklab, var(--fg), transparent 20%);margin-bottom:14px">${message}</div>
           <div style="display:flex;gap:8px;justify-content:flex-end">
             <button type="button" data-act="cancel" class="btn btn-outline">إلغاء</button>
             <button type="button" data-act="ok" class="btn btn-danger">تأكيد</button>

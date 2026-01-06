@@ -5,16 +5,20 @@
       @if(!empty($siteLogo ?? null))
         <img src="{{ $siteLogo }}" class="logo-light" alt="الشعار" onerror="this.style.display='none'" />
       @endif
+      @if(!empty($siteLogoDark ?? null))
+        <img src="{{ $siteLogoDark }}" class="logo-dark" alt="الشعار" onerror="this.style.display='none'" />
+      @endif
     </a>
     <nav class="menu" aria-label="القائمة الرئيسية">
       <button class="menu-toggle" type="button" aria-label="فتح/إغلاق القائمة" aria-expanded="false">
         <i class="bi bi-list"></i>
       </button>
       <ul id="nav-list">
-        <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
+        <li><a href="{{ route('home') }}">الرئيسية</a></li>
         <li><a href="{{ route('properties.index') }}">العقارات</a></li>
-        <li><a href="{{ url('/') }}#about-brief">من نحن</a></li>
-        <li><a href="{{ url('/') }}#contact">تواصل</a></li>
+        <li><a href="{{ route('lands.index') }}">الأراضي</a></li>
+        <li><a href="{{ route('contracting') }}">المقاولات</a></li>
+        <li><a href="{{ route('gallery.index') }}">المعرض</a></li>
         @auth
           @if(optional(auth()->user())->is_staff || optional(auth()->user())->role === 'manager')
             <li>
@@ -56,6 +60,7 @@
         <li>
           <button id="themeToggle" class="theme-toggle" type="button" aria-label="تبديل الوضع"><i class="bi bi-moon"></i></button>
         </li>
+        
       </ul>
     </nav>
     <!-- Mobile drawer -->
@@ -67,10 +72,11 @@
       </div>
       <nav class="drawer-nav" aria-label="القائمة الجانبية">
         <ul>
-          <li><a href="{{ url('/') }}#hero">الرئيسية</a></li>
+          <li><a href="{{ route('home') }}">الرئيسية</a></li>
           <li><a href="{{ route('properties.index') }}">العقارات</a></li>
-          <li><a href="{{ url('/') }}#about-brief">من نحن</a></li>
-          <li><a href="{{ url('/') }}#contact">تواصل</a></li>
+          <li><a href="{{ route('lands.index') }}">الأراضي</a></li>
+          <li><a href="{{ route('contracting') }}">المقاولات</a></li>
+          <li><a href="{{ route('gallery.index') }}">المعرض</a></li>
         </ul>
       </nav>
     </aside>

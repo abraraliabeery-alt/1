@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Project extends Model
 {
@@ -20,4 +21,16 @@ class Project extends Model
         'started_at' => 'datetime',
         'finished_at' => 'datetime',
     ];
+
+    public function getCoverImageUrlAttribute(): ?string
+    {
+        $v = $this->cover_image;
+        if (!$v) {
+            return null;
+        }
+        if (Str::startsWith($v, ['http://','https://'])) {
+            return $v;
+        }
+        return url(ltrim($v, '/'));
+    }
 }

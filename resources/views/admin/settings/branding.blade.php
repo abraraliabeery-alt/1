@@ -42,6 +42,17 @@
 
       <div class="card" style="padding:12px">
         <label>
+          <span>شعار الوضع الداكن</span>
+          <input type="file" name="site_logo_dark" accept="image/*">
+        </label>
+        <div class="row-between" style="margin-top:8px">
+          <div class="text-muted" style="font-size:12px">الحالي:</div>
+          <img src="{{ $site_logo_dark }}" alt="شعار الوضع الداكن الحالي" style="height:42px; width:auto">
+        </div>
+      </div>
+
+      <div class="card" style="padding:12px">
+        <label>
           <span>رمز التبويب</span>
           <input type="file" name="site_favicon" accept="image/*,.ico,.svg">
         </label>

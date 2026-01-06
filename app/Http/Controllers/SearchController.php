@@ -7,6 +7,18 @@ use Illuminate\Support\Facades\Http;
 
 class SearchController extends Controller
 {
+    private function themedView(string $name): string
+    {
+        $theme = config('app.theme', 'theme1');
+
+        $view = "themes.{$theme}.{$name}";
+        if (view()->exists($view)) {
+            return $view;
+        }
+
+        return $name;
+    }
+
     public function index(Request $request)
     {
         $query = trim((string) $request->query('q', ''));
@@ -68,7 +80,7 @@ class SearchController extends Controller
             }
         }
 
-        return view('search', [
+        return view($this->themedView('search'), [
             'q' => $query,
             'page' => $page,
             'items' => $results['items'],
@@ -81,7 +93,7 @@ class SearchController extends Controller
 
     public function showImagesBatch()
     {
-        return view('images-batch');
+        return view($this->themedView('images-batch'));
     }
 
     public function handleImagesBatch(Request $request)
@@ -111,7 +123,7 @@ class SearchController extends Controller
             ];
         }
 
-        return view('images-batch', [
+        return view($this->themedView('images-batch'), [
             'results' => $results,
             'num' => $num,
         ]);

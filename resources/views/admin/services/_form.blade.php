@@ -14,6 +14,14 @@
     @error('excerpt')<div class="invalid-feedback">{{ $message }}</div>@enderror
   </label>
   <label>
+    نوع العرض
+    <select name="type" class="@error('type') is-invalid @enderror">
+      <option value="1" @selected((int)old('type', $service->type ?? 1)===1)>خدمات الصفحة الرئيسية</option>
+      <option value="2" @selected((int)old('type', $service->type ?? 1)===2)>خدمات المقاولات</option>
+    </select>
+    @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
+  </label>
+  <label>
     الأيقونة
     <div style="display:flex; gap:8px; align-items:center">
       <span id="icon-preview" class="bi {{ old('icon', $service->icon ?? '') }}" style="font-size:22px"></span>

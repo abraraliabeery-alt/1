@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'manager' => \App\Http\Middleware\EnsureManager::class,
             'store_ref' => \App\Http\Middleware\StoreReferral::class,
         ]);
+        $middleware->appendToGroup('web', \App\Http\Middleware\SetThemeFromSession::class);
         // Capture referrals/UTM on every web request
         $middleware->appendToGroup('web', \App\Http\Middleware\StoreReferral::class);
     })

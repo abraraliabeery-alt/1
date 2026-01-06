@@ -113,17 +113,28 @@ class Property extends Model
     public function getTypeLabelAttribute(): ?string
     {
         if (!$this->type) return null;
+        return self::typeLabel((string) $this->type);
+    }
+
+    public static function typeLabel(?string $type): string
+    {
+        if (!$type) {
+            return '';
+        }
+
         $map = [
             'warehouse' => 'مستودع',
             'apartment' => 'شقة',
             'villa' => 'فيلا',
             'land' => 'أرض',
+            'lands' => 'أرض',
             'office' => 'مكتب',
             'house' => 'بيت',
             'shop' => 'محل',
         ];
-        $key = strtolower((string)$this->type);
-        return $map[$key] ?? (string)$this->type;
+
+        $key = strtolower((string) $type);
+        return $map[$key] ?? (string) $type;
     }
 
     public function getInterfaceLabelAttribute(): ?string

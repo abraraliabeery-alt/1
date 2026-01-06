@@ -15,6 +15,16 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'theme' => env('APP_THEME', 'theme1'),
+
+    'themes' => [
+        'theme1' => 'ثيم 1',
+        'theme2' => 'ثيم 2',
+        'theme3' => 'ثيم 3',
+        'theme4' => 'ثيم 4',
+        'theme5' => 'ثيم 5',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

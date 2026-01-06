@@ -64,6 +64,68 @@
       </div>
     </fieldset>
 
+    <fieldset style="border:1px solid var(--admin-border); border-radius:10px; padding:12px">
+      <legend style="padding:0 6px; font-weight:800">إظهار/إخفاء الأيقونات</legend>
+      <div class="row g-2" style="margin:0">
+        <div class="col-12 col-md-6">
+          <div class="border rounded-3 p-2 h-100 d-flex justify-content-between align-items-center">
+            <div class="fw-bold">واتساب</div>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" role="switch" name="show_social_whatsapp" id="show_social_whatsapp" @checked($show_social_whatsapp ?? true)>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="border rounded-3 p-2 h-100 d-flex justify-content-between align-items-center">
+            <div class="fw-bold">منصة إكس</div>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" role="switch" name="show_social_twitter" id="show_social_twitter" @checked($show_social_twitter ?? true)>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="border rounded-3 p-2 h-100 d-flex justify-content-between align-items-center">
+            <div class="fw-bold">إنستغرام</div>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" role="switch" name="show_social_instagram" id="show_social_instagram" @checked($show_social_instagram ?? true)>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="border rounded-3 p-2 h-100 d-flex justify-content-between align-items-center">
+            <div class="fw-bold">سناب شات</div>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" role="switch" name="show_social_linkedin" id="show_social_linkedin" @checked($show_social_linkedin ?? true)>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="border rounded-3 p-2 h-100 d-flex justify-content-between align-items-center">
+            <div class="fw-bold">فيسبوك</div>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" role="switch" name="show_social_facebook" id="show_social_facebook" @checked($show_social_facebook ?? true)>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="border rounded-3 p-2 h-100 d-flex justify-content-between align-items-center">
+            <div class="fw-bold">تيك توك</div>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" role="switch" name="show_social_tiktok" id="show_social_tiktok" @checked($show_social_tiktok ?? true)>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="border rounded-3 p-2 h-100 d-flex justify-content-between align-items-center">
+            <div class="fw-bold">يوتيوب</div>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" role="switch" name="show_social_youtube" id="show_social_youtube" @checked($show_social_youtube ?? true)>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
     <div style="display:flex; justify-content:flex-end; gap:8px">
       <a href="{{ route('admin.dashboard') }}" class="btn btn-outline">رجوع</a>
       <button class="btn btn-primary" type="submit">حفظ</button>

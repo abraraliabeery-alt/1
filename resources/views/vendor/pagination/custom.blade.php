@@ -3,12 +3,12 @@
         <ul class="pagination">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <li class="disabled" aria-disabled="true" aria-label="« Previous">
+                <li class="disabled" aria-disabled="true" aria-label="السابق">
                     <span aria-hidden="true">‹</span>
                 </li>
             @else
                 <li>
-                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="« Previous">‹</a>
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="السابق">‹</a>
                 </li>
             @endif
 
@@ -34,10 +34,10 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li>
-                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="Next »">›</a>
+                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="التالي">›</a>
                 </li>
             @else
-                <li class="disabled" aria-disabled="true" aria-label="Next »">
+                <li class="disabled" aria-disabled="true" aria-label="التالي">
                     <span aria-hidden="true">›</span>
                 </li>
             @endif

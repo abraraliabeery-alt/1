@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class GalleryItem extends Model
 {
@@ -18,4 +19,16 @@ class GalleryItem extends Model
         'taken_at' => 'datetime',
         'sort_order' => 'integer',
     ];
+
+    public function getImageUrlAttribute(): ?string
+    {
+        $v = $this->image_path;
+        if (!$v) {
+            return null;
+        }
+        if (Str::startsWith($v, ['http://','https://'])) {
+            return $v;
+        }
+        return url(ltrim($v, '/'));
+    }
 }

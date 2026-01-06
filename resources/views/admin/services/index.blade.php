@@ -21,6 +21,7 @@
         <tr>
           <th>#</th>
           <th>العنوان</th>
+          <th>النوع</th>
           <th>الحالة</th>
           <th>بارز</th>
           <th>ترتيب</th>
@@ -32,12 +33,12 @@
           <tr>
             <td>{{ $svc->id }}</td>
             <td><a href="{{ route('admin.services.edit', $svc) }}">{{ $svc->title }}</a></td>
-            <td><span class="badge">{{ $svc->status }}</span></td>
+            <td><span class="badge">{{ $svc->type_label ?? $svc->type }}</span></td>
+            <td><span class="badge">{{ $svc->status_label ?? $svc->status }}</span></td>
             <td>{{ $svc->is_featured ? 'نعم' : 'لا' }}</td>
             <td>{{ $svc->sort_order }}</td>
             <td class="text-end">
               <div class="actions-vertical">
-                <a class="btn btn-outline btn-sm" href="{{ route('services.show', $svc->slug) }}" target="_blank" title="عرض"><i class="bi bi-eye"></i></a>
                 <a class="btn btn-outline btn-sm" href="{{ route('admin.services.edit', $svc) }}" title="تعديل"><i class="bi bi-pencil"></i></a>
                 <form action="{{ route('admin.services.destroy', $svc) }}" method="POST" data-confirm="حذف الخدمة؟">
                   @csrf
@@ -48,7 +49,7 @@
             </td>
           </tr>
         @empty
-          <tr><td colspan="6" class="text-center text-muted">لا توجد خدمات.</td></tr>
+          <tr><td colspan="7" class="text-center text-muted">لا توجد خدمات.</td></tr>
         @endforelse
       </tbody>
     </table>

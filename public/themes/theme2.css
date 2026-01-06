@@ -1,0 +1,671 @@
+/* Theme 2 - Dark / Modern visual theme
+ * يعتمد على نفس الـ Blade ونفس الأقسام، ويغيّر التصميم والشكل فقط
+ * مع الإبقاء على الألوان القادمة من لوحة التحكم (متغيرات :root الأصلية).
+ */
+
+/* لا نعيد تعريف الألوان هنا؛ نستعمل المتغيرات الموجودة مثل:
+   var(--primary), var(--bg), var(--fg), var(--card), var(--border)... */
+
+:root{
+  --t2-ink: var(--strong-text);
+  --t2-surface: color-mix(in oklab, var(--bg), var(--fg) 14%);
+  --t2-overlay: color-mix(in oklab, var(--bg), var(--fg) 22%);
+  --t2-line: color-mix(in oklab, var(--fg), transparent 70%);
+  --t2-shadow-1: 0 18px 45px color-mix(in oklab, var(--fg), transparent 35%);
+  --t2-shadow-2: 0 22px 55px color-mix(in oklab, var(--fg), transparent 20%);
+}
+
+body {
+  font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+main {
+  background:
+    radial-gradient(circle at 0% 0%, color-mix(in oklab, var(--primary), transparent 82%), transparent 55%),
+    radial-gradient(circle at 100% 100%, color-mix(in oklab, var(--primary), transparent 86%), transparent 55%),
+    var(--bg);
+}
+
+header, .site-footer, .navbar, .nav-main {
+  background: color-mix(in oklab, var(--bg), var(--fg) 18%) !important;
+  backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid color-mix(in oklab, var(--border), transparent 10%);
+}
+
+.site-footer {
+  border-top: 1px solid color-mix(in oklab, var(--border), transparent 10%);
+}
+
+.btn,
+button,
+input[type="submit"],
+input[type="button"] {
+  border-radius: 999px !important;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary,
+.btn.btn-primary {
+  background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--primary), var(--fg) 30%));
+  border: none;
+  color: var(--t2-ink);
+  box-shadow: var(--t2-shadow-1);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05) saturate(1.15);
+  box-shadow: var(--t2-shadow-2);
+}
+
+.btn-ghost,
+.btn-outline,
+.btn.btn-outline {
+  background: transparent;
+  color: var(--fg);
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--border), transparent 10%);
+}
+
+.btn-ghost:hover,
+.btn-outline:hover {
+  background: color-mix(in oklab, var(--bg), var(--fg) 18%);
+}
+
+.btn-subtle {
+  background: color-mix(in oklab, var(--bg), var(--fg) 6%);
+  color: var(--fg);
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--border), transparent 5%);
+}
+
+.btn-subtle:hover {
+  background: color-mix(in oklab, var(--bg), var(--fg) 22%);
+}
+
+.card,
+.ep-card,
+.value-card,
+.t-card,
+.kpi,
+.product-card,
+.icon-card,
+.obj-card,
+.site-footer .about,
+.info-item {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 90%), transparent 55%),
+              color-mix(in oklab, var(--bg), var(--fg) 20%) !important;
+  border-radius: 18px;
+  border: 1px solid color-mix(in oklab, var(--border), transparent 5%) !important;
+  box-shadow: 0 18px 45px color-mix(in oklab, var(--fg), transparent 28%);
+}
+
+.ep-card img {
+  filter: saturate(1.15) contrast(1.05);
+}
+
+.ep-price {
+  color: var(--primary) !important;
+}
+
+.ep-badge {
+  background: color-mix(in oklab, var(--bg), var(--fg) 8%) !important;
+  border-color: color-mix(in oklab, var(--border), transparent 10%) !important;
+  color: var(--fg) !important;
+}
+
+#subnav {
+  background: color-mix(in oklab, var(--bg), var(--fg) 22%) !important;
+  border-bottom: 1px solid var(--t2-line) !important;
+}
+
+#subnav a {
+  color: var(--fg);
+}
+
+#subnav a.active {
+  background: color-mix(in oklab, var(--primary), transparent 88%);
+  border-color: color-mix(in oklab, var(--primary), transparent 55%);
+  color: var(--fg);
+}
+
+.tpl-hero .tpl-title {
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-shadow: 0 18px 45px color-mix(in oklab, var(--fg), transparent 20%);
+}
+
+.tpl-hero .tpl-emph {
+  color: var(--primary);
+}
+
+.tpl-lead {
+  color: color-mix(in oklab, var(--fg), transparent 28%) !important;
+}
+
+.tpl-hero-img {
+  box-shadow: 0 30px 80px color-mix(in oklab, var(--fg), transparent 18%) !important;
+  border-radius: 26px !important;
+}
+
+.glass-card {
+  background: color-mix(in oklab, var(--bg), var(--fg) 22%) !important;
+  border-color: var(--t2-line) !important;
+}
+
+.glass-card input {
+  background: color-mix(in oklab, var(--bg), var(--fg) 18%) !important;
+  border-color: var(--t2-line) !important;
+  color: var(--fg) !important;
+}
+
+.tiles .tile.dark,
+.tiles .tile.featured {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 80%), transparent 55%),
+              radial-gradient(circle at 100% 100%, color-mix(in oklab, var(--primary), transparent 85%), transparent 55%),
+              color-mix(in oklab, var(--bg), var(--fg) 20%) !important;
+}
+
+.tiles .tile.light {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 85%), transparent 55%),
+              color-mix(in oklab, var(--bg), var(--fg) 18%) !important;
+  color: var(--fg) !important;
+}
+
+.tiles .tile .ico {
+  background: color-mix(in oklab, var(--bg), var(--fg) 22%) !important;
+  color: var(--primary) !important;
+}
+
+#values .value-card {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 85%), transparent 55%),
+              color-mix(in oklab, var(--bg), var(--fg) 18%) !important;
+}
+
+#values .icon {
+  background: color-mix(in oklab, var(--bg), var(--fg) 22%) !important;
+  color: var(--primary) !important;
+}
+
+#values .content p {
+  color: color-mix(in oklab, var(--fg), transparent 30%) !important;
+}
+
+.tpl-clients,
+#clients {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 88%), transparent 55%),
+              color-mix(in oklab, var(--bg), var(--fg) 18%) !important;
+}
+
+.client {
+  background: color-mix(in oklab, var(--bg), var(--fg) 22%) !important;
+  border-color: color-mix(in oklab, var(--fg), transparent 70%) !important;
+}
+
+.client img {
+  filter: grayscale(1) brightness(1.1);
+}
+
+.t-card .quote {
+  color: color-mix(in oklab, var(--fg), transparent 22%) !important;
+}
+
+.t-card .author {
+  color: var(--fg) !important;
+}
+
+#faq .item {
+  background: color-mix(in oklab, var(--bg), var(--fg) 20%) !important;
+  border-color: color-mix(in oklab, var(--fg), transparent 65%) !important;
+}
+
+#faq .content {
+  color: color-mix(in oklab, var(--fg), transparent 18%) !important;
+}
+
+.whatsapp-fab {
+  background: linear-gradient(135deg, var(--primary), color-mix(in oklab, var(--primary), var(--fg) 18%)) !important;
+  box-shadow: 0 18px 45px color-mix(in oklab, var(--primary), transparent 70%);
+}
+
+.back-to-top {
+  background: color-mix(in oklab, var(--bg), var(--fg) 22%) !important;
+  border-radius: 999px !important;
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 65%) !important;
+  color: var(--fg) !important;
+}
+
+.scroll-progress span {
+  background: linear-gradient(90deg, var(--primary), color-mix(in oklab, var(--primary), transparent 65%)) !important;
+}
+
+#contact .form-card {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 82%), transparent 55%),
+              color-mix(in oklab, var(--bg), var(--fg) 18%) !important;
+}
+
+#contact input,
+#contact select,
+#contact textarea {
+  background: color-mix(in oklab, var(--bg), var(--fg) 18%) !important;
+  border-color: color-mix(in oklab, var(--fg), transparent 70%) !important;
+  color: var(--fg) !important;
+}
+
+#contact .info-item {
+  background: color-mix(in oklab, var(--bg), var(--fg) 22%) !important;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+/* =======================
+   Stronger visual identity
+   ======================= */
+
+/* Sections: more white space and boxed layout */
+.section {
+  padding-block: 80px !important;
+}
+
+.section:nth-of-type(odd) {
+  background: color-mix(in oklab, var(--bg), var(--fg) 3%);
+}
+
+.section:nth-of-type(even) {
+  background: color-mix(in oklab, var(--bg), var(--primary) 6%);
+}
+
+.container {
+  max-width: 1100px !important;
+}
+
+/* Hero: split layout with big badge style */
+.tpl-hero.section {
+  padding-block: 96px !important;
+}
+
+.tpl-hero .tpl-title {
+  font-size: clamp(32px, 4.4vw, 46px);
+  line-height: 1.1;
+}
+
+.tpl-hero .tpl-lead {
+  font-size: 0.98rem;
+}
+
+.hero-actions .btn {
+  min-width: 170px;
+}
+
+/* Navigation links: pill style */
+header nav a,
+.nav-main a {
+  padding: 0.25rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+header nav a:hover,
+.nav-main a:hover {
+  background: color-mix(in oklab, var(--primary), transparent 85%);
+}
+
+/* Tiles section: totally different cards */
+.tiles .tile {
+  border-radius: 24px !important;
+  border-width: 0 !important;
+  box-shadow: 0 16px 40px color-mix(in oklab, var(--fg), transparent 40%) !important;
+}
+
+.tiles .tile.dark {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 70%), transparent 60%),
+              color-mix(in oklab, var(--bg), var(--fg) 22%) !important;
+}
+
+.tiles .tile.light {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 80%), transparent 60%),
+              color-mix(in oklab, var(--bg), var(--fg) 14%) !important;
+}
+
+/* Footer: compact, more minimal */
+.site-footer {
+  padding-block: 32px !important;
+}
+
+.site-footer .cols {
+  gap: 16px !important;
+}
+
+.site-footer .footer-list a {
+  font-size: 0.9rem;
+}
+
+/* KPIs: circular badges instead of simple tiles */
+.tpl-kpis .kpi-grid .kpi {
+  border-radius: 999px !important;
+  padding-block: 18px !important;
+}
+
+.tpl-kpis .kpi-grid .kpi .num {
+  font-size: clamp(24px, 4vw, 32px) !important;
+}
+
+/* Testimonials: card-with-ribbon look */
+.tpl-testimonials .t-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.tpl-testimonials .t-card::before {
+  content: "";
+  position: absolute;
+  inset: -30% auto auto -30%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 50%), transparent 70%);
+  opacity: 0.4;
+}
+
+/* Contact section: split card & info with stronger contrast */
+#contact .grid-3 {
+  align-items: stretch;
+}
+
+#contact .form-card {
+  border-radius: 24px !important;
+}
+
+#contact .info-item {
+  border-radius: 16px !important;
+}
+
+
+/* =======================
+   Minimal variant adjustments
+   ======================= */
+
+/* اجعل الثيم أقرب لمينيمال: شادو أقل وصناديق أخف */
+
+.card,
+.ep-card,
+.value-card,
+.t-card,
+.kpi,
+.product-card,
+.icon-card,
+.obj-card {
+  box-shadow: none !important;
+  border-radius: 16px !important;
+}
+
+/* صناديق القيم وغيرها بخلفية أخف */
+.value-card,
+.obj-card,
+.icon-card,
+.t-card,
+.kpi,
+.product-card {
+  background: color-mix(in oklab, var(--bg), var(--fg) 6%) !important;
+}
+
+/* هيرو أقرب لبانر مع تباعد واضح */
+.tpl-hero.section {
+  background: radial-gradient(circle at 0 0, color-mix(in oklab, var(--primary), transparent 80%), transparent 60%),
+              color-mix(in oklab, var(--bg), var(--fg) 4%);
+}
+
+.tpl-hero .tpl-title {
+  letter-spacing: 0.02em;
+}
+
+.tpl-hero .tpl-lead {
+  max-width: 52ch;
+}
+
+/* صورة الهيرو تبدو كخلفية جانبية أكثر من كونها كرت */
+.hero-media .tpl-hero-img {
+  border-radius: 18px !important;
+  box-shadow: none !important;
+}
+
+/* قسم الخصائص أكثر بساطة */
+.ep-card {
+  background: color-mix(in oklab, var(--bg), var(--fg) 5%) !important;
+}
+
+.ep-body h4 {
+  font-size: 1rem;
+}
+
+.ep-actions .ep-btn {
+  border-radius: 999px !important;
+}
+
+main #hero{ position:relative; min-height:76vh; display:grid; place-items:center; background:
+  radial-gradient(1200px 800px at 120% -10%, color-mix(in oklab, var(--primary), transparent 82%), transparent 60%),
+  linear-gradient(135deg, color-mix(in oklab, var(--primary), transparent 78%), transparent 48%),
+  var(--bg);
+}
+main #hero .hero-copy{ text-align:center; max-width: 80ch; margin-inline:auto }
+main #hero h1{ font-weight:900; font-size: clamp(28px, 5vw, 48px); line-height:1.2; letter-spacing:.2px }
+main #hero p{ color: color-mix(in oklab, var(--fg), transparent 40%); font-size: clamp(15px, 2.2vw, 18px); margin:.6rem auto 1rem }
+main #hero .eyebrow{ display:inline-block; background: var(--primary); color: var(--strong-text); font-weight:900; padding:.35rem .7rem; border-radius: 999px; letter-spacing:.3px }
+main #hero ul{ display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; margin:.8rem 0 }
+main #hero ul li{ background: var(--card); border:1px solid color-mix(in oklab, var(--fg), transparent 85%); padding:.35rem .6rem; border-radius:999px; font-weight:700 }
+main #hero .hero-media{ display:none }
+@media (min-width:1024px){
+  main #hero .hero-copy{ text-align:start; max-width: 64ch; margin-inline:0 }
+  main #hero .cta{ justify-content:flex-start }
+  main #hero .hero-media{ display:block }
+  main #hero .surface-box{ position:relative; width:460px; max-width:38vw; aspect-ratio:1/1; margin-inline:auto }
+  main #hero .surface-box::before{ content:""; position:absolute; inset:0; border-radius:999px; background: radial-gradient(closest-side, color-mix(in oklab, var(--primary), transparent 0%), transparent 70%); filter: saturate(120%) blur(0px) }
+  main #hero .hero-media-img{ position:relative; z-index:1; width:100%; height:100%; object-fit:cover; border-radius:28px; box-shadow: 0 24px 60px color-mix(in oklab, var(--fg), transparent 65%) }
+}
+main #hero .side-label{ position:absolute; inset:auto auto 18% 12px; writing-mode:vertical-rl; transform: rotate(180deg); letter-spacing:.35rem; font-weight:900; font-size:.8rem; color: color-mix(in oklab, var(--fg), transparent 55%); display:none }
+@media (min-width:1280px){ main #hero .side-label{ display:block } }
+main .hl{ background: linear-gradient(90deg, var(--primary), color-mix(in oklab, var(--primary), var(--fg) 20%)); -webkit-background-clip: text; background-clip:text; color: transparent; position: relative }
+main .hl::after{ content:""; position:absolute; inset:auto 0 -2px 0; height:10px; background: color-mix(in oklab, var(--primary), transparent 70%); filter: blur(6px); border-radius:999px; z-index:-1 }
+main .blob{ position:absolute; inset:auto; width:520px; height:520px; border-radius:50%; filter: blur(60px); opacity:.35; pointer-events:none; transform: translateZ(0) }
+main .blob.b1{ right:-140px; top:-80px; background: radial-gradient(closest-side, var(--orb-1), transparent) }
+main .blob.b2{ left:-160px; bottom:-120px; background: radial-gradient(closest-side, var(--orb-2), transparent) }
+
+.proj-slider{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:6px; -webkit-overflow-scrolling: touch }
+.proj-slider::-webkit-scrollbar{ width:0; height:0; display:none }
+.proj-slider{ scrollbar-width:none; -ms-overflow-style:none }
+.proj-slide{ flex:0 0 280px; scroll-snap-align:start }
+@media (min-width:768px){ .proj-slide{ flex-basis: 320px } }
+@media (min-width:1024px){ .proj-slide{ flex-basis: 360px } }
+
+/* Homelo-style landing hero (theme2 only) */
+.homelo-hero{ padding-block: 72px }
+.homelo-panel{ position:relative; overflow:hidden; border-radius:22px; padding:44px 32px 34px; background:
+  linear-gradient(180deg, color-mix(in oklab, var(--bg), transparent 15%), color-mix(in oklab, var(--bg), transparent 55%)),
+  radial-gradient(900px 600px at 25% 30%, color-mix(in oklab, var(--primary), transparent 78%), transparent 60%),
+  radial-gradient(900px 600px at 80% 70%, color-mix(in oklab, var(--primary), transparent 84%), transparent 60%);
+  border:1px solid color-mix(in oklab, var(--fg), transparent 88%);
+  box-shadow: 0 28px 80px color-mix(in oklab, var(--fg), transparent 82%);
+  min-height: 520px;
+  display:grid;
+  align-content:start;
+  gap:14px;
+}
+[data-theme="dark"] .homelo-panel{ background:
+  linear-gradient(180deg, color-mix(in oklab, var(--bg), var(--fg) 6%), color-mix(in oklab, var(--bg), var(--fg) 2%)),
+  radial-gradient(900px 600px at 25% 30%, color-mix(in oklab, var(--primary), transparent 82%), transparent 60%),
+  radial-gradient(900px 600px at 80% 70%, color-mix(in oklab, var(--primary), transparent 88%), transparent 60%);
+}
+.homelo-bgword{ position:absolute; inset: 90px auto auto 50%; transform: translateX(-50%);
+  font-weight: 900; letter-spacing:.08em; line-height:1; font-size: clamp(72px, 14vw, 170px);
+  color: color-mix(in oklab, var(--fg), transparent 88%);
+  white-space:nowrap; pointer-events:none; user-select:none;
+}
+.homelo-topline{ text-align:center; font-weight:700; color: color-mix(in oklab, var(--fg), transparent 45%); margin-top: 8px }
+.homelo-media{ position:absolute; inset:auto 50% 36px auto; transform: translateX(50%); width:min(640px, 86%); }
+.homelo-media img{ width:100%; height:auto; display:block; filter: drop-shadow(0 28px 55px color-mix(in oklab, var(--fg), transparent 65%)); }
+.homelo-sides{ position:absolute; inset:auto 28px 42px 28px; display:flex; justify-content:space-between; align-items:flex-end; gap:18px; }
+.homelo-left{ max-width: 260px }
+.homelo-left-title{ font-weight:800; color: color-mix(in oklab, var(--fg), transparent 35%); font-size: 13px; line-height: 1.45; margin-bottom:10px }
+.homelo-actions .btn-primary{ border-radius: 999px; padding:.62rem 1.2rem }
+.homelo-right{ display:flex; flex-direction:column; align-items:flex-end; gap:10px }
+.homelo-pills{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end }
+.homelo-pill{ display:inline-flex; align-items:center; gap:.35rem; padding:.4rem .75rem; border-radius:999px;
+  background: color-mix(in oklab, var(--bg), transparent 35%);
+  border:1px solid color-mix(in oklab, var(--fg), transparent 86%);
+  font-weight:800; font-size:12px;
+}
+[data-theme="dark"] .homelo-pill{ background: color-mix(in oklab, var(--bg), var(--fg) 6%) }
+.homelo-explore{ font-weight:900; text-decoration:none; border-bottom: 1px solid color-mix(in oklab, var(--fg), transparent 65%); padding-bottom:2px }
+@media (max-width: 1024px){
+  .homelo-panel{ padding:34px 18px 22px; min-height: 520px }
+  .homelo-bgword{ inset: 120px auto auto 50% }
+  .homelo-sides{ position:static; margin-top:auto; padding-top: 280px; flex-direction:column; align-items:center; text-align:center }
+  .homelo-right{ align-items:center }
+  .homelo-pills{ justify-content:center }
+}
+@media (max-width: 520px){
+  .homelo-panel{ min-height: 560px }
+  .homelo-media{ inset:auto 50% 140px auto }
+}
+
+header, .navbar, .nav-main{
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-bottom-color: transparent !important;
+}
+
+main > section.section:not(.homelo-hero){
+  padding-block: 56px !important;
+  background: transparent !important;
+}
+
+main > section.section:not(.homelo-hero) > .container,
+main > section.section:not(.homelo-hero) > .ep-wrap{
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--bg), transparent 14%), color-mix(in oklab, var(--bg), transparent 44%)),
+    radial-gradient(900px 520px at 12% 18%, color-mix(in oklab, var(--primary), transparent 86%), transparent 60%),
+    radial-gradient(900px 520px at 88% 80%, color-mix(in oklab, var(--primary), transparent 90%), transparent 60%);
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 88%);
+  border-radius: 22px;
+  padding: 26px 22px;
+  box-shadow: 0 20px 60px color-mix(in oklab, var(--fg), transparent 90%);
+}
+
+:root[data-theme="dark"] main > section.section:not(.homelo-hero) > .container,
+:root[data-theme="dark"] main > section.section:not(.homelo-hero) > .ep-wrap{
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--bg), var(--fg) 7%), color-mix(in oklab, var(--bg), var(--fg) 2%)),
+    radial-gradient(900px 520px at 12% 18%, color-mix(in oklab, var(--primary), transparent 88%), transparent 60%),
+    radial-gradient(900px 520px at 88% 80%, color-mix(in oklab, var(--primary), transparent 92%), transparent 60%);
+  border-color: color-mix(in oklab, var(--fg), transparent 82%);
+  box-shadow: 0 22px 70px color-mix(in oklab, var(--fg), transparent 72%);
+}
+
+@media (max-width: 768px){
+  main > section.section:not(.homelo-hero) > .container,
+  main > section.section:not(.homelo-hero) > .ep-wrap{
+    padding: 18px 14px;
+    border-radius: 18px;
+  }
+}
+
+/* Section headings */
+main > section.section:not(.homelo-hero) h2,
+main > section.section:not(.homelo-hero) h3{
+  letter-spacing: 0;
+  font-weight: 900;
+}
+
+main > section.section:not(.homelo-hero) .title-deco{
+  margin-bottom: 14px;
+}
+
+/* Properties / cards */
+.ep-wrap .ep-head{ gap: 12px }
+.ep-wrap .ep-head h3{ margin:0 }
+
+.ep-grid{ gap: 16px }
+
+.ep-card,
+.icon-card,
+.t-card,
+.kpi,
+.client,
+#faqs .card,
+#contact .form-card,
+#contact .info-item{
+  background: color-mix(in oklab, var(--bg), transparent 22%) !important;
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 90%) !important;
+  box-shadow: 0 14px 40px color-mix(in oklab, var(--fg), transparent 90%) !important;
+}
+
+:root[data-theme="dark"] .ep-card,
+:root[data-theme="dark"] .icon-card,
+:root[data-theme="dark"] .t-card,
+:root[data-theme="dark"] .kpi,
+:root[data-theme="dark"] .client,
+:root[data-theme="dark"] #faqs .card,
+:root[data-theme="dark"] #contact .form-card,
+:root[data-theme="dark"] #contact .info-item{
+  background: color-mix(in oklab, var(--bg), var(--fg) 6%) !important;
+  border-color: color-mix(in oklab, var(--fg), transparent 82%) !important;
+  box-shadow: 0 18px 55px color-mix(in oklab, var(--fg), transparent 80%) !important;
+}
+
+.ep-card img{ border-radius: 16px 16px 0 0 }
+.ep-body{ padding: 14px 14px 16px }
+.ep-body h4{ font-weight: 900 }
+.ep-loc{ color: color-mix(in oklab, var(--fg), transparent 40%) }
+.ep-feats{ gap: 8px }
+.ep-badge{ border-radius: 999px }
+.ep-actions{ gap: 10px }
+
+/* Services grid */
+.icons-grid{ gap: 14px }
+.icon-card i{ color: var(--primary) !important }
+.icon-card strong{ font-weight: 900 }
+.icon-card p{ color: color-mix(in oklab, var(--fg), transparent 40%) }
+
+/* KPIs */
+.tpl-kpis .kpi-grid{ gap: 12px }
+.tpl-kpis .kpi{ border-radius: 18px !important }
+.tpl-kpis .kpi .num{ color: var(--primary) }
+.tpl-kpis .kpi .lbl{ color: color-mix(in oklab, var(--fg), transparent 35%) }
+
+/* Testimonials */
+.tpl-testimonials .t-grid{ gap: 14px }
+.tpl-testimonials .t-card{ border-radius: 18px !important }
+.t-card .quote{ color: color-mix(in oklab, var(--fg), transparent 35%) !important }
+
+/* Partners */
+.clients-row{ gap: 12px }
+.client{ border-radius: 16px !important }
+.client img{ filter: none }
+
+/* FAQs */
+#faqs .card{ border-radius: 18px !important }
+#faqs .card strong{ font-weight: 900 }
+
+/* Contact */
+#contact .aside p{ color: color-mix(in oklab, var(--fg), transparent 35%) }
+#contact label{ font-weight: 800 }
+#contact input,
+#contact select,
+#contact textarea{
+  background: color-mix(in oklab, var(--bg), transparent 10%) !important;
+  border-color: color-mix(in oklab, var(--fg), transparent 86%) !important;
+  color: var(--fg) !important;
+  border-radius: 14px;
+}
+:root[data-theme="dark"] #contact input,
+:root[data-theme="dark"] #contact select,
+:root[data-theme="dark"] #contact textarea{
+  background: color-mix(in oklab, var(--bg), var(--fg) 6%) !important;
+  border-color: color-mix(in oklab, var(--fg), transparent 80%) !important;
+}
+

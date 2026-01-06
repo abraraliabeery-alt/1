@@ -40,6 +40,7 @@ class ServiceAdminController extends Controller
             'icon' => 'nullable|string|max:255',
             'cover_image_url' => 'nullable|url|max:1000',
             'cover_image_file' => 'nullable|image',
+            'type' => 'nullable|integer|in:1,2',
             'is_featured' => 'sometimes|boolean',
             'sort_order' => 'nullable|integer',
             'status' => 'nullable|in:draft,published',
@@ -68,6 +69,7 @@ class ServiceAdminController extends Controller
         $data['is_featured'] = (bool)($data['is_featured'] ?? false);
         $data['sort_order'] = (int)($data['sort_order'] ?? 0);
         $data['status'] = $data['status'] ?? 'published';
+        $data['type'] = (int)($data['type'] ?? 1);
 
         Service::create($data);
         return redirect()->route('admin.services.index')->with('ok', 'تم إنشاء الخدمة');
@@ -88,6 +90,7 @@ class ServiceAdminController extends Controller
             'icon' => 'nullable|string|max:255',
             'cover_image_url' => 'nullable|url|max:1000',
             'cover_image_file' => 'nullable|image',
+            'type' => 'nullable|integer|in:1,2',
             'is_featured' => 'sometimes|boolean',
             'sort_order' => 'nullable|integer',
             'status' => 'nullable|in:draft,published',
@@ -116,6 +119,7 @@ class ServiceAdminController extends Controller
         $data['is_featured'] = (bool)($data['is_featured'] ?? false);
         $data['sort_order'] = (int)($data['sort_order'] ?? 0);
         $data['status'] = $data['status'] ?? 'published';
+        $data['type'] = (int)($data['type'] ?? ($service->type ?? 1));
 
         $service->update($data);
         return redirect()->route('admin.services.index')->with('ok', 'تم تحديث الخدمة');

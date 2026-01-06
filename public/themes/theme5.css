@@ -1,0 +1,273 @@
+body{ font-family:"Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif }
+main.t5{ background:
+  radial-gradient(1200px 760px at 18% 10%, color-mix(in oklab, var(--primary), transparent 86%), transparent 62%),
+  radial-gradient(1000px 650px at 88% 80%, color-mix(in oklab, var(--primary), transparent 92%), transparent 60%),
+  linear-gradient(180deg, color-mix(in oklab, var(--bg), var(--fg) 3%), var(--bg));
+}
+:root[data-theme="dark"] main.t5{ background:
+  radial-gradient(1200px 760px at 18% 10%, color-mix(in oklab, var(--primary), transparent 90%), transparent 62%),
+  radial-gradient(1000px 650px at 88% 80%, color-mix(in oklab, var(--primary), transparent 94%), transparent 60%),
+  linear-gradient(180deg, color-mix(in oklab, var(--bg), var(--fg) 4%), var(--bg));
+}
+
+.t5 a{ color:inherit; text-decoration:none }
+.t5 a:hover{ color: color-mix(in oklab, var(--primary), var(--fg) 10%) }
+
+.t5 .container{ max-width: 1180px !important }
+
+.t5-header{ position:sticky; top:0; z-index:90; background: transparent !important; border-bottom: 1px solid color-mix(in oklab, var(--fg), transparent 90%); }
+.t5-header .nav{ padding-block: 14px }
+.t5-nav{ gap: 12px; align-items:center }
+.t5-brand{ display:flex; align-items:center; gap:10px; min-width: 220px }
+.t5-logo{ width:42px; height:42px; object-fit:contain }
+.t5-brand-text{ display:flex; flex-direction:column; line-height:1.1 }
+.t5-brand-title{ font-weight: 900; font-size: 14px }
+.t5-brand-sub{ font-weight: 900; font-size: 11px; letter-spacing:.12em; opacity:.7 }
+
+.t5-menu ul{ align-items:center }
+.t5-nav-list a{ padding:.45rem .75rem; border-radius: 999px; font-weight: 800 }
+.t5-nav-list a:hover{ background: color-mix(in oklab, var(--primary), transparent 90%) }
+
+.t5-theme-select{ border-radius: 12px !important; border:1px solid color-mix(in oklab, var(--fg), transparent 82%) !important; padding: 8px 12px !important }
+
+.t5-drawer{ border-left: 1px solid color-mix(in oklab, var(--fg), transparent 88%); background:
+  linear-gradient(180deg, color-mix(in oklab, var(--bg), transparent 8%), color-mix(in oklab, var(--bg), transparent 25%)) !important;
+}
+:root[data-theme="dark"] .t5-drawer{ background:
+  linear-gradient(180deg, color-mix(in oklab, var(--bg), var(--fg) 6%), color-mix(in oklab, var(--bg), var(--fg) 2%)) !important;
+}
+
+.t5-footer{ background: transparent !important; border-top: 1px solid color-mix(in oklab, var(--fg), transparent 90%) }
+.t5-footer .container{ padding-block: 22px }
+.t5-footer-social a{ display:inline-grid; place-items:center; width:42px; height:42px; border-radius: 14px;
+  border:1px solid color-mix(in oklab, var(--fg), transparent 86%);
+  background: color-mix(in oklab, var(--bg), var(--fg) 6%);
+}
+:root[data-theme="dark"] .t5-footer-social a{ background: color-mix(in oklab, var(--bg), var(--fg) 4%) }
+
+.btn, button, input[type="submit"], input[type="button"]{ border-radius: 999px !important; font-weight: 900 }
+.btn-primary, .btn.btn-primary{
+  background: linear-gradient(135deg, color-mix(in oklab, var(--primary), var(--bg) 8%), color-mix(in oklab, var(--primary), var(--fg) 6%)) !important;
+  border: 0 !important;
+  color: var(--strong-text) !important;
+  box-shadow: 0 18px 55px color-mix(in oklab, var(--fg), transparent 82%);
+}
+.btn-outline, .btn.btn-outline{
+  background: transparent !important;
+  color: var(--fg) !important;
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 80%) !important;
+}
+.btn-outline:hover{ background: color-mix(in oklab, var(--primary), transparent 92%) !important }
+
+.t5-section{ padding-block: 56px }
+@media (max-width: 768px){ .t5-section{ padding-block: 42px } }
+
+.t5-h1{ font-weight: 950; font-size: clamp(30px, 4.6vw, 54px); line-height: 1.12; margin: 0 }
+.t5-h2{ font-weight: 950; font-size: clamp(22px, 3.2vw, 34px); margin: 0 }
+.t5-sub{ color: color-mix(in oklab, var(--fg), transparent 38%); font-weight: 700 }
+.t5-lead{ color: color-mix(in oklab, var(--fg), transparent 30%); font-weight: 700; line-height: 1.85; margin-top: 12px }
+
+.t5-hl{ background: linear-gradient(90deg, var(--primary), color-mix(in oklab, var(--primary), var(--fg) 18%));
+  -webkit-background-clip:text; background-clip:text; color: transparent; position: relative;
+}
+
+.t5-eyebrow{ display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .7rem; border-radius: 999px;
+  background: color-mix(in oklab, var(--primary), transparent 86%);
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  font-weight: 950; letter-spacing:.06em; font-size: 12px;
+}
+
+.t5-hero{ padding-block: 44px 18px }
+.t5-hero-grid{ display:grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 20px; align-items:center }
+@media (max-width: 1024px){ .t5-hero-grid{ grid-template-columns: 1fr; } }
+
+.t5-hero-copy{ padding: 26px 22px; border-radius: 24px; background:
+  linear-gradient(180deg, color-mix(in oklab, var(--bg), transparent 10%), color-mix(in oklab, var(--bg), transparent 38%)),
+  radial-gradient(900px 520px at 16% 16%, color-mix(in oklab, var(--primary), transparent 86%), transparent 62%),
+  radial-gradient(900px 520px at 88% 82%, color-mix(in oklab, var(--primary), transparent 92%), transparent 62%);
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  box-shadow: 0 26px 80px color-mix(in oklab, var(--fg), transparent 88%);
+}
+:root[data-theme="dark"] .t5-hero-copy{ background:
+  linear-gradient(180deg, color-mix(in oklab, var(--bg), var(--fg) 7%), color-mix(in oklab, var(--bg), var(--fg) 2%)),
+  radial-gradient(900px 520px at 16% 16%, color-mix(in oklab, var(--primary), transparent 90%), transparent 62%),
+  radial-gradient(900px 520px at 88% 82%, color-mix(in oklab, var(--primary), transparent 94%), transparent 62%);
+  box-shadow: 0 28px 90px color-mix(in oklab, var(--fg), transparent 72%);
+}
+
+.t5-hero-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 16px }
+.t5-metrics{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 18px }
+.t5-metric{ padding: 10px 12px; border-radius: 16px; background: color-mix(in oklab, var(--bg), transparent 28%);
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 92%);
+  min-width: 140px;
+}
+:root[data-theme="dark"] .t5-metric{ background: color-mix(in oklab, var(--bg), var(--fg) 5%) }
+.t5-metric-num{ font-weight: 950; font-size: 18px; color: color-mix(in oklab, var(--primary), var(--fg) 10%) }
+.t5-metric-lbl{ font-weight: 800; font-size: 12px; color: color-mix(in oklab, var(--fg), transparent 40%) }
+
+.t5-hero-media .t5-media-frame{ border-radius: 26px; overflow:hidden; border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  background: color-mix(in oklab, var(--fg), transparent 94%);
+  box-shadow: 0 26px 80px color-mix(in oklab, var(--fg), transparent 86%);
+}
+.t5-hero-media img{ width:100%; height:auto; display:block; aspect-ratio: 4/3; object-fit: cover }
+
+.t5-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap; margin-bottom: 16px }
+.t5-head-actions{ display:flex; gap:10px; flex-wrap:wrap }
+
+.t5-grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px }
+@media (max-width: 1024px){ .t5-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 640px){ .t5-grid{ grid-template-columns: 1fr; } }
+.t5-grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)) }
+@media (max-width: 1024px){ .t5-grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 640px){ .t5-grid-3{ grid-template-columns: 1fr; } }
+
+.t5-card{ border-radius: 22px; overflow:hidden; border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  background: color-mix(in oklab, var(--bg), transparent 22%);
+  box-shadow: 0 16px 55px color-mix(in oklab, var(--fg), transparent 90%);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.t5-card:hover{ transform: translateY(-2px); box-shadow: 0 20px 70px color-mix(in oklab, var(--fg), transparent 86%); border-color: color-mix(in oklab, var(--primary), transparent 70%) }
+:root[data-theme="dark"] .t5-card{ background: color-mix(in oklab, var(--bg), var(--fg) 6%); box-shadow: 0 22px 75px color-mix(in oklab, var(--fg), transparent 72%) }
+
+.t5-card-media{ display:block; background: color-mix(in oklab, var(--fg), transparent 94%) }
+.t5-card-media img{ width:100%; height: 220px; object-fit: cover; display:block }
+.t5-card-body{ padding: 14px 14px 16px }
+.t5-card-title{ font-weight: 950; font-size: 1.02rem }
+.t5-card-meta{ margin-top: 8px; font-weight: 800; color: color-mix(in oklab, var(--fg), transparent 40%) }
+.t5-card-meta i{ color: var(--primary) }
+
+.t5-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px }
+.t5-chip{ display:inline-flex; align-items:center; gap:.4rem; padding:.28rem .6rem; border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 86%);
+  background: color-mix(in oklab, var(--fg), transparent 95%);
+  font-weight: 900; font-size: 12px;
+}
+.t5-chip i{ color: color-mix(in oklab, var(--primary), var(--fg) 12%) }
+
+.t5-card-footer{ margin-top: 12px; display:flex; justify-content:space-between; align-items:center; gap:10px }
+.t5-price{ font-weight: 950; color: color-mix(in oklab, var(--primary), var(--fg) 12%) }
+.t5-link{ font-weight: 950; border-bottom: 1px solid color-mix(in oklab, var(--fg), transparent 70%); padding-bottom: 2px }
+
+.t5-split{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items:center }
+@media (max-width: 1024px){ .t5-split{ grid-template-columns: 1fr } }
+
+.t5-about-media img{ width:100%; height:auto; display:block; border-radius: 22px; border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  box-shadow: 0 18px 70px color-mix(in oklab, var(--fg), transparent 88%);
+}
+.t5-media-ph{ height: 240px; border-radius: 22px; background:
+  radial-gradient(800px 320px at 20% 30%, color-mix(in oklab, var(--primary), transparent 84%), transparent 55%),
+  color-mix(in oklab, var(--fg), transparent 94%);
+}
+
+.t5-service{ display:flex; gap: 12px; align-items:flex-start }
+.t5-service-ico{ width: 46px; height: 46px; border-radius: 16px; display:grid; place-items:center;
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 88%);
+  background: color-mix(in oklab, var(--primary), transparent 88%);
+  flex: 0 0 auto;
+}
+.t5-service-ico i{ color: color-mix(in oklab, var(--primary), var(--fg) 12%); font-size: 18px }
+
+.t5-quote-text{ font-weight: 800; color: color-mix(in oklab, var(--fg), transparent 22%); line-height: 1.85 }
+.t5-quote-author{ margin-top: 12px; font-weight: 950; color: color-mix(in oklab, var(--fg), transparent 35%) }
+
+.t5-partners{ display:flex; flex-wrap:wrap; gap: 12px }
+.t5-partner{ flex: 1 1 170px; max-width: 220px; min-height: 82px; display:grid; place-items:center;
+  border-radius: 18px; border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  background: color-mix(in oklab, var(--bg), transparent 28%);
+}
+:root[data-theme="dark"] .t5-partner{ background: color-mix(in oklab, var(--bg), var(--fg) 5%) }
+.t5-partner img{ max-width: 140px; max-height: 54px; object-fit: contain; display:block }
+
+.t5-faq{ border-radius: 22px; overflow:hidden; border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  background: color-mix(in oklab, var(--bg), transparent 22%);
+}
+:root[data-theme="dark"] .t5-faq{ background: color-mix(in oklab, var(--bg), var(--fg) 5%) }
+.t5-faq-item{ padding: 14px 14px; border-bottom: 1px solid color-mix(in oklab, var(--fg), transparent 90%) }
+.t5-faq-item:last-child{ border-bottom: 0 }
+.t5-faq-q{ font-weight: 950; cursor: pointer }
+.t5-faq-a{ margin-top: 8px; color: color-mix(in oklab, var(--fg), transparent 25%); line-height: 1.85 }
+
+.t5-contact{ display:grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 16px; align-items:start }
+@media (max-width: 1024px){ .t5-contact{ grid-template-columns: 1fr } }
+
+.t5-contact-aside{ padding: 18px 16px; border-radius: 22px; border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  background: color-mix(in oklab, var(--bg), transparent 22%);
+}
+:root[data-theme="dark"] .t5-contact-aside{ background: color-mix(in oklab, var(--bg), var(--fg) 5%) }
+
+.t5-info{ display:grid; gap: 10px; margin-top: 14px }
+.t5-info-row{ display:flex; gap: 10px; align-items:flex-start; padding: 12px 12px; border-radius: 18px;
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  background: color-mix(in oklab, var(--fg), transparent 96%);
+}
+.t5-info-row i{ width: 38px; height: 38px; display:grid; place-items:center; border-radius: 14px;
+  background: color-mix(in oklab, var(--primary), transparent 86%);
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  color: color-mix(in oklab, var(--primary), var(--fg) 12%);
+}
+.t5-info-title{ font-weight: 950 }
+
+.t5-form{ padding: 18px 16px; border-radius: 22px; border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  background: color-mix(in oklab, var(--bg), transparent 16%);
+}
+:root[data-theme="dark"] .t5-form{ background: color-mix(in oklab, var(--bg), var(--fg) 6%) }
+
+.t5-form-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px }
+@media (max-width: 768px){ .t5-form-grid{ grid-template-columns: 1fr } }
+.t5-form-grid .full{ grid-column: 1 / -1 }
+
+.t5-form label{ display:block; font-weight: 900; font-size: 13px; margin-bottom: 6px }
+.t5-form input,
+.t5-form select,
+.t5-form textarea{
+  width:100%;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 84%);
+  background: color-mix(in oklab, var(--bg), transparent 8%);
+  color: var(--fg);
+  padding: .7rem .8rem;
+}
+:root[data-theme="dark"] .t5-form input,
+:root[data-theme="dark"] .t5-form select,
+:root[data-theme="dark"] .t5-form textarea{ background: color-mix(in oklab, var(--bg), var(--fg) 6%) }
+
+.t5-form-actions{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 12px }
+
+.t5-filters{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center }
+.t5-filters select{ background: color-mix(in oklab, var(--bg), transparent 10%); color: var(--fg); border: 1px solid color-mix(in oklab, var(--fg), transparent 84%);
+  border-radius: 14px; padding: 10px 12px;
+}
+:root[data-theme="dark"] .t5-filters select{ background: color-mix(in oklab, var(--bg), var(--fg) 6%) }
+
+.t5-page-hero{ padding-block: 34px }
+
+.t5-empty{ grid-column: 1 / -1; text-align:center; color: color-mix(in oklab, var(--fg), transparent 45%); padding: 12px 0 }
+
+.t5-pagination{ margin-top: 18px }
+
+.t5-prop-top{ display:flex; align-items:flex-start; justify-content:space-between; gap: 12px; flex-wrap:wrap; margin-bottom: 12px }
+.t5-prop-meta{ display:flex; gap: 8px; flex-wrap:wrap; margin-top: 10px }
+.t5-prop-price{ font-weight: 950; font-size: clamp(18px, 2.4vw, 22px); color: color-mix(in oklab, var(--primary), var(--fg) 12%) }
+
+.t5-prop-grid{ display:grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 14px }
+@media (max-width: 992px){ .t5-prop-grid{ grid-template-columns: 1fr } }
+
+.t5-prop-hero img{ height: auto; aspect-ratio: 16/10 }
+.t5-prop-thumbs{ display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; padding: 12px }
+@media (max-width: 640px){ .t5-prop-thumbs{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.t5-prop-thumbs a{ border-radius: 14px; overflow:hidden; border: 1px solid color-mix(in oklab, var(--fg), transparent 88%); background: color-mix(in oklab, var(--fg), transparent 96%) }
+.t5-prop-thumbs img{ width:100%; height: 72px; object-fit: cover; display:block }
+
+.t5-prop-spec{ display:grid; gap: 8px }
+.t5-spec-row{ display:flex; justify-content:space-between; align-items:center; gap: 12px;
+  padding: 10px 12px; border-radius: 16px;
+  border: 1px solid color-mix(in oklab, var(--fg), transparent 90%);
+  background: color-mix(in oklab, var(--fg), transparent 96%);
+  font-weight: 900;
+}
+.t5-spec-row span:first-child{ color: color-mix(in oklab, var(--fg), transparent 35%) }
+
+.t5-prop-amen{ display:flex; flex-wrap:wrap; gap: 8px; margin-top: 10px }
+.t5-prop-cta{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 14px }
+
+.t5-map{ margin-top: 10px; border-radius: 18px; overflow:hidden; border: 1px solid color-mix(in oklab, var(--fg), transparent 88%); aspect-ratio: 16/10 }

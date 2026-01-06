@@ -14,7 +14,10 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="{{ route('home') }}" class="flex items-center gap-2 font-extrabold text-slate-800">
           @if(!empty($siteLogoUrl))
-            <img src="{{ $siteLogoUrl }}" class="w-8 h-8 rounded-lg hidden sm:block" onerror="this.style.display='none'" alt="logo">
+            <img src="{{ $siteLogoUrl }}" class="w-8 h-8 rounded-lg hidden sm:block logo-light" onerror="this.style.display='none'" alt="logo">
+          @endif
+          @if(!empty($siteLogoDarkUrl ?? null))
+            <img src="{{ $siteLogoDarkUrl }}" class="w-8 h-8 rounded-lg hidden sm:block logo-dark" onerror="this.style.display='none'" alt="logo">
           @endif
           <span>{{ config('app.name','شركة مدى الذهبية') }}</span>
         </a>
